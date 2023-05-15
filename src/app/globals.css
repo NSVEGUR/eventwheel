@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--foreground-rgb: 0, 0, 0;
+	--background-start-rgb: 214, 219, 220;
+	--background-end-rgb: 255, 255, 255;
+	/* Global */
+	--color-dominant-hex: #ffffff;
+	--color-inverted-hex: #000000;
+	--color-accent-hex: #23026a;
+	--color-accent-light-hex: rgba(35, 2, 106, 0.08);
+	--color-complementary-hex: #c45b95;
+	--color-muted-hex: #f8f7fa;
+	--color-muted-hover-hex: #eeedf2;
+	--color-muted-complementary-hex: #888888;
+	--color-error-hex: #d74c4c;
+	--color-okay-hex: #2db00c;
+	/* Text */
+	--color-text-base-hex: #212427;
+	--color-text-inverted-hex: #efefef;
+	--color-text-muted-hex: #dbdae2;
+	--color-text-complementary-hex: #888888;
+	/* Border */
+	--color-border-base-hex: #dfdfe1;
+	--color-border-complementary-hex: #888888;
+}
+
+body {
+	color: rgb(var(--foreground-rgb));
+	min-height: 100vh;
+	min-width: 100vh;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+@keyframes scale {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
