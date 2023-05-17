@@ -9,11 +9,11 @@ const error = ({
 	reset: () => void;
 }) => {
 	return (
-		<main className="h-screen w-screen flex flex-col items-center justify-center gap-5">
-			<h2 className="text-accent font-medium">
+		<main className="flex h-screen w-screen flex-col items-center justify-center gap-5">
+			<h2 className="font-medium text-accent">
 				There was a problem
 			</h2>
-			<h1 className="text-3xl font-medium text-skin-error hover:scale-110 transition-all duration-200">
+			<h1 className="text-3xl font-medium text-skin-error transition-all duration-200 hover:scale-110">
 				{error.message || 'Something went wrong!'}
 			</h1>
 			<h2 className="text-accent">
@@ -22,13 +22,13 @@ const error = ({
 			</h2>
 			<div className="flex gap-3 -md:flex-col">
 				<button
-					className="p-2 border-2 border-accent rounded-lg w-[200px]"
+					className="w-[200px] rounded-lg border-2 border-accent p-2"
 					onClick={reset}
 				>
 					Try again
 				</button>
 				<Link
-					className="p-2 border-2 border-accent rounded-lg w-[200px] bg-accent text-skin-inverted text-center"
+					className="w-[200px] rounded-lg border-2 border-accent bg-accent p-2 text-center text-skin-inverted"
 					href="/"
 				>
 					Go back home

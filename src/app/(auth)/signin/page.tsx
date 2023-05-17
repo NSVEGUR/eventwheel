@@ -73,7 +73,7 @@ export default function Page() {
 		});
 	};
 	return (
-		<div className="flex w-[450px] flex-col bg-white bg-opacity-80 shadow-md rounded-xl gap-5 items-center justify-center p-10">
+		<div className="flex w-[450px] flex-col items-center justify-center gap-5 rounded-xl bg-white bg-opacity-80 p-10 shadow-md">
 			{inputDetails.map((inputDetail) => {
 				return (
 					<AuthInput
@@ -86,20 +86,20 @@ export default function Page() {
 			<button
 				type="submit"
 				onClick={handleSubmit}
-				className="w-full bg-accent text-skin-inverted rounded-lg p-2"
+				className="w-full rounded-lg bg-accent p-2 text-skin-inverted"
 			>
 				Login
 			</button>
 			<div className="flex w-full items-center justify-center">
-				<div className="h-[1px] w-full bg-muted-complementary flex-grow"></div>
-				<span className="px-3 border-[1px] border-complementary rounded-xl">
+				<div className="h-[1px] w-full flex-grow bg-muted-complementary"></div>
+				<span className="rounded-xl border-[1px] border-complementary px-3">
 					or
 				</span>
-				<div className="h-[1px] w-full bg-muted-complementary flex-grow"></div>
+				<div className="h-[1px] w-full flex-grow bg-muted-complementary"></div>
 			</div>
 			<button
 				type="submit"
-				className="w-full border-[1px] border-inverted rounded-lg p-2"
+				className="w-full rounded-lg border-[1px] border-inverted p-2"
 			>
 				Continue with Google
 			</button>
@@ -107,7 +107,7 @@ export default function Page() {
 				No Account?{' '}
 				<Link
 					href="/signup"
-					className="underline text-accent"
+					className="text-accent underline"
 				>
 					SignUp Here
 				</Link>

@@ -34,13 +34,13 @@ export default function EventNav({
 		}
 	];
 	return (
-		<div className="w-full h-full flex overflow-hidden">
-			<nav className="flex w-56 h-screen border-r-[1px] border-base bg-dominant">
-				<ul className="w-full flex flex-col gap-2">
+		<div className="flex h-full w-full overflow-hidden">
+			<nav className="flex h-screen w-56 border-r-[1px] border-base bg-dominant">
+				<ul className="flex w-full flex-col gap-2">
 					<li>
 						<Link
 							href="/manage"
-							className="text-complementary flex items-center gap-2 p-2 bg-muted-hover hover:underline"
+							className="flex items-center gap-2 bg-muted-hover p-2 text-complementary hover:underline"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ export default function EventNav({
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4"
+								className="h-4 w-4"
 							>
 								<path
 									strokeLinecap="round"
@@ -59,10 +59,10 @@ export default function EventNav({
 							Events
 						</Link>
 					</li>
-					<li className="p-2 text-2xl text-accent font-medium">
+					<li className="p-2 text-2xl font-medium text-accent">
 						<Link
 							href={`/manage/${id}`}
-							className="hover:text-complementary flex items-center"
+							className="flex items-center hover:text-complementary"
 						>
 							Dashboard
 							<svg
@@ -71,7 +71,7 @@ export default function EventNav({
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-5 h-5"
+								className="h-5 w-5"
 							>
 								<path
 									strokeLinecap="round"
@@ -83,8 +83,8 @@ export default function EventNav({
 					</li>
 					<li>
 						<Link
-							href="/"
-							className="flex gap-2 items-center text-sm text-complementary p-2 hover:underline"
+							href={`/${id}`}
+							className="flex items-center gap-2 p-2 text-sm text-complementary hover:underline"
 						>
 							Preview{' '}
 							<svg
@@ -93,7 +93,7 @@ export default function EventNav({
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4"
+								className="h-4 w-4"
 							>
 								<path
 									strokeLinecap="round"
@@ -108,14 +108,14 @@ export default function EventNav({
 							return (
 								<Link
 									href={hyperlink.link}
-									className={`p-2 flex gap-2 ${
+									className={`flex gap-2 p-2 ${
 										hyperlink.active
 											? 'bg-muted-hover'
 											: 'hover:bg-muted'
 									}`}
 									key={index}
 								>
-									<span className="text-sm w-6 h-6 rounded-full bg-accent text-skin-inverted flex items-center justify-center">
+									<span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-sm text-skin-inverted">
 										{index + 1}
 									</span>
 									<span>{hyperlink.name}</span>

@@ -24,7 +24,7 @@ export default function SideMenu({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
@@ -45,7 +45,7 @@ export default function SideMenu({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
@@ -69,7 +69,7 @@ export default function SideMenu({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
@@ -90,33 +90,12 @@ export default function SideMenu({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
 						d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-					/>
-				</svg>
-			)
-		},
-		{
-			name: 'Likes',
-			link: '/manage/likes',
-			active: path.includes('likes'),
-			icon: () => (
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					strokeWidth={1.5}
-					stroke="currentColor"
-					className="w-6 h-6"
-				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
 					/>
 				</svg>
 			)
@@ -132,7 +111,7 @@ export default function SideMenu({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
@@ -146,28 +125,28 @@ export default function SideMenu({
 	return (
 		<main className="h-screen w-screen overflow-hidden">
 			<Header {...{ showNavBar, setShowNavBar }} />
-			<section className="flex w-full h-[calc(100vh-theme(spacing.16))">
+			<section className="h-[calc(100vh-theme(spacing.16)) flex w-full">
 				<nav
 					className={`h-screen w-16 border-r-[1px] border-base bg-dominant -lg:fixed -lg:z-50 -lg:w-2/3 ${
 						showNavBar
 							? '-lg:-translate-x-0'
 							: '-lg:-translate-x-full'
-					}  transition-all duration-300 overflow-hidden`}
+					}  overflow-hidden transition-all duration-300`}
 				>
-					<ul className="mt-5 p-3 flex flex-col items-start gap-3 w-full h-full text-accent">
+					<ul className="mt-5 flex h-full w-full flex-col items-start gap-3 p-3 text-accent">
 						{hyperlinks.map((hyperlink, index) => {
 							const Icon = hyperlink.icon;
 							return (
 								<li key={index}>
 									<Link
-										className={`group w-full relative p-2 items-center flex justify-center -lg:justify-start gap-2 rounded-2xl ${
+										className={`group relative flex w-full items-center justify-center gap-2 rounded-2xl p-2 -lg:justify-start ${
 											hyperlink.active &&
 											'bg-accent text-skin-inverted'
-										} hover:bg-accent hover:text-skin-inverted hyperlink hover:rounded-lg transition-all duration-300`}
+										} hyperlink transition-all duration-300 hover:rounded-lg hover:bg-accent hover:text-skin-inverted`}
 										href={hyperlink.link}
 									>
 										<Icon />
-										<span className="hidden group-hover:block fixed z-50 w-32 p-1 left-[70px] text-center rounded bg-accent text-skin-inverted before:content-[''] before:absolute before:border-[6px] before:border-transparent before:border-r-accent before:top-1/2 before:-translate-y-1/2 before:-left-3 animate-scale -lg:group-hover:hidden">
+										<span className="fixed left-[70px] z-50 hidden w-32 animate-scale rounded bg-accent p-1 text-center text-skin-inverted before:absolute before:-left-3 before:top-1/2 before:-translate-y-1/2 before:border-[6px] before:border-transparent before:border-r-accent before:content-[''] group-hover:block -lg:group-hover:hidden">
 											{hyperlink.name}
 										</span>
 										<span className="lg:hidden">
@@ -179,7 +158,7 @@ export default function SideMenu({
 						})}
 					</ul>
 				</nav>
-				<section className="relative w-[calc(100vw-theme(spacing.16))] -lg:w-screen h-[calc(100vh-theme(spacing.16))]">
+				<section className="relative h-[calc(100vh-theme(spacing.16))] w-[calc(100vw-theme(spacing.16))] -lg:w-screen">
 					{children}
 				</section>
 			</section>

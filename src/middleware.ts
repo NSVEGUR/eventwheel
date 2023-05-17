@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import type { Database } from '@/types/supabase';
 
-import { AppError } from '@/lib/server/exception';
 import { catchAsync } from '@/lib/server/catchAsync';
 
 const middleware = catchAsync(async (req: NextRequest) => {

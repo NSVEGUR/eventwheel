@@ -72,18 +72,18 @@ export default function PublishForm({
 	};
 	return (
 		<form
-			className="fixed right-0 bottom-0 left-0 h-16 bg-dominant border-t-[1px]"
+			className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant"
 			onSubmit={handleSubmit}
 		>
-			<div className="flex w-full h-full justify-end items-center gap-5 pr-10">
+			<div className="flex h-full w-full items-center justify-end gap-5 pr-10">
 				<Link
-					className="px-2 py-1 border-[1px] border-accent rounded-md"
+					className="rounded-md border-[1px] border-accent px-2 py-1"
 					href={`/manage/${event.id}`}
 				>
 					Dashboard
 				</Link>
 				<input
-					className="px-2 py-1 border-[1px] border-accent bg-accent text-skin-inverted rounded-md cursor-pointer"
+					className="cursor-pointer rounded-md border-[1px] border-accent bg-accent px-2 py-1 text-skin-inverted"
 					type="submit"
 					value="Publish"
 				/>

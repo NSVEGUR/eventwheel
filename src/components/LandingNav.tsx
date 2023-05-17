@@ -7,9 +7,12 @@ export default function Nav() {
 	const { user, signOut } = useAuth();
 	return (
 		<nav className="h-full">
-			<ul className="flex gap-10 items-center h-full">
-				<li className="text-complementary">
+			<ul className="flex h-full items-center gap-10">
+				<li className="font-medium text-complementary">
 					<Link href="/manage/create">Create</Link>
+				</li>
+				<li>
+					<Link href="/">Home</Link>
 				</li>
 				<li>
 					<Link href="/wishlist">Wishlist</Link>
@@ -20,7 +23,7 @@ export default function Nav() {
 				<li>
 					{user ? (
 						<button
-							className="border-[1px] border-base p-1 rounded-md flex items-center gap-2 bg-accent text-skin-inverted"
+							className="flex items-center gap-2 rounded-md border-[1px] border-base bg-accent p-1 text-skin-inverted"
 							onClick={() => {
 								signOut();
 							}}
@@ -31,7 +34,7 @@ export default function Nav() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4"
+								className="h-4 w-4"
 							>
 								<path
 									strokeLinecap="round"
@@ -44,7 +47,7 @@ export default function Nav() {
 					) : (
 						<Link
 							href="/signin"
-							className="border-[1px] border-base p-1 rounded-md flex items-center gap-2 bg-accent text-skin-inverted"
+							className="flex items-center gap-2 rounded-md border-[1px] border-base bg-accent p-1 text-skin-inverted"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +55,7 @@ export default function Nav() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-5 h-5"
+								className="h-5 w-5"
 							>
 								<path
 									strokeLinecap="round"

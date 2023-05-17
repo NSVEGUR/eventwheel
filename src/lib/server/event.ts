@@ -1,6 +1,11 @@
 import { createServerClient } from '@/utils/supabase-server';
 import { AppError } from './exception';
 import prisma from './prisma';
+import { AdminTicket, Event, User } from '@prisma/client';
+
+export interface LikedEvent extends Event {
+	liked: boolean | undefined;
+}
 
 export async function getEvents() {
 	try {
@@ -66,6 +71,182 @@ export async function getEvent(id: string) {
 			);
 		}
 		return event;
+	} catch (err) {
+		console.error(err);
+		if (err instanceof AppError) {
+			throw new AppError(err.message, err.statusCode);
+		} else {
+			throw new AppError(
+				'Database connection error, please verify and try again 😵‍💫',
+				500
+			);
+		}
+	}
+}
+
+export async function getWithdrawals(id: string) {
+	try {
+		const supabase = createServerClient();
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
+		if (!user) {
+			throw new AppError(
+				'Authentication failed, login to continue',
+				401
+			);
+		}
+		const event = await prisma.event.findUnique({
+			where: {
+				id
+			},
+			include: {
+				withdrawalRequests: true,
+				tickets: true,
+				likedUsers: true
+			}
+		});
+		if (!event) {
+			throw new AppError('Event not found', 404);
+		}
+		if (event.userId != user.id) {
+			throw new AppError(
+				'Authorization error, you have no access',
+				403
+			);
+		}
+		const { withdrawalRequests, likedUsers, ...others } =
+			event;
+		return { withdrawalRequests, others, likedUsers };
+	} catch (err) {
+		console.error(err);
+		if (err instanceof AppError) {
+			throw new AppError(err.message, err.statusCode);
+		} else {
+			throw new AppError(
+				'Database connection error, please verify and try again 😵‍💫',
+				500
+			);
+		}
+	}
+}
+
+export const getEventsUnAuthenticated = async () => {
+	try {
+		const supabase = createServerClient();
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
+		const events = await prisma.event.findMany({
+			where: {
+				published: true
+			},
+			include: {
+				likedUsers: true
+			}
+		});
+		if (!user) {
+			return events.map(({ likedUsers, ...event }) => {
+				return {
+					...event,
+					liked: undefined
+				};
+			}) as LikedEvent[];
+		}
+		return events.map(({ likedUsers, ...event }) => {
+			const likedIds = likedUsers.map(({ id }) => id);
+			return {
+				...event,
+				liked: likedIds.includes(user.id)
+			};
+		}) as LikedEvent[];
+	} catch (err) {
+		throw new AppError(
+			'Database connection error, please verify and try again 😵‍💫',
+			500
+		);
+	}
+};
+
+export async function getEventUnAuthenticated(id: string) {
+	try {
+		const supabase = createServerClient();
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
+		const event = await prisma.event.findUnique({
+			where: {
+				id
+			},
+			include: {
+				likedUsers: true,
+				tickets: true
+			}
+		});
+		if (!event) {
+			throw new AppError('Event not found', 404);
+		}
+		const { likedUsers, ...others } = event;
+		if (!user) {
+			return {
+				...others,
+				liked: undefined
+			} as LikedEvent & {
+				tickets: AdminTicket[];
+			};
+		}
+		const likedIds = likedUsers.map(({ id }) => id);
+		return {
+			...others,
+			liked: likedIds.includes(user.id)
+		} as LikedEvent & {
+			tickets: AdminTicket[];
+		};
+	} catch (err) {
+		console.error(err);
+		if (err instanceof AppError) {
+			throw new AppError(err.message, err.statusCode);
+		} else {
+			throw new AppError(
+				'Database connection error, please verify and try again 😵‍💫',
+				500
+			);
+		}
+	}
+}
+
+export async function getWishlistEvents() {
+	try {
+		const supabase = createServerClient();
+		const {
+			data: { user }
+		} = await supabase.auth.getUser();
+		if (!user) {
+			throw new AppError(
+				'Authentication failed, login to continue',
+				401
+			);
+		}
+		const events = await prisma.event.findMany({
+			where: {
+				likedUsers: {
+					some: {
+						id: user.id
+					}
+				}
+			},
+			include: {
+				likedUsers: true,
+				tickets: true
+			}
+		});
+		return events.map(({ likedUsers, ...event }) => {
+			const likedIds = likedUsers.map(({ id }) => id);
+			return {
+				...event,
+				liked: likedIds.includes(user.id)
+			};
+		}) as LikedEvent[];
 	} catch (err) {
 		console.error(err);
 		if (err instanceof AppError) {

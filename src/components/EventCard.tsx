@@ -1,18 +1,19 @@
 import { Event } from '@prisma/client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { formatDateWithAmPm } from '@/utils/date';
+import LikeButton from '@/components/LikeButton';
 
 export default function EventCard({
-	event
+	event,
+	liked
 }: {
 	event: Event;
+	liked: boolean | undefined;
 }) {
 	return (
-		<Link
-			className="group h-96 shadow-lg transition-all duration-500 rounded-xl flex flex-col cursor-pointer justify-evenly"
-			href={event.id}
-		>
-			<div className="h-[60%] relative group-hover:h-[45%] transition-all duration-500 overflow-hidden rounded-t-xl">
+		<div className="group flex h-96 cursor-pointer flex-col justify-evenly rounded-xl shadow transition-all duration-500 hover:shadow-lg">
+			<div className="relative h-[40%] overflow-hidden rounded-t-xl transition-all duration-500 group-hover:h-[50%]">
 				{event.image ? (
 					<Image
 						src={event.image}
@@ -21,21 +22,46 @@ export default function EventCard({
 						className="object-cover"
 					/>
 				) : (
-					<div className="w-full h-full bg-muted"></div>
+					<div className="h-full w-full bg-muted"></div>
 				)}
-				<div className="absolute h-full w-full inset-0 bg-black bg-opacity-50 transition-all duration-300 hidden group-hover:block group-hover:animate-fade" />
+				<div className="absolute inset-0 hidden h-full w-full bg-black bg-opacity-50 transition-all duration-300 group-hover:block group-hover:animate-fade" />
+				<div className="absolute right-2 top-3 flex gap-2">
+					<LikeButton {...{ liked, eventId: event.id }} />
+					<Link
+						href={`/${event.id}`}
+						className="flex h-7 w-7 items-center justify-center rounded-full bg-dominant text-accent"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.5}
+							stroke="currentColor"
+							className="h-5 w-5"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+							/>
+						</svg>
+					</Link>
+				</div>
 			</div>
-			<div className="bg-dominant h-[40%] w-full rounded-b-xl flex flex-col justify-center p-5 gap-2 group-hover:h-[60%] transition-all duration-500">
-				<h1 className="font-semibold text-xl">
+			<div className="flex h-[60%] w-full flex-col justify-center gap-2 rounded-b-xl bg-dominant p-5 transition-all duration-500 group-hover:h-[50%]">
+				<h1 className="text-xl font-semibold">
 					{event.title}
 				</h1>
-				<div className="flex gap-1 items-center text-skin-complementary">
+				<p className="text-sm text-complementary">
+					{formatDateWithAmPm(event.starts)}
+				</p>
+				<p className="text-sm font-medium text-accent">
+					{event.location}
+				</p>
+				<div className="flex items-center gap-1 text-xs text-skin-complementary">
 					{event.summary}
 				</div>
-				<p className="hidden group-hover:line-clamp-3 text-skin-complementary transition-all duration-300 group-hover:animate-fade">
-					{event.description}
-				</p>
 			</div>
-		</Link>
+		</div>
 	);
 }

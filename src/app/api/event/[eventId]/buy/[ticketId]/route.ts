@@ -61,7 +61,6 @@ export const POST = catchAsync(async function (
 			userId: user.id
 		}
 	});
-	console.log('Redirected...');
 	return NextResponse.json({
 		url: session.url ?? baseURL + '/cancel'
 	});

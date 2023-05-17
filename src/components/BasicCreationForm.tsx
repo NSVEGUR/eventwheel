@@ -156,11 +156,11 @@ export default function CreationForm({
 	};
 	return (
 		<form
-			className="relative mt-5 w-full overflow-scroll h-screen"
+			className="relative mt-5 h-screen w-full overflow-scroll"
 			onSubmit={handleSubmit}
 		>
-			<div className="p-10 flex flex-col gap-10 py-5 justify-center -md:p-2">
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+			<div className="flex flex-col justify-center gap-10 p-10 py-5 -md:p-2">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +168,7 @@ export default function CreationForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -179,7 +179,7 @@ export default function CreationForm({
 						<h1 className="text-3xl font-bold">
 							Basic Info
 						</h1>
-						<p className=" font-light text-sm">
+						<p className=" text-sm font-light">
 							Name your event and tell event-goers why they
 							should come. Add details that highlight what
 							makes it unique.
@@ -194,7 +194,7 @@ export default function CreationForm({
 							type="text"
 							required
 							name="title"
-							className="p-3 border-[1px] border-base outline-accent"
+							className="border-[1px] border-base p-3 outline-accent"
 							onChange={handleChange}
 							value={values.title}
 						/>
@@ -209,12 +209,12 @@ export default function CreationForm({
 							required
 							name="organizer"
 							onChange={handleChange}
-							className="p-3 border-[1px] border-base outline-accent"
+							className="border-[1px] border-base p-3 outline-accent"
 							value={values.organizer}
 						/>
 					</div>
-					<div className="flex w-full justify-evenly gap-5 flex-wrap">
-						<div className="flex flex-col gap-2 w-full">
+					<div className="flex w-full flex-wrap justify-evenly gap-5">
+						<div className="flex w-full flex-col gap-2">
 							<label htmlFor="type">
 								Type{' '}
 								<span className="text-complementary">
@@ -223,7 +223,7 @@ export default function CreationForm({
 							</label>
 							<select
 								name="type"
-								className="p-3 bg-dominant outline-none border-[1px] border-base"
+								className="border-[1px] border-base bg-dominant p-3 outline-none"
 								onChange={handleChange}
 								value={values.type}
 							>
@@ -236,7 +236,7 @@ export default function CreationForm({
 								})}
 							</select>
 						</div>
-						<div className="flex flex-col gap-2 w-full">
+						<div className="flex w-full flex-col gap-2">
 							<label htmlFor="category">
 								Category{' '}
 								<span className="text-complementary">
@@ -245,7 +245,7 @@ export default function CreationForm({
 							</label>
 							<select
 								name="category"
-								className="p-3 bg-dominant outline-none border-[1px] border-base"
+								className="border-[1px] border-base bg-dominant p-3 outline-none"
 								onChange={(e) => {
 									setSubCategories(
 										eventCategories[e.target.value]
@@ -269,7 +269,7 @@ export default function CreationForm({
 							</select>
 						</div>
 						{subCategory && (
-							<div className="flex flex-col gap-2 w-full">
+							<div className="flex w-full flex-col gap-2">
 								<label htmlFor="subCategory">
 									Sub Category{' '}
 									<span className="text-complementary">
@@ -278,7 +278,7 @@ export default function CreationForm({
 								</label>
 								<select
 									name="subCategory"
-									className="p-3 bg-dominant outline-none border-[1px] border-base"
+									className="border-[1px] border-base bg-dominant p-3 outline-none"
 									onChange={(e) => {
 										setSubCategory(e.target.value);
 									}}
@@ -301,7 +301,7 @@ export default function CreationForm({
 						)}
 					</div>
 				</section>
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -309,7 +309,7 @@ export default function CreationForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -323,7 +323,7 @@ export default function CreationForm({
 							/>
 						</svg>
 						<h1 className="text-3xl font-bold">Location</h1>
-						<p className="font-light text-sm">
+						<p className="text-sm font-light">
 							Help people in the area discover your event
 							and let attendees know where to show up.
 						</p>
@@ -337,7 +337,7 @@ export default function CreationForm({
 									...values
 								});
 							}}
-							className={`p-2 border-[1px] x ${
+							className={`x border-[1px] p-2 ${
 								location === 'venue'
 									? 'border-accent bg-light-accent'
 									: 'border-base'
@@ -354,7 +354,7 @@ export default function CreationForm({
 									location: 'Online'
 								});
 							}}
-							className={`p-2 border-[1px] x ${
+							className={`x border-[1px] p-2 ${
 								location === 'online-event'
 									? 'border-accent bg-light-accent'
 									: 'border-base'
@@ -371,7 +371,7 @@ export default function CreationForm({
 									location: 'To Be Announced'
 								});
 							}}
-							className={`p-2 border-[1px] x ${
+							className={`x border-[1px] p-2 ${
 								location === 'to-be-announced'
 									? 'border-accent bg-light-accent'
 									: 'border-base'
@@ -381,7 +381,7 @@ export default function CreationForm({
 						</button>
 					</div>
 					{location === 'venue' && (
-						<div className="flex flex-col gap-3 w-full">
+						<div className="flex w-full flex-col gap-3">
 							<label htmlFor="location">
 								Venue Location{' '}
 								<span className="text-complementary">
@@ -392,14 +392,14 @@ export default function CreationForm({
 								type="text"
 								required
 								name="location"
-								className="p-3 border-[1px] border-base outline-accent"
+								className="border-[1px] border-base p-3 outline-accent"
 								onChange={handleChange}
 								value={values.location}
 							/>
 						</div>
 					)}
 				</section>
-				<section className="px-32 flex flex-col gap-5 h-screen -md:px-10">
+				<section className="flex h-screen flex-col gap-5 px-32 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -407,7 +407,7 @@ export default function CreationForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -418,7 +418,7 @@ export default function CreationForm({
 						<h1 className="text-3xl font-bold">
 							Date and Time
 						</h1>
-						<p className="font-light text-sm">
+						<p className="text-sm font-light">
 							Tell event-goers when your event starts and
 							ends so they can make plans to attend.
 						</p>
@@ -433,7 +433,7 @@ export default function CreationForm({
 									recurrence: undefined
 								});
 							}}
-							className={`p-2 border-[1px] x ${
+							className={`x border-[1px] p-2 ${
 								day === 'single'
 									? 'border-accent bg-light-accent'
 									: 'border-base'
@@ -450,7 +450,7 @@ export default function CreationForm({
 									recurrence: 'Daily'
 								});
 							}}
-							className={`p-2 border-[1px] x ${
+							className={`x border-[1px] p-2 ${
 								day === 'recurring'
 									? 'border-accent bg-light-accent'
 									: 'border-base'
@@ -466,8 +466,8 @@ export default function CreationForm({
 									Single event happens once and can last
 									multiple days
 								</h1>
-								<div className="flex gap-5 justify-evenly mt-10">
-									<div className="flex flex-col gap-3 w-full">
+								<div className="mt-10 flex justify-evenly gap-5">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startDate">
 											Event Starts{' '}
 											<span className="text-complementary">
@@ -479,11 +479,11 @@ export default function CreationForm({
 											required
 											name="startDate"
 											onChange={handleChange}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 											value={values.startDate}
 										/>
 									</div>
-									<div className="flex flex-col gap-3 w-full">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startTime">
 											Start Time{' '}
 											<span className="text-complementary">
@@ -496,12 +496,12 @@ export default function CreationForm({
 											name="startTime"
 											value={values.startTime}
 											onChange={handleChange}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
-								<div className="flex gap-5 justify-evenly">
-									<div className="flex flex-col gap-3 w-full">
+								<div className="flex justify-evenly gap-5">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="endDate">
 											Event Ends{' '}
 											<span className="text-complementary">
@@ -514,10 +514,10 @@ export default function CreationForm({
 											name="endDate"
 											value={values.endDate}
 											onChange={handleChange}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
-									<div className="flex flex-col gap-3 w-full">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="endTime">
 											End Time{' '}
 											<span className="text-complementary">
@@ -530,7 +530,7 @@ export default function CreationForm({
 											name="endTime"
 											value={values.endTime}
 											onChange={handleChange}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
@@ -543,8 +543,8 @@ export default function CreationForm({
 									from start to end date based on recurrent
 									preferences
 								</h1>
-								<div className="flex gap-5 justify-evenly mt-10">
-									<div className="flex flex-col gap-3 w-full">
+								<div className="mt-10 flex justify-evenly gap-5">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startDate">
 											Event Starts{' '}
 											<span className="text-complementary">
@@ -557,10 +557,10 @@ export default function CreationForm({
 											name="startDate"
 											onChange={handleChange}
 											value={values.startDate}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
-									<div className="flex flex-col gap-3 w-full">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="endDate">
 											Event Ends{' '}
 											<span className="text-complementary">
@@ -573,17 +573,17 @@ export default function CreationForm({
 											name="endDate"
 											onChange={handleChange}
 											value={values.endDate}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
-								<div className="flex flex-col gap-3 w-full">
+								<div className="flex w-full flex-col gap-3">
 									<label htmlFor="recurrence">
 										Recurrence *
 									</label>
 									<select
 										name="recurrence"
-										className="p-3 bg-dominant outline-none border-[1px] border-base"
+										className="border-[1px] border-base bg-dominant p-3 outline-none"
 										onChange={handleChange}
 										value={values.recurrence ?? 'Daily'}
 									>
@@ -592,8 +592,8 @@ export default function CreationForm({
 										<option value="Monthly">Monthly</option>
 									</select>
 								</div>
-								<div className="flex gap-5 justify-evenly">
-									<div className="flex flex-col gap-3 w-full">
+								<div className="flex justify-evenly gap-5">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startTime">
 											Start Time{' '}
 											<span className="text-complementary">
@@ -606,10 +606,10 @@ export default function CreationForm({
 											onChange={handleChange}
 											value={values.startTime}
 											name="startTime"
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
-									<div className="flex flex-col gap-3 w-full">
+									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="endTime">
 											End Time{' '}
 											<span className="text-complementary">
@@ -622,13 +622,13 @@ export default function CreationForm({
 											name="endTime"
 											onChange={handleChange}
 											value={values.endTime}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
 							</>
 						)}
-						<div className="flex gap-3 text-sm mt-10">
+						<div className="mt-10 flex gap-3 text-sm">
 							<input
 								type="checkbox"
 								name="displayStart"
@@ -673,10 +673,10 @@ export default function CreationForm({
 					</div>
 				</section>
 			</div>
-			<footer className="fixed right-0 bottom-0 left-0 h-16 bg-dominant border-t-[1px]">
-				<div className="flex w-full h-full justify-end items-center gap-5 pr-10">
+			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">
+				<div className="flex h-full w-full items-center justify-end gap-5 pr-10">
 					<button
-						className="px-2 py-1 border-[1px] border-accent rounded-md"
+						className="rounded-md border-[1px] border-accent px-2 py-1"
 						onClick={(e) => {
 							e.preventDefault();
 							setValues(event);
@@ -685,7 +685,7 @@ export default function CreationForm({
 						Discard
 					</button>
 					<input
-						className="px-2 py-1 border-[1px] border-accent bg-accent text-skin-inverted rounded-md"
+						className="rounded-md border-[1px] border-accent bg-accent px-2 py-1 text-skin-inverted"
 						type="submit"
 						value={method === 'POST' ? 'Save' : 'Update'}
 					/>

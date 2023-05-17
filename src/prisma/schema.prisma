@@ -16,6 +16,7 @@ model User{
   name String?
   events Event[]
   tickets UserTicket[]
+  likes Event[]@relation("likes")
   @@map("users")
 }
 
@@ -24,6 +25,7 @@ model Event{
   published Boolean@default(false)
   userId String
   user User@relation(fields: [userId], references: [id])
+  likedUsers User[]@relation("likes")
   title String
   organizer String
   type String
@@ -40,7 +42,6 @@ model Event{
   image String?
   tickets AdminTicket[]
   views Int@default(0)
-  likes Int@default(0)
   questions String[]
   answers String[]
   withdrawalRequests WithdrawalRequest[]

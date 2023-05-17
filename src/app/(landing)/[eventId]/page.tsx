@@ -4,46 +4,8 @@ import Image from 'next/image';
 import { formatDateWithAmPm } from '@/utils/date';
 import FAQ from '@/components/FAQ';
 import TicketBuyingCard from '@/components/TicketBuyingCard';
-import { createServerClient } from '@/utils/supabase-server';
-import { AppError } from '@/lib/server/exception';
-import prisma from '@/lib/server/prisma';
-
-export async function getEvent(id: string) {
-	try {
-		const event = await prisma.event.findUnique({
-			where: {
-				id
-			},
-			include: {
-				tickets: true
-			}
-		});
-		if (!event) {
-			throw new AppError('Event not found', 404);
-		}
-		await prisma.event.update({
-			where: {
-				id: event.id
-			},
-			data: {
-				views: {
-					increment: 1
-				}
-			}
-		});
-		return event;
-	} catch (err) {
-		console.error(err);
-		if (err instanceof AppError) {
-			throw new AppError(err.message, err.statusCode);
-		} else {
-			throw new AppError(
-				'Database connection error, please verify and try again 😵‍💫',
-				500
-			);
-		}
-	}
-}
+import { getEventUnAuthenticated } from '@/lib/server/event';
+import WishlistButton from '@/components/WishlistButton';
 
 export default async function Page({
 	params
@@ -52,26 +14,28 @@ export default async function Page({
 		eventId: string;
 	};
 }) {
-	const event = await getEvent(params.eventId);
+	const { liked, ...event } = await getEventUnAuthenticated(
+		params.eventId
+	);
 	event.image = getImage(event.image);
 	return (
-		<section className="relative w-full overflow-scroll h-screen scroll-smooth">
-			<div className="fixed z-10 top-16 left-0 flex w-full px-10 items-center justify-between">
-				<button className="p-2 bg-complementary text-skin-inverted rounded-b-md">
-					Add to Wishlist
-				</button>
-				<a
-					href="#tickets"
-					className="p-2 bg-complementary text-skin-inverted rounded-b-md"
-				>
-					Buy Now
-				</a>
-			</div>
-			<div className="p-10 flex flex-col gap-5 mb-60">
-				<h1 className="text-4xl font-bold text-center">
-					{event.title}
-				</h1>
-				<div className="relative w-full h-96 bg-muted rounded-lg overflow-hidden mt-5">
+		<section className="relative h-screen w-full overflow-scroll scroll-smooth px-28">
+			<div className="mb-60 flex flex-col gap-5 py-10">
+				<div className="flex w-full items-center justify-evenly">
+					<WishlistButton
+						{...{ eventId: event.id, liked }}
+					/>
+					<h1 className="text-center text-4xl font-bold">
+						{event.title}
+					</h1>
+					<a
+						href="#tickets"
+						className="flex w-[150px] items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
+					>
+						Buy Now
+					</a>
+				</div>
+				<div className="relative mt-5 h-96 w-full overflow-hidden rounded-lg bg-muted">
 					{event.image && (
 						<Image
 							src={event.image}
@@ -81,8 +45,8 @@ export default async function Page({
 						/>
 					)}
 				</div>
-				<section className="flex justify-between w-full">
-					<div className="flex flex-col gap-2 items-start">
+				<section className="flex w-full justify-between">
+					<div className="flex flex-col items-start gap-2">
 						<h1>
 							Type:{' '}
 							<span className="text-skin-complementary">
@@ -104,7 +68,7 @@ export default async function Page({
 							</h1>
 						)}
 					</div>
-					<div className="flex flex-col gap-2 items-end">
+					<div className="flex flex-col items-end gap-2">
 						<h1 className="flex items-baseline gap-1">
 							Venue:{' '}
 							<span className="text-skin-complementary">
@@ -125,10 +89,10 @@ export default async function Page({
 						</h1>
 					</div>
 				</section>
-				<section className="flex flex-col gap-10 mt-5">
+				<section className="mt-5 flex flex-col gap-10">
 					{event.summary && (
 						<div>
-							<h1 className="text-xl font-medium text-accent">
+							<h1 className="mb-5 text-2xl font-medium text-accent">
 								Summary
 							</h1>
 							<p className="text-skin-complementary">
@@ -138,7 +102,7 @@ export default async function Page({
 					)}
 					{event.description && (
 						<div>
-							<h1 className="text-xl font-medium text-accent">
+							<h1 className="mb-5 text-2xl font-medium text-accent">
 								Description
 							</h1>
 							<p className="text-skin-complementary">
@@ -147,18 +111,12 @@ export default async function Page({
 						</div>
 					)}
 				</section>
-				<section className="flex flex-col gap-5">
-					<h1 className="text-3xl font-bold text-accent text-center">
+				<section className="my-5 flex flex-col gap-5">
+					<h1 className="text-center text-3xl font-bold text-accent">
 						Tickets
 					</h1>
 					<div
-						className={`grid gap-5 ${
-							event.tickets.length === 1 && 'grid-cols-1'
-						} ${
-							event.tickets.length === 2 && 'grid-cols-2'
-						} ${
-							event.tickets.length >= 3 && 'grid-cols-3'
-						}`}
+						className="flex flex-wrap items-center justify-center"
 						id="tickets"
 					>
 						{event.tickets.map((ticket, index) => {
@@ -171,9 +129,9 @@ export default async function Page({
 						})}
 					</div>
 				</section>
-				<section>
-					<h1 className="text-center font-medium text-2xl my-5">
-						FAQS
+				<section className="my-5">
+					<h1 className="mb-10 text-center text-2xl font-bold text-accent">
+						FAQ<span className="text-lg">s</span>
 					</h1>
 					<FAQ
 						{...{

@@ -6,7 +6,7 @@ export default function Layout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="overflow-x-hidden mt-16">
+		<div className="mt-16 overflow-x-hidden">
 			<Header />
 			{children}
 		</div>

@@ -49,24 +49,24 @@ export default function TicketBuyingCard({
 		}
 	};
 	return (
-		<div className="relative p-10 border-[1px] border-base text-accent flex flex-col gap-3 items-start justify-center rounded-md shadow-md">
+		<div className="group relative flex max-w-md flex-col items-start justify-center gap-3 rounded-lg p-10 text-accent shadow transition-all duration-200 hover:shadow-lg">
 			<h1 className="text-3xl font-medium text-accent">
 				{ticket.type}
 			</h1>
-			<p className="text-skin-complementary text-sm">
+			<p className="text-sm text-skin-complementary">
 				{ticket.description}
 			</p>
 			<h3 className="text-skin-complementary">
 				Available:{' '}
-				<span className="text-accent font-medium">
+				<span className="font-medium text-accent">
 					{ticket.available - ticket.sold} /{' '}
 					{ticket.available}
 				</span>
 			</h3>
 			<h3>
 				Price:{' '}
-				<span className="text-complementary text-3xl font-medium">
-					$ {ticket.price}
+				<span className="font-bold text-complementary transition-all duration-200 group-hover:text-xl">
+					{ticket.price}$
 				</span>
 			</h3>
 			<form
@@ -74,7 +74,7 @@ export default function TicketBuyingCard({
 				className="flex w-full items-center justify-center"
 			>
 				<input
-					className="self-center p-3 bg-accent text-skin-inverted mt-5 cursor-pointer"
+					className="mt-5 cursor-pointer self-center rounded-md bg-accent p-3 text-skin-inverted transition-transform duration-200 group-hover:scale-110"
 					type="submit"
 					value="Buy Now"
 				/>

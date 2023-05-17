@@ -1,77 +1,159 @@
 'use client';
 import { useContext, useState } from 'react';
-import z from 'zod';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
-import { Event } from '@prisma/client';
-
-const withdrawalSchema = z.object({
-	amount: z.coerce.number(),
-	transitNumber: z.coerce
-		.string()
-		.length(5, {
-			message: 'Transit number must contain 5 digits'
-		})
-		.regex(/^\d+$/)
-		.transform(Number),
-	institutionNumber: z.coerce
-		.string()
-		.length(3, {
-			message: 'Institution number must contain 3 digits'
-		})
-		.regex(/^\d+$/)
-		.transform(Number),
-	accountNumber: z.coerce
-		.string()
-		.length(7, {
-			message: 'Account number must contain 7 digits'
-		})
-		.regex(/^\d+$/)
-		.transform(Number)
-});
+import { AdminTicket, Event } from '@prisma/client';
+import { useRouter } from 'next/navigation';
+import { getTicketsDetails } from '@/utils/tickets';
 
 export interface WithdrawalProps {
-	amount?: number;
-	transitNumber?: number;
-	institutionNumber?: number;
-	accountNumber?: number;
+	amount: number;
+	transitNumber: number;
+	institutionNumber: number;
+	accountNumber: number;
 }
+
+const DEFAULT_PROPS: WithdrawalProps = {
+	amount: 0,
+	transitNumber: 0,
+	institutionNumber: 0,
+	accountNumber: 0
+};
 
 export default function WithdrawalForm({
 	event
 }: {
-	event: Event;
+	event: Event & {
+		tickets: AdminTicket[];
+	};
 }) {
-	const [values, setValues] = useState<WithdrawalProps>({});
+	const [values, setValues] =
+		useState<WithdrawalProps>(DEFAULT_PROPS);
 	const { setSnackbar } = useContext(SnackbarContext);
+	const router = useRouter();
 	const handleChange = (
 		e: React.ChangeEvent<
 			HTMLInputElement | HTMLTextAreaElement
 		>
 	) => {
-		setValues({
-			...values,
-			[e.target.name]: e.target.value
-		});
-	};
-	const handleSubmit = async function (e: React.FormEvent) {
-		e.preventDefault();
-		const result = withdrawalSchema.safeParse(values);
-		if (!result.success) {
-			const { error } = result;
-			setSnackbar({
-				message: error.message,
-				type: 'failure'
+		const name = e.target.name;
+		if (
+			name === 'transitNumber' &&
+			e.target.value.length < 6
+		) {
+			setValues({
+				...values,
+				[e.target.name]: e.target.value
 			});
 			return;
 		}
-		console.log(result.data, 'successful data');
+		if (
+			name === 'institutionNumber' &&
+			e.target.value.length < 4
+		) {
+			setValues({
+				...values,
+				[e.target.name]: e.target.value
+			});
+			return;
+		}
+		if (
+			name === 'accountNumber' &&
+			e.target.value.length < 8
+		) {
+			setValues({
+				...values,
+				[e.target.name]: e.target.value
+			});
+			return;
+		}
+		if (name === 'amount') {
+			setValues({
+				...values,
+				[e.target.name]: e.target.value
+			});
+		}
+	};
+	const handleSubmit = async function (e: React.FormEvent) {
+		e.preventDefault();
+		if (values.amount < 0.5) {
+			return setSnackbar({
+				message: 'Amount must be at least 0.5$',
+				type: 'failure'
+			});
+		}
+		if (values.transitNumber.toString().length !== 5) {
+			return setSnackbar({
+				message: 'Transit Number must contain 5 digits',
+				type: 'failure'
+			});
+		}
+		if (values.institutionNumber.toString().length !== 3) {
+			return setSnackbar({
+				message: 'Institution Number must contain 3 digits',
+				type: 'failure'
+			});
+		}
+		if (values.accountNumber.toString().length !== 7) {
+			return setSnackbar({
+				message: 'Account Number must contain 7 digits',
+				type: 'failure'
+			});
+		}
+		const { gross } = getTicketsDetails(event.tickets);
+		if (values.amount > gross) {
+			return setSnackbar({
+				message: `Can't make a withdrawal request greater than gross ${gross}$`,
+				type: 'failure'
+			});
+		}
+		const data = {
+			amount: parseFloat(
+				parseFloat(values.amount.toString()).toFixed(4)
+			),
+			transitNumber: parseInt(
+				values.transitNumber.toString()
+			),
+			institutionNumber: parseInt(
+				values.institutionNumber.toString()
+			),
+			accountNumber: parseInt(
+				values.accountNumber.toString()
+			)
+		};
+		setSnackbar({
+			message: 'Creating withdrawal request...',
+			type: 'promise'
+		});
+		const response = await fetch(
+			`/api/event/${event.id}/withdraw`,
+			{
+				method: 'POST',
+				body: JSON.stringify(data),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
+		if (response.status >= 200 && response.status < 300) {
+			setSnackbar({
+				message:
+					'Please allow us 1 business day to process your amount',
+				type: 'success'
+			});
+			return router.push(response.url);
+		}
+		setSnackbar({
+			message: response.statusText,
+			type: 'failure'
+		});
+		return setValues(DEFAULT_PROPS);
 	};
 	return (
 		<form
-			className="relative mt-5 w-[1000px] overflow-scroll h-screen"
+			className="relative mt-5 h-screen w-[1000px] overflow-scroll"
 			onSubmit={handleSubmit}
 		>
-			<div className="py-10 px-32 flex flex-col gap-10 justify-center -md:p-2">
+			<div className="flex flex-col justify-center gap-10 px-32 py-10 -md:p-2">
 				<div className="relative">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +161,7 @@ export default function WithdrawalForm({
 						viewBox="0 0 24 24"
 						strokeWidth={1.5}
 						stroke="currentColor"
-						className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+						className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 					>
 						<path
 							strokeLinecap="round"
@@ -104,7 +186,7 @@ export default function WithdrawalForm({
 						required
 						value={values.amount}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -120,7 +202,7 @@ export default function WithdrawalForm({
 						maxLength={5}
 						value={values.transitNumber}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -136,7 +218,7 @@ export default function WithdrawalForm({
 						maxLength={3}
 						value={values.institutionNumber}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -152,23 +234,23 @@ export default function WithdrawalForm({
 						maxLength={7}
 						value={values.accountNumber}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 			</div>
-			<footer className="fixed right-0 bottom-0 left-0 h-16 bg-dominant border-t-[1px]">
-				<div className="flex w-full h-full justify-end items-center gap-5 pr-10">
+			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">
+				<div className="flex h-full w-full items-center justify-end gap-5 pr-10">
 					<button
-						className="px-2 py-1 border-[1px] border-accent rounded-md"
+						className="rounded-md border-[1px] border-accent px-2 py-1"
 						onClick={(e) => {
 							e.preventDefault();
-							setValues({});
+							setValues(DEFAULT_PROPS);
 						}}
 					>
 						Discard
 					</button>
 					<input
-						className="px-2 py-1 border-[1px] border-accent bg-accent text-skin-inverted rounded-md cursor-pointer"
+						className="cursor-pointer rounded-md border-[1px] border-accent bg-accent px-2 py-1 text-skin-inverted"
 						type="submit"
 						value="Save"
 					/>

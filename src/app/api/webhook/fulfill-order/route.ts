@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/server/stripe';
 import { prisma } from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
+import { transporter } from '@/lib/server/mail';
 
 export const POST = catchAsync(async (req: Request) => {
 	const payload = await req.text();
@@ -80,6 +81,14 @@ export const POST = catchAsync(async (req: Request) => {
 		if (!ticket) {
 			throw new AppError('Ticket not found', 404);
 		}
+		const currentEvent = await prisma.event.findUnique({
+			where: {
+				id: ticket.eventId
+			}
+		});
+		if (!currentEvent) {
+			throw new AppError('Event not found', 404);
+		}
 		const user = await prisma.user.findUnique({
 			where: {
 				id: userId
@@ -107,11 +116,22 @@ export const POST = catchAsync(async (req: Request) => {
 				}
 			}
 		});
+		const message = {
+			from: process.env.SMTP_USERNAME,
+			to: user.email,
+			subject: 'Booking confirmation',
+			text: `Your tickets have been booked for the event ${currentEvent.title} with id ${currentEvent.id}`
+		};
+		const info = await transporter.sendMail(message);
 		return NextResponse.json(
-			{ success: true, data: { userTicket } },
+			{
+				success: true,
+				data: { ticket: userTicket, smtp_info: info }
+			},
 			{ status: 200 }
 		);
 	}
+
 	throw new AppError(
 		`Haven't found operation to perform, triggered by ${event.type}`,
 		406

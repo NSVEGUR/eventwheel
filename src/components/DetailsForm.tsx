@@ -191,11 +191,11 @@ export default function DetailsForm({
 	};
 	return (
 		<form
-			className="relative mt-5 w-full overflow-scroll h-screen"
+			className="relative mt-5 h-screen w-full overflow-scroll"
 			onSubmit={handleSubmit}
 		>
-			<div className="p-10 flex flex-col gap-10 py-5 justify-center -md:p-2 mb-20">
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+			<div className="mb-20 flex flex-col justify-center gap-10 p-10 py-5 -md:p-2">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +203,7 @@ export default function DetailsForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -214,26 +214,26 @@ export default function DetailsForm({
 						<h1 className="text-3xl font-bold">
 							Event Media
 						</h1>
-						<p className=" font-light text-sm">
+						<p className=" text-sm font-light">
 							Add an image which best describes your event,
 							try to upload the true photos which grabs
 							maximum attention
 						</p>
-						<div className="flex flex-col gap-2 w-full items-start justify-center mt-10">
+						<div className="mt-10 flex w-full flex-col items-start justify-center gap-2">
 							{values.image && (
 								<div className="w-full flex-grow">
 									<img
-										className="w-full h-96 object-cover rounded-lg"
+										className="h-96 w-full rounded-lg object-cover"
 										src={values.image}
 										alt="campaignImage"
 										id="campaign-image"
 									/>
 								</div>
 							)}
-							<div className="flex w-full items-center justify-center mt-5">
+							<div className="mt-5 flex w-full items-center justify-center">
 								<label
 									htmlFor="file"
-									className="border-[1px] border-accent bg-light-accent rounded-lg p-2 cursor-pointer h-max text-accent"
+									className="h-max cursor-pointer rounded-lg border-[1px] border-accent bg-light-accent p-2 text-accent"
 								>
 									<input
 										type="file"
@@ -244,17 +244,17 @@ export default function DetailsForm({
 										placeholder="Image URL of your campaign"
 										onChange={updateImageLocally}
 									/>
-									{values.image ? (
-										<span>Edit</span>
-									) : (
-										<span>Choose Image</span>
-									)}
+									<span>
+										{values.image
+											? 'Edit Image'
+											: 'Choose Image'}
+									</span>
 								</label>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +262,7 @@ export default function DetailsForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -271,11 +271,11 @@ export default function DetailsForm({
 							/>
 						</svg>
 						<h1 className="text-3xl font-bold">Summary</h1>
-						<p className=" font-light text-sm">
+						<p className=" text-sm font-light">
 							Give a short note on your event which grabs
 							viewers attention in a sec.
 						</p>
-						<div className="flex flex-col gap-2 mt-5">
+						<div className="mt-5 flex flex-col gap-2">
 							<label htmlFor="summary">
 								Event Summary{' '}
 								<span className="text-complementary">
@@ -288,14 +288,14 @@ export default function DetailsForm({
 								minLength={10}
 								maxLength={100}
 								rows={2}
-								className="p-3 border-[1px] border-base outline-accent"
+								className="border-[1px] border-base p-3 outline-accent"
 								value={values.summary ?? ''}
 								onChange={handleChange}
 							/>
 						</div>
 					</div>
 				</section>
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -303,7 +303,7 @@ export default function DetailsForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -314,12 +314,12 @@ export default function DetailsForm({
 						<h1 className="text-3xl font-bold">
 							Description
 						</h1>
-						<p className=" font-light text-sm">
+						<p className=" text-sm font-light">
 							Describe about your event in a manner which
 							provides every minute reason for a user to
 							attend.
 						</p>
-						<div className="flex flex-col gap-2 mt-5">
+						<div className="mt-5 flex flex-col gap-2">
 							<label htmlFor="description">
 								Event Description{' '}
 								<span className="text-complementary">
@@ -331,14 +331,14 @@ export default function DetailsForm({
 								name="description"
 								minLength={10}
 								rows={10}
-								className="p-3 border-[1px] border-base outline-accent"
+								className="border-[1px] border-base p-3 outline-accent"
 								value={values.description ?? ''}
 								onChange={handleChange}
 							/>
 						</div>
 					</div>
 				</section>
-				<section className="px-32 flex flex-col gap-5 border-b-[1px] border-base pb-20 -md:px-10">
+				<section className="flex flex-col gap-5 border-b-[1px] border-base px-32 pb-20 -md:px-10">
 					<div className="relative">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +346,7 @@ export default function DetailsForm({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+							className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 						>
 							<path
 								strokeLinecap="round"
@@ -357,7 +357,7 @@ export default function DetailsForm({
 						<h1 className="text-3xl font-bold">
 							Frequently Asked Questions
 						</h1>
-						<p className=" font-light text-sm">
+						<p className=" text-sm font-light">
 							You can also add FAQs to clarify any
 							additional questions on your event to provide
 							to the user.
@@ -369,12 +369,12 @@ export default function DetailsForm({
 										key={index}
 										className="flex flex-col gap-3"
 									>
-										<div className="flex justify-between items-center mt-5">
+										<div className="mt-5 flex items-center justify-between">
 											<h1 className="text-2xl font-medium">
 												FAQ-{index + 1}
 											</h1>
 											<button
-												className="bg-red-500 text-skin-inverted p-2 rounded-md"
+												className="rounded-md bg-red-500 p-2 text-skin-inverted"
 												onClick={(e) => {
 													e.preventDefault();
 													values.faqs.splice(index, 1);
@@ -390,7 +390,7 @@ export default function DetailsForm({
 											type="text"
 											name="question"
 											required
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 											placeholder={`Question for FAQ-${
 												index + 1
 											}`}
@@ -410,7 +410,7 @@ export default function DetailsForm({
 											name="answer"
 											minLength={10}
 											rows={3}
-											className="p-3 border-[1px] border-base outline-accent"
+											className="border-[1px] border-base p-3 outline-accent"
 											placeholder={`Answer to FAQ-${
 												index + 1
 											}`}
@@ -443,7 +443,7 @@ export default function DetailsForm({
 										]
 									});
 								}}
-								className="bg-light-accent border-[1px] border-accent p-2 rounded-md mt-5"
+								className="mt-5 rounded-md border-[1px] border-accent bg-light-accent p-2"
 							>
 								Add a FAQ
 							</button>
@@ -451,10 +451,10 @@ export default function DetailsForm({
 					</div>
 				</section>
 			</div>
-			<footer className="fixed right-0 bottom-0 left-0 h-16 bg-dominant border-t-[1px]">
-				<div className="flex w-full h-full justify-end items-center gap-5 pr-10">
+			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">
+				<div className="flex h-full w-full items-center justify-end gap-5 pr-10">
 					<button
-						className="px-2 py-1 border-[1px] border-accent rounded-md"
+						className="rounded-md border-[1px] border-accent px-2 py-1"
 						onClick={(e) => {
 							e.preventDefault();
 							setValues(DEFAULT_DETAILS);
@@ -463,7 +463,7 @@ export default function DetailsForm({
 						Discard
 					</button>
 					<input
-						className="px-2 py-1 border-[1px] border-accent bg-accent text-skin-inverted rounded-md cursor-pointer"
+						className="cursor-pointer rounded-md border-[1px] border-accent bg-accent px-2 py-1 text-skin-inverted"
 						type="submit"
 						value="Update"
 					/>

@@ -20,7 +20,7 @@ export default function Header({
 	const [showMenu, setShowMenu] = useState(false);
 	const { user } = useAuth();
 	return (
-		<header className="h-16 relative bg-dominant border-b-[1px] border-base flex gap-5 items-center justify-between px-16 -lg:px-2">
+		<header className="relative flex h-16 items-center justify-between gap-5 border-b-[1px] border-base bg-dominant px-16 -lg:px-2">
 			<button
 				className="absolute left-2 lg:hidden"
 				onClick={() => {
@@ -33,7 +33,7 @@ export default function Header({
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-6 h-6"
+					className="h-6 w-6"
 				>
 					<path
 						strokeLinecap="round"
@@ -42,7 +42,7 @@ export default function Header({
 					/>
 				</svg>
 			</button>
-			<div className="flex gap-3 items-center justify-center -lg:ml-8">
+			<div className="flex items-center justify-center gap-3 -lg:ml-8">
 				<Image
 					src="/logo.svg"
 					alt="Picture of Logo"
@@ -53,11 +53,11 @@ export default function Header({
 					Eventmate
 				</span>
 			</div>
-			<div className="flex gap-5 text-sm h-full items-center">
+			<div className="flex h-full items-center gap-5 text-sm">
 				{pathname !== '/manage/create' && (
 					<Link
 						href="/manage/create"
-						className="flex gap-2 items-center justify-center text-complementary border-[1px] border-complementary hover:bg-muted p-1 px-2 rounded-full"
+						className="flex items-center justify-center gap-2 rounded-full border-[1px] border-complementary p-1 px-2 text-complementary hover:bg-muted"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ export default function Header({
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-4 h-4"
+							className="h-4 w-4"
 						>
 							<path
 								strokeLinecap="round"
@@ -77,16 +77,16 @@ export default function Header({
 					</Link>
 				)}
 				<button
-					className="flex gap-2 items-center bg-muted rounded-full p-1 hover:bg-muted-hover -lg:hidden"
+					className="flex items-center gap-2 rounded-full bg-muted p-1 hover:bg-muted-hover -lg:hidden"
 					onClick={() => {
 						setShowMenu(!showMenu);
 					}}
 					id="menu-btn"
 				>
-					<div className="w-7 h-7 rounded-full bg-accent text-skin-inverted text-xs flex items-center justify-center p-1">
+					<div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent p-1 text-xs text-skin-inverted">
 						{user?.email?.slice(0, 2).toUpperCase() ?? 'UN'}
 					</div>
-					<span className="w-16 text-ellipsis overflow-hidden">
+					<span className="w-16 overflow-hidden text-ellipsis">
 						{user?.email ?? 'Anonymous'}
 					</span>
 					<svg
@@ -95,7 +95,7 @@ export default function Header({
 						viewBox="0 0 24 24"
 						strokeWidth={1.5}
 						stroke="currentColor"
-						className="w-4 h-4"
+						className="h-4 w-4"
 					>
 						<path
 							strokeLinecap="round"
@@ -105,7 +105,7 @@ export default function Header({
 					</svg>
 				</button>
 				<button
-					className="lg:hidden w-7 h-7 rounded-full bg-accent text-skin-inverted text-xs flex items-center justify-center p-1"
+					className="flex h-7 w-7 items-center justify-center rounded-full bg-accent p-1 text-xs text-skin-inverted lg:hidden"
 					onClick={() => {
 						setShowMenu(!showMenu);
 					}}

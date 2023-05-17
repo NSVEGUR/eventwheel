@@ -16,12 +16,12 @@ export default async function Page({
 	const event = await getEvent(params.eventId);
 	const imgUrl = getImage(event.image);
 	return (
-		<section className="relative w-full overflow-scroll h-screen">
-			<div className="p-10 flex flex-col gap-5 mb-60">
-				<h1 className="text-4xl font-bold text-center">
+		<section className="relative h-screen w-full overflow-scroll">
+			<div className="mb-60 flex flex-col gap-5 p-10">
+				<h1 className="text-center text-4xl font-bold">
 					{event.title}
 				</h1>
-				<div className="relative w-full h-80 bg-muted rounded-lg overflow-hidden mt-5">
+				<div className="relative mt-5 h-80 w-full overflow-hidden rounded-lg bg-muted">
 					{imgUrl && (
 						<Image
 							src={imgUrl}
@@ -31,8 +31,8 @@ export default async function Page({
 						/>
 					)}
 				</div>
-				<section className="flex justify-between w-full">
-					<div className="flex flex-col gap-2 items-start">
+				<section className="flex w-full justify-between">
+					<div className="flex flex-col items-start gap-2">
 						<h1>
 							Type:{' '}
 							<span className="text-skin-complementary">
@@ -54,7 +54,7 @@ export default async function Page({
 							</h1>
 						)}
 					</div>
-					<div className="flex flex-col gap-2 items-end">
+					<div className="flex flex-col items-end gap-2">
 						<h1 className="flex items-baseline gap-1">
 							Venue:{' '}
 							<span className="text-skin-complementary">
@@ -75,7 +75,7 @@ export default async function Page({
 						</h1>
 					</div>
 				</section>
-				<section className="flex flex-col gap-10 mt-5">
+				<section className="mt-5 flex flex-col gap-10">
 					{event.summary && (
 						<div>
 							<h1 className="text-xl font-medium text-accent">
@@ -98,7 +98,7 @@ export default async function Page({
 					)}
 				</section>
 				<section className="flex flex-col gap-5">
-					<h1 className="text-3xl font-bold text-accent text-center">
+					<h1 className="text-center text-3xl font-bold text-accent">
 						Tickets
 					</h1>
 					<div
@@ -115,27 +115,27 @@ export default async function Page({
 							return (
 								<div
 									key={index}
-									className="relative p-10 border-[1px] border-base text-accent flex flex-col gap-3 items-start justify-center rounded-md shadow-md"
+									className="relative flex flex-col items-start justify-center gap-3 rounded-md border-[1px] border-base p-10 text-accent shadow-md"
 								>
 									<h1 className="text-3xl font-medium text-accent">
 										{ticket.type}
 									</h1>
-									<p className="text-skin-complementary text-sm">
+									<p className="text-sm text-skin-complementary">
 										{ticket.description}
 									</p>
 									<h3 className="text-skin-complementary">
 										Available:{' '}
-										<span className="text-accent font-medium">
+										<span className="font-medium text-accent">
 											{ticket.count}
 										</span>
 									</h3>
 									<h3>
 										Price:{' '}
-										<span className="text-complementary text-3xl font-medium">
+										<span className="text-3xl font-medium text-complementary">
 											$ {ticket.price}
 										</span>
 									</h3>
-									<button className="self-center p-3 bg-accent text-skin-inverted mt-5">
+									<button className="mt-5 self-center bg-accent p-3 text-skin-inverted">
 										Buy Now
 									</button>
 								</div>
@@ -144,7 +144,7 @@ export default async function Page({
 					</div>
 				</section>
 				<section>
-					<h1 className="text-center font-medium text-2xl my-5">
+					<h1 className="my-5 text-center text-2xl font-medium">
 						FAQS
 					</h1>
 					<FAQ

@@ -28,28 +28,28 @@ export default function Menu({ showMenu }: Props) {
 		<>
 			{showMenu && (
 				<menu
-					className="min-w-[200px] fixed z-50 right-16 top-16 bg-dominant border-[1px] border-base shadow-md text-base rounded-lg p-3 flex flex-col gap-2"
+					className="fixed right-16 top-16 z-50 flex min-w-[200px] flex-col gap-2 rounded-lg border-[1px] border-base bg-dominant p-3 text-base shadow-md"
 					id="menu"
 				>
-					<div className="flex gap-2 text-sm my-2">
-						<div className="w-8 h-8 rounded-full bg-accent text-skin-inverted flex items-center justify-center">
+					<div className="my-2 flex gap-2 text-sm">
+						<div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-skin-inverted">
 							{user?.email?.slice(0, 2).toUpperCase() ??
 								'Anonymous'}
 						</div>
 						<div className="flex flex-col gap-1">
 							<h1>{user?.email ?? 'Anonymous'}</h1>
-							<h2 className="text-skin-complementary text-xs">
+							<h2 className="text-xs text-skin-complementary">
 								{user?.email ?? 'Anonymous'}
 							</h2>
 						</div>
 					</div>
-					<ul className="flex flex-col items-start justify-center gap-3 bg-muted rounded-lg overflow-hidden">
+					<ul className="flex flex-col items-start justify-center gap-3 overflow-hidden rounded-lg bg-muted">
 						{hyperlinks.map((hyperlink, index) => {
 							return (
 								<li key={index} className="w-full">
 									<Link
 										href={hyperlink.link}
-										className="flex gap-3 hover:bg-muted-hover px-5 py-2"
+										className="flex gap-3 px-5 py-2 hover:bg-muted-hover"
 									>
 										{hyperlink.name}
 									</Link>
@@ -58,7 +58,7 @@ export default function Menu({ showMenu }: Props) {
 						})}
 					</ul>
 					<button
-						className="flex gap-2 items-center justify-center mt-3 w-full"
+						className="mt-3 flex w-full items-center justify-center gap-2"
 						onClick={() => {
 							signOut();
 						}}
@@ -69,7 +69,7 @@ export default function Menu({ showMenu }: Props) {
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-6 h-6"
+							className="h-6 w-6"
 						>
 							<path
 								strokeLinecap="round"

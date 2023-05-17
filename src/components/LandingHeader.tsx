@@ -3,8 +3,8 @@ import LandingNav from './LandingNav';
 
 export default function Header() {
 	return (
-		<header className="fixed z-50 top-0 h-16 w-full bg-dominant shadow-md flex gap-5 items-center justify-between px-16">
-			<div className="flex gap-3 items-center justify-center">
+		<header className="fixed top-0 z-50 flex h-16 w-full items-center justify-between gap-5 bg-dominant px-16 shadow-md">
+			<div className="flex items-center justify-center gap-3">
 				<Image
 					src="/logo.svg"
 					alt="Picture of Logo"
@@ -15,14 +15,14 @@ export default function Header() {
 					Eventmate
 				</span>
 			</div>
-			<div className="w-96 h-10 p-2 rounded-md border-[1px] border-base flex gap-2 items-center">
+			<div className="flex h-10 w-96 items-center gap-2 rounded-md border-[1px] border-base p-2">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					strokeWidth={1.5}
 					stroke="currentColor"
-					className="w-5 h-5"
+					className="h-5 w-5"
 				>
 					<path
 						strokeLinecap="round"
@@ -36,8 +36,8 @@ export default function Header() {
 					placeholder="Search Events"
 					className="flex-grow bg-transparent outline-none"
 				/>
-				<div className="flex text-sm items-center pr-2 gap-1">
-					<span className="border-[1px] border-base rounded w-6 h-6 flex items-center justify-center">
+				<div className="flex items-center gap-1 pr-2 text-sm">
+					<span className="flex h-6 w-6 items-center justify-center rounded border-[1px] border-base">
 						<Image
 							src="/command.svg"
 							alt="Picture of Command Key"
@@ -45,7 +45,7 @@ export default function Header() {
 							height={10}
 						></Image>
 					</span>
-					<span className="border-[1px] border-base w-6 h-6 flex items-center justify-center rounded">
+					<span className="flex h-6 w-6 items-center justify-center rounded border-[1px] border-base">
 						K
 					</span>
 				</div>

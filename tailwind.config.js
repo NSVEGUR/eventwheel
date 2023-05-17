@@ -37,10 +37,14 @@ module.exports = {
 					'var(--color-border-complementary-hex)'
 			},
 			backgroundImage: {
-				'gradient-radial':
-					'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-linear':
+					'linear-gradient(to right, #DC6299 0%, #593991 60%)',
 				'gradient-conic':
-					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-mesh': `radial-gradient(at 9% 100%, hsla(320,60%,75%,1) 0px, transparent 50%),
+													radial-gradient(at 93% 100%, hsla(331,59%,76%,1) 0px, transparent 50%),
+													radial-gradient(at 35% 0%, hsla(310,59%,76%,1) 0px, transparent 50%),
+													radial-gradient(at 96% 6%, hsla(271,71%,68%,1) 0px, transparent 50%);`
 			},
 			screens: {
 				'-2xl': { max: '1535px' },

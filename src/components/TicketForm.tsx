@@ -60,7 +60,7 @@ export default function TicketForm({
 				price: parseFloat(
 					parseFloat(values.price.toString()).toFixed(4)
 				),
-				available: values.available
+				available: parseInt(values.available.toString())
 			};
 		} else {
 			data = {
@@ -71,7 +71,7 @@ export default function TicketForm({
 				price: parseFloat(
 					parseFloat(values.price.toString()).toFixed(4)
 				),
-				available: values.available
+				available: parseInt(values.available.toString())
 			};
 		}
 		try {
@@ -104,10 +104,10 @@ export default function TicketForm({
 	};
 	return (
 		<form
-			className="relative mt-5 w-[1000px] overflow-scroll h-screen"
+			className="relative mt-5 h-screen w-[1000px] overflow-scroll"
 			onSubmit={handleSubmit}
 		>
-			<div className="py-10 px-32 flex flex-col gap-10 justify-center -md:p-2">
+			<div className="flex flex-col justify-center gap-10 px-32 py-10 -md:p-2">
 				<div className="relative">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ export default function TicketForm({
 						viewBox="0 0 24 24"
 						strokeWidth={1.5}
 						stroke="currentColor"
-						className="w-8 h-8 absolute top-0 -left-10 text-skin-muted"
+						className="absolute -left-10 top-0 h-8 w-8 text-skin-muted"
 					>
 						<path
 							strokeLinecap="round"
@@ -141,7 +141,7 @@ export default function TicketForm({
 						required
 						value={values.type}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -156,7 +156,7 @@ export default function TicketForm({
 						required
 						value={values.description ?? ''}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -171,7 +171,7 @@ export default function TicketForm({
 						required
 						value={values.price}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 				<div className="flex flex-col gap-2">
@@ -186,14 +186,14 @@ export default function TicketForm({
 						required
 						value={values.available}
 						onChange={handleChange}
-						className="p-3 border-[1px] border-base outline-accent"
+						className="border-[1px] border-base p-3 outline-accent"
 					/>
 				</div>
 			</div>
-			<footer className="fixed right-0 bottom-0 left-0 h-16 bg-dominant border-t-[1px]">
-				<div className="flex w-full h-full justify-end items-center gap-5 pr-10">
+			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">
+				<div className="flex h-full w-full items-center justify-end gap-5 pr-10">
 					<button
-						className="px-2 py-1 border-[1px] border-accent rounded-md"
+						className="rounded-md border-[1px] border-accent px-2 py-1"
 						onClick={(e) => {
 							e.preventDefault();
 							setValues(ticket);
@@ -202,7 +202,7 @@ export default function TicketForm({
 						Discard
 					</button>
 					<input
-						className="px-2 py-1 border-[1px] border-accent bg-accent text-skin-inverted rounded-md cursor-pointer"
+						className="cursor-pointer rounded-md border-[1px] border-accent bg-accent px-2 py-1 text-skin-inverted"
 						type="submit"
 						value={method === 'POST' ? 'Save' : 'Update'}
 					/>

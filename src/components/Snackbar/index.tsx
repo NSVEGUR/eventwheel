@@ -8,9 +8,9 @@ export interface SnackbarProps {
 export default function Snackbar(props: SnackbarProps) {
 	return (
 		<div
-			className={`fixed z-[100] top-10 left-1/2 -translate-x-1/2 ${
+			className={`fixed left-1/2 top-10 z-[100] -translate-x-1/2 ${
 				props.type === 'idle' ? 'hidden' : 'flex'
-			} p-2 rounded-lg gap-3 items-center justify-center text-sm font-medium text-skin-inverted ${
+			} items-center justify-center gap-3 rounded-lg p-2 text-sm font-medium text-skin-inverted ${
 				props.type === 'success'
 					? 'bg-okay'
 					: props.type === 'failure'
@@ -28,7 +28,7 @@ export default function Snackbar(props: SnackbarProps) {
 								viewBox="0 0 24 24"
 								strokeWidth="1.5"
 								stroke="currentColor"
-								className="w-6 h-6"
+								className="h-6 w-6"
 							>
 								<path
 									strokeLinecap="round"
@@ -45,7 +45,7 @@ export default function Snackbar(props: SnackbarProps) {
 								viewBox="0 0 24 24"
 								strokeWidth="1.5"
 								stroke="currentColor"
-								className="w-6 h-6"
+								className="h-6 w-6"
 							>
 								<path
 									strokeLinecap="round"
@@ -59,7 +59,7 @@ export default function Snackbar(props: SnackbarProps) {
 							<svg
 								aria-hidden="true"
 								role="status"
-								className="inline w-4 h-4 mr-3 text-gray-200 animate-spin"
+								className="mr-3 inline h-4 w-4 animate-spin text-gray-200"
 								viewBox="0 0 100 101"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"

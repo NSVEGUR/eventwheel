@@ -38,11 +38,11 @@ export default function FormInput(props: Props) {
 		}
 	};
 	return (
-		<div className="flex flex-col w-full gap-1">
+		<div className="flex w-full flex-col gap-1">
 			<label htmlFor="email">{props.label} *</label>
 			<input
 				{...inputProps}
-				className="p-2 focus:outline-none bg-transparent border-[1px] border-complementary focus:border-inverted rounded-lg w-full"
+				className="w-full rounded-lg border-[1px] border-complementary bg-transparent p-2 focus:border-inverted focus:outline-none"
 				onBlur={handleBlur}
 				onFocus={handleFocus}
 				data-focused={focused.toString()}

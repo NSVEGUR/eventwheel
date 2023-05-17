@@ -18,7 +18,7 @@ export default function FAQ({
 	});
 	const [state, setState] = useState(faqs.map(() => false));
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col gap-1">
 			{faqs.map((faq, index) => {
 				return (
 					<button
@@ -29,9 +29,9 @@ export default function FAQ({
 								...state
 							});
 						}}
-						className="w-full p-2 border-[1px] border-base"
+						className="w-full rounded-md border-[1px] border-base bg-dominant p-2 shadow"
 					>
-						<h1 className="flex justify-between text-xl font-medium">
+						<h1 className="flex justify-between text-lg font-medium">
 							{index + 1}. {faq.question}{' '}
 							<span>
 								{state[index] ? (
@@ -41,7 +41,7 @@ export default function FAQ({
 										viewBox="0 0 24 24"
 										strokeWidth={1.5}
 										stroke="currentColor"
-										className="w-6 h-6"
+										className="h-6 w-6"
 									>
 										<path
 											strokeLinecap="round"
@@ -56,7 +56,7 @@ export default function FAQ({
 										viewBox="0 0 24 24"
 										strokeWidth={1.5}
 										stroke="currentColor"
-										className="w-6 h-6"
+										className="h-6 w-6"
 									>
 										<path
 											strokeLinecap="round"
@@ -68,13 +68,13 @@ export default function FAQ({
 							</span>
 						</h1>
 						<div
-							className={`grid ${
+							className={`grid pl-5 ${
 								state[index]
-									? 'grid-rows-[1fr] pt-5'
+									? 'grid-rows-[1fr] py-5'
 									: 'grid-rows-[0fr]'
 							} transition-all duration-200`}
 						>
-							<h1 className="overflow-hidden text-skin-complementary">
+							<h1 className="overflow-hidden text-left text-skin-complementary">
 								{faq.answer}
 							</h1>
 						</div>

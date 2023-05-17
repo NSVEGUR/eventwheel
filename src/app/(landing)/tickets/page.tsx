@@ -78,62 +78,69 @@ export default async function Page() {
 	return (
 		<>
 			{tickets.length === 0 ? (
-				<div className="flex w-full h-full items-center justify-center">
-					<h1>No Tickets Found</h1>
+				<div className="flex h-screen w-screen items-center justify-center">
+					<h1 className="text-2xl font-medium text-skin-complementary">
+						No Tickets Found
+					</h1>
 				</div>
 			) : (
-				<div className="p-10 grid grid-cols-4 gap-10">
-					{tickets.map((ticket, index) => {
-						return (
-							<div
-								key={index}
-								className="rounded-md p-5 flex flex-col gap-3 text-sm shadow-md border-[1px] border-base"
-							>
-								<div className="flex gap-1">
-									<div className="w-10 h-10 relative rounded-md bg-muted">
-										{ticket.eventImage && (
-											<Image
-												src={ticket.eventImage}
-												alt="Event image"
-												fill
-												className="rounded-md object-cover"
-											/>
-										)}
+				<>
+					<h1 className="my-5 text-center text-4xl font-bold">
+						Tickets
+					</h1>
+					<div className="grid grid-cols-4 gap-10 p-10">
+						{tickets.map((ticket, index) => {
+							return (
+								<div
+									key={index}
+									className="flex flex-col gap-3 rounded-md border-[1px] border-base p-5 text-sm shadow-md"
+								>
+									<div className="flex gap-1">
+										<div className="relative h-10 w-10 rounded-md bg-muted">
+											{ticket.eventImage && (
+												<Image
+													src={ticket.eventImage}
+													alt="Event image"
+													fill
+													className="rounded-md object-cover"
+												/>
+											)}
+										</div>
+										<div className="flex flex-col gap-1">
+											<h1 className="text-sm font-bold">
+												{ticket.eventTitle}
+											</h1>
+											<h2 className="text-sm">
+												Type:{' '}
+												<span className="font-medium text-complementary">
+													{ticket.type}
+												</span>
+											</h2>
+										</div>
 									</div>
-									<div className="flex flex-col gap-1">
-										<h1 className="font-bold text-sm">
-											{ticket.eventTitle}
-										</h1>
-										<h2 className="text-sm">
-											Type:{' '}
-											<span className="font-medium text-complementary">
-												{ticket.type}
-											</span>
-										</h2>
-									</div>
+									<h1>
+										Price:{' '}
+										<span className="text-base font-bold text-complementary">
+											$ {ticket.price}
+										</span>
+									</h1>
+									<h1>
+										TicketId:{' '}
+										<span className="text-skin-complementary">
+											{ticket.id}
+										</span>
+									</h1>
+									<h1>
+										Description:{' '}
+										<span className="text-skin-complementary">
+											{ticket.description}
+										</span>
+									</h1>
 								</div>
-								<h1>
-									Price:{' '}
-									<span className="text-complementary font-bold text-base">
-										$ {ticket.price}
-									</span>
-								</h1>
-								<h1>
-									TicketId:{' '}
-									<span className="text-skin-complementary">
-										{ticket.id}
-									</span>
-								</h1>
-								<h1>
-									Description:{' '}
-									<span className="text-skin-complementary">
-										{ticket.description}
-									</span>
-								</h1>
-							</div>
-						);
-					})}
-				</div>
+							);
+						})}
+					</div>
+				</>
 			)}
 		</>
 	);
