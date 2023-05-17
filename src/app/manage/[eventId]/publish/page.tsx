@@ -126,7 +126,7 @@ export default async function Page({
 									<h3 className="text-skin-complementary">
 										Available:{' '}
 										<span className="font-medium text-accent">
-											{ticket.count}
+											{ticket.available}
 										</span>
 									</h3>
 									<h3>
