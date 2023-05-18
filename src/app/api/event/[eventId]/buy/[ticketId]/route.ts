@@ -32,7 +32,7 @@ export const POST = catchAsync(async function (
 			id: params.eventId
 		}
 	});
-	if (!event || event.userId != user.id) {
+	if (!event) {
 		throw new AppError('Event not found', 404);
 	}
 	const ticket = await prisma.adminTicket.findUnique({
