@@ -3,18 +3,11 @@ import { AppError } from '@/lib/server/exception';
 import prisma from '@/lib/server/prisma';
 import { createServerClient } from '@/utils/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
-import { Event } from '@prisma/client';
 import { baseURL } from '@/lib/constants';
 
 export const PATCH = catchAsync(async function (
 	req: NextRequest,
-	{
-		params
-	}: {
-		params: {
-			eventId: string;
-		};
-	}
+	{ params }: { params: { eventId: string } }
 ) {
 	const supabase = createServerClient();
 	const {
@@ -22,7 +15,7 @@ export const PATCH = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}
@@ -34,14 +27,33 @@ export const PATCH = catchAsync(async function (
 	if (!event || event.userId != user.id) {
 		throw new AppError('Event not found', 404);
 	}
-	const { userId, id, ...body } =
-		(await req.json()) as Event;
-	const updatedEvent = await prisma.event.update({
+	const body = await req.json();
+	const {
+		summary,
+		image,
+		description,
+		faqs
+	}: {
+		summary: string;
+		image: string | null;
+		description: string;
+		faqs: {
+			question: string;
+			answer: string;
+		}[];
+	} = body;
+	const questions = faqs.map((faq) => faq.question);
+	const answers = faqs.map((faq) => faq.answer);
+	await prisma.event.update({
 		where: {
 			id: event.id
 		},
 		data: {
-			...body
+			summary,
+			image,
+			description,
+			questions,
+			answers
 		}
 	});
 	return NextResponse.redirect(

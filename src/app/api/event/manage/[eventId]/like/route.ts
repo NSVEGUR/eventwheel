@@ -19,7 +19,7 @@ export const PUT = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}
@@ -48,7 +48,7 @@ export const PUT = catchAsync(async function (
 			now: Date.now(),
 			message: 'Added the event to wishlist successfully'
 		},
-		{ status: 200 }
+		{ status: 201 }
 	);
 });
 
@@ -66,7 +66,7 @@ export const DELETE = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, please login again to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}
@@ -96,6 +96,6 @@ export const DELETE = catchAsync(async function (
 			message:
 				'Removed the event from wishlist successfully'
 		},
-		{ status: 200 }
+		{ status: 201 }
 	);
 });

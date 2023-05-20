@@ -13,7 +13,7 @@ async function getMyTickets() {
 		} = await supabase.auth.getUser();
 		if (!user) {
 			throw new AppError(
-				'Authentication failed, login to continue',
+				'Authentication required, login to continue',
 				401
 			);
 		}
@@ -88,7 +88,7 @@ export default async function Page() {
 					<h1 className="my-5 text-center text-4xl font-bold">
 						Tickets
 					</h1>
-					<div className="grid grid-cols-4 gap-10 p-10">
+					<div className="grid grid-cols-4 gap-10 p-10 -lg:grid-cols-3 -md:grid-cols-2 -sm:grid-cols-1">
 						{tickets.map((ticket, index) => {
 							return (
 								<div

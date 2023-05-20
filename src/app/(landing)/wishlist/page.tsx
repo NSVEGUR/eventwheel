@@ -22,7 +22,7 @@ export default async function Home() {
 					<h1 className="my-5 text-center text-4xl font-bold">
 						Wishlist
 					</h1>
-					<div className="grid grid-cols-4 gap-4 px-20 py-10">
+					<div className="grid grid-cols-4 gap-4 px-20 py-10 -xl:grid-cols-3 -lg:grid-cols-2 -sm:grid-cols-1 -sm:px-2">
 						{events.map(({ liked, ...event }) => {
 							return (
 								<EventCard

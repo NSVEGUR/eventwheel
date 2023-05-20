@@ -32,18 +32,29 @@ export default function TicketBuyingCard({
 			);
 			if (response.status >= 200 && response.status < 400) {
 				setSnackbar({
-					message: 'Checked Out...',
+					message: 'Checking out...',
 					type: 'success'
 				});
 				const result = await response.json();
 				return router.push(result.url);
-			} else {
+			}
+			if (response.status === 401) {
+				const result = await response.json();
 				setSnackbar({
-					message: response.statusText,
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
 					type: 'failure'
 				});
+				router.push(result.url);
 				return;
 			}
+			setSnackbar({
+				message:
+					'Something went wrong 💥, login again to continue',
+				type: 'failure'
+			});
+			return;
 		} catch (err) {
 			console.error(err);
 		}

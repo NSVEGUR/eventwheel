@@ -109,16 +109,19 @@ export default function CreationForm({
 		try {
 			let response;
 			if (eventId && method === 'PATCH') {
-				response = await fetch(`/api/event/${eventId}`, {
-					method: 'PATCH',
-					body: JSON.stringify(body),
-					headers: {
-						'content-type': 'application/json'
+				response = await fetch(
+					`/api/event/manage/${eventId}`,
+					{
+						method: 'PATCH',
+						body: JSON.stringify(body),
+						headers: {
+							'content-type': 'application/json'
+						}
 					}
-				});
+				);
 				if (
 					response.status >= 200 &&
-					response.status < 300
+					response.status < 400
 				) {
 					setSnackbar({
 						message: 'Saved Successfully',
@@ -126,8 +129,23 @@ export default function CreationForm({
 					});
 					return router.push(response.url);
 				}
+				if (response.status === 401) {
+					const result = await response.json();
+					setSnackbar({
+						message:
+							result.message ??
+							'Something went wrong 💥, login again to continue',
+						type: 'failure'
+					});
+					return router.push(result.url);
+				}
+				return setSnackbar({
+					message:
+						'Something went wrong 💥, login again to continue',
+					type: 'failure'
+				});
 			} else {
-				response = await fetch(`/api/event`, {
+				response = await fetch(`/api/event/manage`, {
 					method: 'POST',
 					body: JSON.stringify(body),
 					headers: {
@@ -136,7 +154,7 @@ export default function CreationForm({
 				});
 				if (
 					response.status >= 200 &&
-					response.status < 300
+					response.status < 400
 				) {
 					setSnackbar({
 						message: 'Updated Successfully',
@@ -145,8 +163,20 @@ export default function CreationForm({
 					return router.push(response.url);
 				}
 			}
+			if (response.status === 401) {
+				const result = await response.json();
+				setSnackbar({
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
+					type: 'failure'
+				});
+				router.push(result.url);
+				return setValues(event);
+			}
 			setSnackbar({
-				message: response.statusText,
+				message:
+					'Something went wrong 💥, login again to continue',
 				type: 'failure'
 			});
 			return setValues(event);

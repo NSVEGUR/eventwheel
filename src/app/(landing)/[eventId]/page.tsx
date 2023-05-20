@@ -19,18 +19,21 @@ export default async function Page({
 	);
 	event.image = getImage(event.image);
 	return (
-		<section className="relative h-screen w-full overflow-scroll scroll-smooth px-28">
-			<div className="mb-60 flex flex-col gap-5 py-10">
-				<div className="flex w-full items-center justify-evenly">
+		<section className="h-full w-full px-28 -md:px-3">
+			<div className="flex flex-col gap-5 py-10">
+				<h1 className="text-center text-4xl font-bold md:hidden">
+					{event.title}
+				</h1>
+				<div className="flex items-center justify-evenly">
 					<WishlistButton
 						{...{ eventId: event.id, liked }}
 					/>
-					<h1 className="text-center text-4xl font-bold">
+					<h1 className="text-center text-4xl font-bold -md:hidden">
 						{event.title}
 					</h1>
 					<a
 						href="#tickets"
-						className="flex w-[150px] items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
+						className="flex items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
 					>
 						Buy Now
 					</a>

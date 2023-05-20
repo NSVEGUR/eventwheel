@@ -2,7 +2,6 @@
 
 import { useState, useContext } from 'react';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
-import { useAuth } from './providers/supabase-auth-provider';
 import { useRouter } from 'next/navigation';
 
 export default function WishlistButton({
@@ -15,17 +14,9 @@ export default function WishlistButton({
 	const [submitting, setSubmitting] = useState(false);
 	const [likedState, setLikedState] = useState(liked);
 	const { setSnackbar } = useContext(SnackbarContext);
-	const { user } = useAuth();
 	const router = useRouter();
 	const handleSubmit = async function (e: React.FormEvent) {
-		if (!user) {
-			setSnackbar({
-				message:
-					'Authentication required, login to continue',
-				type: 'failure'
-			});
-			return router.push('/signin');
-		}
+		e.preventDefault();
 		setSubmitting(true);
 		setSnackbar({
 			message: likedState
@@ -35,7 +26,7 @@ export default function WishlistButton({
 		});
 		try {
 			const response = await fetch(
-				`/api/event/${eventId}/like`,
+				`/api/event/manage/${eventId}/like`,
 				{
 					method: likedState ? 'DELETE' : 'PUT',
 					headers: {
@@ -47,6 +38,7 @@ export default function WishlistButton({
 				}
 			);
 			if (response.status >= 200 && response.status < 400) {
+				console.log('this is running positive');
 				setSnackbar({
 					message: likedState
 						? 'Removed from wishlist'
@@ -54,10 +46,22 @@ export default function WishlistButton({
 					type: 'success'
 				});
 				setLikedState(!likedState);
+				setSubmitting(false);
 				return router.refresh();
 			}
+			if (response.status === 401) {
+				const result = await response.json();
+				setSnackbar({
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
+					type: 'failure'
+				});
+				return router.push(result.url);
+			}
 			return setSnackbar({
-				message: response.statusText,
+				message:
+					'Something went wrong 💥, login again to continue',
 				type: 'failure'
 			});
 		} catch (err) {
@@ -69,7 +73,7 @@ export default function WishlistButton({
 			<input
 				className={`${
 					submitting ? 'hidden' : 'flex'
-				} min-w-[150px] items-center justify-center rounded-md border-[2px] border-accent bg-transparent p-2 font-medium text-accent`}
+				} items-center justify-center rounded-md border-[2px] border-accent bg-transparent p-2 font-medium text-accent`}
 				type="submit"
 				value={
 					likedState

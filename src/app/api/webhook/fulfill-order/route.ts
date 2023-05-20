@@ -61,7 +61,6 @@ export const POST = catchAsync(async (req: Request) => {
 		}
 
 		const { price } = line_items.data[0];
-		const userId = metadata.userId as string;
 		if (
 			!price ||
 			!price.product ||
@@ -91,15 +90,12 @@ export const POST = catchAsync(async (req: Request) => {
 		}
 		const user = await prisma.user.findUnique({
 			where: {
-				id: userId
+				email: customer_details.email
 			}
 		});
-		if (!user) {
-			throw new AppError('User not found', 404);
-		}
 		const userTicket = await prisma.userTicket.create({
 			data: {
-				userId: user.id,
+				userId: user?.id,
 				ticketId: ticket.id,
 				email: customer_details.email,
 				name: customer_details.name,
@@ -118,7 +114,7 @@ export const POST = catchAsync(async (req: Request) => {
 		});
 		const message = {
 			from: process.env.SMTP_USERNAME,
-			to: user.email,
+			to: customer_details.email,
 			subject: 'Booking confirmation',
 			text: `Your tickets have been booked for the event ${currentEvent.title} with id ${currentEvent.id}`
 		};
@@ -126,7 +122,11 @@ export const POST = catchAsync(async (req: Request) => {
 		return NextResponse.json(
 			{
 				success: true,
-				data: { ticket: userTicket, smtp_info: info }
+				data: {
+					ticket: userTicket,
+					guestUser: user ? false : true,
+					smtp_info: info
+				}
 			},
 			{ status: 200 }
 		);

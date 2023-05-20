@@ -15,7 +15,7 @@ export async function getEvents() {
 		} = await supabase.auth.getUser();
 		if (!user) {
 			throw new AppError(
-				'Authentication failed, login to continue',
+				'Authentication required, login to continue',
 				401
 			);
 		}
@@ -49,7 +49,7 @@ export async function getEvent(id: string) {
 		} = await supabase.auth.getUser();
 		if (!user) {
 			throw new AppError(
-				'Authentication failed, login to continue',
+				'Authentication required, login to continue',
 				401
 			);
 		}
@@ -92,7 +92,7 @@ export async function getWithdrawals(id: string) {
 		} = await supabase.auth.getUser();
 		if (!user) {
 			throw new AppError(
-				'Authentication failed, login to continue',
+				'Authentication required, login to continue',
 				401
 			);
 		}
@@ -223,7 +223,7 @@ export async function getWishlistEvents() {
 		} = await supabase.auth.getUser();
 		if (!user) {
 			throw new AppError(
-				'Authentication failed, login to continue',
+				'Authentication required, login to continue',
 				401
 			);
 		}

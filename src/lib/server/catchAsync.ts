@@ -10,11 +10,7 @@ const errorDev = (err: any) => {
 			stack: err.stack
 		},
 		{
-			status: err.statusCode,
-			statusText:
-				err.message instanceof String
-					? err.message
-					: 'Something went wrong, server side error 😵‍💫'
+			status: err.statusCode
 		}
 	);
 };
@@ -28,11 +24,7 @@ const errorProd = (err: any) => {
 				message: err.message
 			},
 			{
-				status: err.statusCode,
-				statusText:
-					err.message instanceof String
-						? err.message
-						: 'Something went wrong, server side error 😵‍💫'
+				status: err.statusCode
 			}
 		);
 	} else {
@@ -43,11 +35,7 @@ const errorProd = (err: any) => {
 					'Something went wrong, server side error 😵‍💫'
 			},
 			{
-				status: 500,
-				statusText:
-					err.message instanceof String
-						? err.message
-						: 'Something went wrong, server side error 😵‍💫'
+				status: 500
 			}
 		);
 	}
@@ -58,6 +46,9 @@ export function catchAsync(fn: any) {
 		return fn(req, res).catch((err: any) => {
 			err.statusCode = err.statusCode || 500;
 			err.status = err.status || 'error';
+			err.message =
+				err.message ||
+				'Something went wrong, server side error 😵‍💫';
 			if (process.env.NODE_ENV === 'production') {
 				return errorProd(err);
 			} else {

@@ -6,9 +6,11 @@ export default function Layout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="mt-16 overflow-x-hidden">
+		<>
 			<Header />
-			{children}
-		</div>
+			<div className="m-0 h-[calc(100vh-theme(spacing.16))] w-screen overflow-x-hidden overflow-y-scroll scroll-smooth">
+				{children}
+			</div>
+		</>
 	);
 }

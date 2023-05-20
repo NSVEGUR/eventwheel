@@ -20,11 +20,11 @@ export default async function Page({
 		event.tickets
 	);
 	return (
-		<div className="flex flex-col gap-5 px-20 py-5">
+		<div className="flex flex-col gap-5 px-20 py-5 -md:px-2">
 			<h1 className="mb-5 text-3xl font-bold">Dashboard</h1>
 			<div className="flex flex-wrap gap-10">
 				<div className="flex gap-10">
-					<div className="grid grid-cols-2 gap-2 rounded-md border-[1px] border-base p-5 shadow-md">
+					<div className="grid min-w-[200px] grid-cols-2 gap-2 rounded-md border-[1px] border-base p-5 shadow-md">
 						<h1 className="font-medium">Tickets Sold:</h1>
 						<h2 className="font-bold text-accent">
 							<span className="text-complementary">
@@ -55,7 +55,7 @@ export default async function Page({
 					</div>
 				</div>
 			</div>
-			<div className="my-10 flex justify-between ">
+			<div className="my-10 flex justify-between -md:flex-col">
 				<h1 className="text-3xl font-bold">
 					Withdrawal Requests
 				</h1>

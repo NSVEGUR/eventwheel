@@ -48,24 +48,35 @@ export default function PublishForm({
 				type: 'promise'
 			});
 			const response = await fetch(
-				`/api/event/${event.id}/publish`,
+				`/api/event/manage/${event.id}/publish`,
 				{
 					method: 'POST'
 				}
 			);
-			if (response.status >= 200 && response.status < 300) {
+			if (response.status >= 200 && response.status < 400) {
 				setSnackbar({
 					message: 'Published Successfully',
 					type: 'success'
 				});
 				return router.push(response.url);
-			} else {
+			}
+			if (response.status === 401) {
+				const result = await response.json();
 				setSnackbar({
-					message: response.statusText,
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
 					type: 'failure'
 				});
+				router.push(result.url);
 				return;
 			}
+			setSnackbar({
+				message:
+					'Something went wrong 💥, login again to continue',
+				type: 'failure'
+			});
+			return;
 		} catch (err) {
 			console.error(err);
 		}

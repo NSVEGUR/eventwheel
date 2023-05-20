@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Event } from '@prisma/client';
 import { catchAsync } from '@/lib/server/catchAsync';
-import { baseURL } from '@/lib/constants';
 import prisma from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
 import { createServerClient } from '@/utils/supabase-server';
@@ -15,7 +14,7 @@ export const POST = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}
@@ -28,6 +27,6 @@ export const POST = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		baseURL + `manage/${event.id}`
+		process.env.NEXT_PUBLIC_URL + `manage/${event.id}`
 	);
 });

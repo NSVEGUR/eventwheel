@@ -29,9 +29,9 @@ const error = ({
 				</button>
 				<Link
 					className="w-[200px] rounded-lg border-2 border-accent bg-accent p-2 text-center text-skin-inverted"
-					href="/"
+					href="/signin"
 				>
-					Go back home
+					Login
 				</Link>
 			</div>
 		</main>

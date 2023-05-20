@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import AuthInput from '@/components/AuthInput';
 import { useRouter } from 'next/navigation';
 import { SnackbarContext } from '@/components/Snackbar/SnackbarProvider';
 import { useAuth } from '@/components/providers/supabase-auth-provider';
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
 	const [values, setValues] = useState({
@@ -14,12 +15,9 @@ export default function Page() {
 	});
 	const { setSnackbar } = useContext(SnackbarContext);
 	const router = useRouter();
+	const params = useSearchParams();
+	const fromPath = params.get('from');
 	const { signInWithCredentials, user } = useAuth();
-	useEffect(() => {
-		if (user) {
-			router.push('/');
-		}
-	}, [user]);
 	const inputDetails = [
 		{
 			id: 1,
@@ -45,7 +43,7 @@ export default function Page() {
 	) => {
 		e.preventDefault();
 		setSnackbar({
-			message: 'Logging In',
+			message: 'Logging In...',
 			type: 'promise'
 		});
 		const error = await signInWithCredentials(
@@ -62,7 +60,7 @@ export default function Page() {
 			message: 'Logged in successfully',
 			type: 'success'
 		});
-		return router.push('/');
+		return router.push(fromPath ?? '/');
 	};
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement>

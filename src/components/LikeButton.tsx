@@ -17,7 +17,10 @@ export default function LikeButton({
 	const { setSnackbar } = useContext(SnackbarContext);
 	const { user } = useAuth();
 	const router = useRouter();
-	const handleSubmit = async function (e: React.FormEvent) {
+	const handleSubmit = async function (
+		e: React.MouseEvent<HTMLButtonElement>
+	) {
+		e.preventDefault();
 		if (!user) {
 			setSnackbar({
 				message:
@@ -35,7 +38,7 @@ export default function LikeButton({
 		});
 		try {
 			const response = await fetch(
-				`/api/event/${eventId}/like`,
+				`/api/event/manage/${eventId}/like`,
 				{
 					method: likedState ? 'DELETE' : 'PUT',
 					headers: {
@@ -54,23 +57,38 @@ export default function LikeButton({
 					type: 'success'
 				});
 				setLikedState(!likedState);
+				setSubmitting(false);
 				return router.refresh();
 			}
-			return setSnackbar({
-				message: response.statusText,
+			if (response.status === 401) {
+				const result = await response.json();
+				setSnackbar({
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
+					type: 'failure'
+				});
+				router.push(result.url);
+				return;
+			}
+			setSnackbar({
+				message:
+					'Something went wrong 💥, login again to continue',
 				type: 'failure'
 			});
+			return;
 		} catch (err) {
 			console.error(err);
 		}
 	};
 	return (
-		<form onSubmit={handleSubmit}>
+		<form>
 			<button
 				className={`${
 					submitting ? 'hidden' : 'flex'
 				} h-7 w-7 items-center justify-center rounded-full bg-dominant text-accent`}
 				type="submit"
+				onClick={handleSubmit}
 			>
 				{likedState ? (
 					<svg

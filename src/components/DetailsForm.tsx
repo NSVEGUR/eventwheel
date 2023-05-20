@@ -167,7 +167,7 @@ export default function DetailsForm({
 			faqs: values.faqs
 		};
 		const response = await fetch(
-			`/api/event/${event.id}/details`,
+			`/api/event/manage/${event.id}/details`,
 			{
 				method: 'PATCH',
 				body: JSON.stringify(data),
@@ -180,14 +180,24 @@ export default function DetailsForm({
 				type: 'success'
 			});
 			return router.push(response.url);
-		} else {
+		}
+		if (response.status === 401) {
+			const result = await response.json();
 			setSnackbar({
-				message: response.statusText,
+				message:
+					result.message ??
+					'Something went wrong 💥, login again to continue',
 				type: 'failure'
 			});
-			setValues(DEFAULT_DETAILS);
-			return;
+			router.push(result.url);
+			return setValues(DEFAULT_DETAILS);
 		}
+		setSnackbar({
+			message:
+				'Something went wrong 💥, login again to continue',
+			type: 'failure'
+		});
+		return setValues(DEFAULT_DETAILS);
 	};
 	return (
 		<form

@@ -12,7 +12,7 @@ export async function getTicket(
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}

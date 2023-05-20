@@ -23,7 +23,7 @@ export const POST = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}
@@ -80,7 +80,7 @@ export const PATCH = catchAsync(async function (
 	} = await supabase.auth.getUser();
 	if (!user) {
 		throw new AppError(
-			'Authentication failed, login to continue',
+			'Authentication required, login to continue',
 			401
 		);
 	}

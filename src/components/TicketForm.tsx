@@ -76,14 +76,14 @@ export default function TicketForm({
 		}
 		try {
 			const response = await fetch(
-				`/api/event/${eventId}/tickets`,
+				`/api/event/manage/${eventId}/tickets`,
 				{
 					method: method,
 					body: JSON.stringify(data),
 					headers: { 'content-Type': 'application/json' }
 				}
 			);
-			if (response.status >= 200 && response.status < 300) {
+			if (response.status >= 200 && response.status < 400) {
 				setSnackbar({
 					message:
 						method === 'POST'
@@ -93,8 +93,20 @@ export default function TicketForm({
 				});
 				return router.push(response.url);
 			}
+			if (response.status === 401) {
+				const result = await response.json();
+				setSnackbar({
+					message:
+						result.message ??
+						'Something went wrong 💥, login again to continue',
+					type: 'failure'
+				});
+				router.push(result.url);
+				return setValues(ticket);
+			}
 			setSnackbar({
-				message: response.statusText,
+				message:
+					'Something went wrong 💥, login again to continue',
 				type: 'failure'
 			});
 			return setValues(ticket);

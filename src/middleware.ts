@@ -4,9 +4,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import type { Database } from '@/types/supabase';
 
-import { catchAsync } from '@/lib/server/catchAsync';
-
-const middleware = catchAsync(async (req: NextRequest) => {
+const middleware = async (req: NextRequest) => {
+	console.log('running middleware');
 	const res = NextResponse.next();
 	const supabase = createMiddlewareSupabaseClient<Database>(
 		{ req, res }
@@ -15,12 +14,23 @@ const middleware = catchAsync(async (req: NextRequest) => {
 		data: { session }
 	} = await supabase.auth.getSession();
 	if (!session) {
-		const url = new URL(req.url);
-		url.pathname = '/signin';
-		return NextResponse.redirect(url);
+		const { pathname } = req.nextUrl;
+		const url = new URL('/signin', req.url);
+		if (req.method === 'GET' && !pathname.includes('api')) {
+			url.searchParams.set('from', pathname);
+			return NextResponse.redirect(url);
+		}
+		return NextResponse.json(
+			{
+				success: false,
+				message: 'Authentication failed, login to continue',
+				url: url.href
+			},
+			{ status: 401 }
+		);
 	}
 	return res;
-});
+};
 
 export default middleware;
 
@@ -28,8 +38,8 @@ export const config = {
 	matcher: [
 		'/manage/:path*',
 		'/tickets/:path*',
-		'/likes/:path*',
-		'/api/event/:path*'
+		'/wishlist/:path*',
+		'/api/event/manage/:path*'
 	]
 };
 

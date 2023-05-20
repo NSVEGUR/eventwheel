@@ -35,7 +35,7 @@ export default function EventNav({
 	];
 	return (
 		<div className="flex h-full w-full overflow-hidden">
-			<nav className="flex h-screen w-56 border-r-[1px] border-base bg-dominant">
+			<nav className="flex h-screen w-56 border-r-[1px] border-base bg-dominant -lg:hidden">
 				<ul className="flex w-full flex-col gap-2">
 					<li>
 						<Link
