@@ -28,7 +28,7 @@ export default function Menu({ showMenu }: Props) {
 		<>
 			{showMenu && (
 				<menu
-					className="fixed right-16 top-16 z-50 flex min-w-[200px] flex-col gap-2 rounded-lg border-[1px] border-base bg-dominant p-3 text-base shadow-md"
+					className="fixed right-16 top-16 z-50 flex min-w-[200px] flex-col gap-2 rounded-lg border-[1px] border-base bg-dominant p-3 text-base shadow-md -lg:right-2"
 					id="menu"
 				>
 					<div className="my-2 flex gap-2 text-sm">

@@ -9,7 +9,7 @@ const error = ({
 	reset: () => void;
 }) => {
 	return (
-		<main className="flex h-screen w-screen flex-col items-center justify-center gap-5">
+		<main className="flex h-screen w-screen flex-col items-center justify-center gap-5 text-center">
 			<h2 className="font-medium text-accent">
 				There was a problem
 			</h2>

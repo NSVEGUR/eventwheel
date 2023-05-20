@@ -1,14 +1,9 @@
 import 'server-only';
 import { getImage } from '@/lib/server/image';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { getEventsUnAuthenticated } from '@/lib/server/event';
 import AuthPopup from '@/components/AuthPopup';
-
-const EventCard = dynamic(
-	() => import('@/components/EventCard'),
-	{ ssr: false }
-);
+import EventView from '@/components/EventView';
 
 export default async function Home() {
 	const events = await getEventsUnAuthenticated();
@@ -19,12 +14,14 @@ export default async function Home() {
 		<AuthPopup>
 			<section className="flex flex-col items-center justify-center">
 				<div className="relative flex h-96 w-full flex-col items-center justify-center gap-3 bg-accent bg-gradient-mesh text-center text-skin-inverted">
-					<h1 className="text-5xl font-bold">Eventmate.</h1>
-					<h3>
+					<h1 className="text-5xl font-bold -md:text-xl">
+						Eventmate.
+					</h1>
+					<h3 className="-md:text-sm">
 						The affordable and reliable event ticket
 						management platform you will ever find
 					</h3>
-					<div className="flex w-full items-center justify-center gap-3">
+					<div className="flex w-full items-center justify-center gap-3 -md:flex-col">
 						<Link
 							href="/manage"
 							className="w-[150px] rounded-md border-[2px] border-accent bg-transparent p-2 text-center text-accent"
@@ -40,20 +37,13 @@ export default async function Home() {
 					</div>
 				</div>
 				{events.length === 0 ? (
-					<h1 className="text-2xl font-medium text-skin-complementary">
-						No Events were found
-					</h1>
-				) : (
-					<div className="grid grid-cols-4 gap-5 px-20 py-10 -xl:grid-cols-3 -lg:grid-cols-2 -sm:grid-cols-1 -sm:px-2">
-						{events.map(({ liked, ...event }) => {
-							return (
-								<EventCard
-									key={event.id}
-									{...{ event, liked }}
-								/>
-							);
-						})}
+					<div className="flex h-full w-full items-center justify-center">
+						<h1 className="text-center text-2xl font-medium text-skin-complementary">
+							No Events were found
+						</h1>
 					</div>
+				) : (
+					<EventView {...{ events }} />
 				)}
 			</section>
 		</AuthPopup>

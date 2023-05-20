@@ -73,7 +73,7 @@ export default function WishlistButton({
 			<input
 				className={`${
 					submitting ? 'hidden' : 'flex'
-				} items-center justify-center rounded-md border-[2px] border-accent bg-transparent p-2 font-medium text-accent`}
+				} w-full items-center justify-center rounded-md border-[2px] border-accent bg-dominant p-2 font-medium text-accent`}
 				type="submit"
 				value={
 					likedState

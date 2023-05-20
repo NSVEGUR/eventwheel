@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useAuth } from './providers/supabase-auth-provider';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface Props {
 	showNavBar: Boolean;
@@ -14,6 +15,35 @@ export default function Nav({
 	setShowNavBar
 }: Props) {
 	const { user, signOut } = useAuth();
+	const path = usePathname();
+	const hyperlinks = [
+		{
+			name: 'Home',
+			path: '/',
+			active: path === '/'
+		},
+		{
+			name: 'Create',
+			path: '/manage/create',
+			active: false
+		},
+		{
+			name: 'Manage',
+			path: '/manage',
+			active: false
+		},
+		{
+			name: 'Wishlist',
+			path: '/wishlist',
+			active: path === '/wishlist'
+		},
+		{
+			name: 'Tickets',
+			path: '/tickets',
+			active: path === '/tickets'
+		}
+	];
+	useEffect(() => {}, []);
 	return (
 		<ul
 			className={`flex h-full items-center gap-10 bg-dominant -md:fixed -md:left-0 -md:top-16 -md:z-[999] -md:h-screen -md:w-screen -md:flex-col -md:overflow-hidden
@@ -24,18 +54,19 @@ export default function Nav({
 				}
 				 transition-all duration-300`}
 		>
-			<li className="font-medium text-complementary">
-				<Link href="/manage/create">Create</Link>
-			</li>
-			<li>
-				<Link href="/">Home</Link>
-			</li>
-			<li>
-				<Link href="/wishlist">Wishlist</Link>
-			</li>
-			<li>
-				<Link href="/tickets">Tickets</Link>
-			</li>
+			{hyperlinks.map((link, index) => {
+				return (
+					<li
+						key={index}
+						className={`rounded-md ${
+							link.active &&
+							'bg-gradient-mesh px-2 py-1 font-medium'
+						}`}
+					>
+						<Link href={link.path}>{link.name}</Link>
+					</li>
+				);
+			})}
 			<li>
 				{user ? (
 					<button

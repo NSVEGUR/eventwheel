@@ -53,11 +53,11 @@ export default function Header({
 					Eventmate
 				</span>
 			</div>
-			<div className="flex h-full items-center gap-5 text-sm">
+			<div className="flex h-full items-center gap-5 text-sm -lg:gap-2">
 				{pathname !== '/manage/create' && (
 					<Link
 						href="/manage/create"
-						className="flex items-center justify-center gap-2 rounded-full border-[1px] border-complementary p-1 px-2 text-complementary hover:bg-muted"
+						className="flex items-center justify-center gap-2 rounded-full border-[1px] border-complementary p-1 px-2 text-complementary hover:bg-muted -lg:px-1"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ export default function Header({
 								d="M12 4.5v15m7.5-7.5h-15"
 							/>
 						</svg>
-						Create
+						<span className="-lg:hidden">Create</span>
 					</Link>
 				)}
 				<button

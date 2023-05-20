@@ -20,8 +20,8 @@ export default function AuthPop({
 	return (
 		<>
 			{!authState && (
-				<div className="fixed inset-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70">
-					<div className="relative flex w-[50%] max-w-[500px] flex-col items-center justify-center gap-5 rounded-md bg-dominant p-10 text-center">
+				<div className="fixed inset-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 -md:items-end">
+					<div className="relative flex w-[50%] max-w-[500px] flex-col items-center justify-center gap-5 rounded-md bg-dominant p-10 text-center -md:w-full">
 						<button
 							className="absolute right-8 top-5"
 							onClick={closePopup}

@@ -601,6 +601,7 @@ export default function CreationForm({
 											type="date"
 											required
 											name="endDate"
+											min={values.startDate}
 											onChange={handleChange}
 											value={values.endDate}
 											className="border-[1px] border-base p-3 outline-accent"
