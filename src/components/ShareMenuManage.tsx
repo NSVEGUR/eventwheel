@@ -10,7 +10,7 @@ export default function ShareMenuManage({
 		<>
 			<div className="flex flex-col gap-2">
 				<h1 className="font-medium">Event URL</h1>
-				<div className="flex gap-5">
+				<div className="flex flex-wrap gap-5">
 					<h2>{baseURL + eventId}</h2>
 					<button>
 						<i className="far fa-copy text-complementary"></i>

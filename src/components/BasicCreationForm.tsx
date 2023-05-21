@@ -61,18 +61,34 @@ export default function CreationForm({
 	const [day, setDay] = useState('single');
 	const [values, setValues] =
 		useState<CreationFormEntries>(event);
+	const [selection, setSelection] = useState({
+		type: 'Appearance or Singing',
+		category: 'Auto, Boat & Air'
+	});
 	useEffect(() => {
-		const category = eventCategories[values.category][0];
+		const category = eventCategories[selection.category][0];
 		if (category === 'Other') {
 			setSubCategory(undefined);
 		}
-		setSubCategory(eventCategories[values.category][0]);
-	}, [values.category]);
+		setSubCategory(eventCategories[selection.category][0]);
+	}, [selection.category]);
 	const handleChange = (
 		e: React.ChangeEvent<
 			HTMLInputElement | HTMLSelectElement
 		>
 	) => {
+		setValues({
+			...values,
+			[e.target.name]: e.target.value
+		});
+	};
+	const handleSelection = (
+		e: React.ChangeEvent<HTMLSelectElement>
+	) => {
+		setSelection({
+			...selection,
+			[e.target.name]: e.target.value
+		});
 		setValues({
 			...values,
 			[e.target.name]: e.target.value
@@ -95,10 +111,6 @@ export default function CreationForm({
 				type: 'failure'
 			});
 		}
-		setSnackbar({
-			message: 'Creating event with basic details',
-			type: 'promise'
-		});
 		const body = {
 			userId: user.id,
 			...others,
@@ -106,6 +118,18 @@ export default function CreationForm({
 			ends: new Date(endDate + ' ' + endTime),
 			subCategory
 		};
+
+		if (body.starts >= body.ends) {
+			return setSnackbar({
+				message: 'Events end must be greater than start',
+				type: 'failure'
+			});
+		}
+
+		setSnackbar({
+			message: 'Creating event with basic details',
+			type: 'promise'
+		});
 		try {
 			let response;
 			if (eventId && method === 'PATCH') {
@@ -254,8 +278,8 @@ export default function CreationForm({
 							<select
 								name="type"
 								className="border-[1px] border-base bg-dominant p-3 outline-none"
-								onChange={handleChange}
-								value={values.type}
+								onChange={handleSelection}
+								value={selection.type}
 							>
 								{eventTypes.map((eventType, index) => {
 									return (
@@ -266,6 +290,24 @@ export default function CreationForm({
 								})}
 							</select>
 						</div>
+						{selection.type === 'Other' && (
+							<div className="flex w-full flex-col gap-3">
+								<label htmlFor="type">
+									Others type{' '}
+									<span className="text-complementary">
+										*
+									</span>
+								</label>
+								<input
+									type="text"
+									required
+									name="type"
+									className="border-[1px] border-base p-3 outline-accent"
+									onChange={handleChange}
+									value={values.type}
+								/>
+							</div>
+						)}
 						<div className="flex w-full flex-col gap-2">
 							<label htmlFor="category">
 								Category{' '}
@@ -280,9 +322,9 @@ export default function CreationForm({
 									setSubCategories(
 										eventCategories[e.target.value]
 									);
-									handleChange(e);
+									handleSelection(e);
 								}}
-								value={values.category}
+								value={selection.category}
 							>
 								{Object.keys(eventCategories).map(
 									(eventCategory, index) => {
@@ -298,6 +340,24 @@ export default function CreationForm({
 								)}
 							</select>
 						</div>
+						{selection.category === 'Other' && (
+							<div className="flex w-full flex-col gap-3">
+								<label htmlFor="category">
+									Others category{' '}
+									<span className="text-complementary">
+										*
+									</span>
+								</label>
+								<input
+									type="text"
+									required
+									name="category"
+									className="border-[1px] border-base p-3 outline-accent"
+									onChange={handleChange}
+									value={values.category}
+								/>
+							</div>
+						)}
 						{subCategory && (
 							<div className="flex w-full flex-col gap-2">
 								<label htmlFor="subCategory">

@@ -14,7 +14,6 @@ export const eventTypes = [
 	'Festival or Fair',
 	'Game or Competition',
 	'Meeting or Networking Event',
-	'Other',
 	'Party or Social Gathering',
 	'Race or Endurance Event',
 	'Rally',
@@ -22,7 +21,8 @@ export const eventTypes = [
 	'Seminar or Talk',
 	'Tour',
 	'Tournament',
-	'Trade Show, Consumer Show or Expo'
+	'Trade Show, Consumer Show or Expo',
+	'Other'
 ];
 
 export const eventCategories: {
@@ -179,7 +179,6 @@ export const eventCategories: {
 		'Top 40',
 		'World'
 	],
-	Other: [],
 	'Performing & Visual Arts': [
 		'Ballet',
 		'Comedy',
@@ -283,5 +282,6 @@ export const eventCategories: {
 		'Other',
 		'Rafting',
 		'Travel'
-	]
+	],
+	Other: []
 };

@@ -55,8 +55,8 @@ export default async function Page({
 					</div>
 				</div>
 			</div>
-			<div className="my-10 flex justify-between -md:flex-col">
-				<h1 className="text-3xl font-bold">
+			<div className="my-10 flex justify-between">
+				<h1 className="whitespace-pre-wrap text-3xl font-bold">
 					Withdrawal Requests
 				</h1>
 				<Link
@@ -66,23 +66,23 @@ export default async function Page({
 					Create New
 				</Link>
 			</div>
-			<ul className="grid h-10 grid-cols-7 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium">
+			<ul className="grid h-10 grid-cols-7 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -md:grid-cols-3">
 				<li className="flex items-center gap-1 place-self-start">
 					<span>Id</span>
 				</li>
-				<li className="flex items-center gap-1 place-self-start">
+				<li className="flex items-center gap-1 place-self-start -md:hidden">
 					<span>Transit Number</span>
 				</li>
-				<li className="place-self-start">
+				<li className="place-self-start -md:hidden">
 					<span>Institution Number</span>
 				</li>
-				<li className="place-self-start">
+				<li className="place-self-start -md:hidden">
 					<span>Account Number</span>
 				</li>
 				<li className="place-self-start">
 					<span>Amount ($)</span>
 				</li>
-				<li className="place-self-start">
+				<li className="place-self-start -md:hidden">
 					<span>Created At</span>
 				</li>
 				<li className="place-self-start">
@@ -92,25 +92,25 @@ export default async function Page({
 			{withdrawalRequests.map((withdrawal, index) => {
 				return (
 					<ul
-						className="grid min-h-[40px] grid-cols-7 place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium"
+						className="grid min-h-[40px] grid-cols-7 place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -md:grid-cols-3"
 						key={index}
 					>
-						<li className="flex items-center gap-1 place-self-start">
+						<li className="place-self-start">
 							<span>{withdrawal.id}</span>
 						</li>
-						<li className="place-self-start">
+						<li className="place-self-start -md:hidden">
 							<span>{withdrawal.transitNumber}</span>
 						</li>
-						<li className="flex items-center gap-1 place-self-start">
+						<li className="place-self-start -md:hidden">
 							<span>{withdrawal.institutionNumber}</span>
 						</li>
-						<li className="place-self-start">
+						<li className="place-self-start -md:hidden">
 							<span>{withdrawal.accountNumber}</span>
 						</li>
 						<li className="place-self-start">
 							<span>{withdrawal.amount}</span>
 						</li>
-						<li className="place-self-start">
+						<li className="place-self-start -md:hidden">
 							<span>
 								{formatDateWithAmPm(withdrawal.createdAt)}
 							</span>

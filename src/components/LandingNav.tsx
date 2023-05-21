@@ -60,7 +60,7 @@ export default function Nav({
 						key={index}
 						className={`rounded-md ${
 							link.active &&
-							'bg-gradient-mesh px-2 py-1 font-medium'
+							'bg-accent px-2 py-1 font-medium text-skin-inverted'
 						}`}
 					>
 						<Link href={link.path}>{link.name}</Link>
@@ -70,7 +70,7 @@ export default function Nav({
 			<li>
 				{user ? (
 					<button
-						className="flex items-center gap-2 rounded-md border-[1px] border-base bg-accent p-1 text-skin-inverted"
+						className="flex items-center gap-2 rounded-md border-[1px] border-base bg-complementary p-1 text-skin-inverted"
 						onClick={() => {
 							signOut();
 						}}
