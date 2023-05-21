@@ -4,6 +4,8 @@ import { stripe } from '@/lib/server/stripe';
 import { prisma } from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
 import { transporter } from '@/lib/server/mail';
+import ConfirmationTemplate from '@/lib/templates/confirmation.html';
+import { formatDateWithAmPm } from '@/utils/date';
 
 export const POST = catchAsync(async (req: Request) => {
 	const payload = await req.text();
@@ -116,7 +118,23 @@ export const POST = catchAsync(async (req: Request) => {
 			from: process.env.SMTP_USERNAME,
 			to: customer_details.email,
 			subject: 'Booking confirmation',
-			text: `Your tickets have been booked for the event ${currentEvent.title} with id ${currentEvent.id}`
+			text: ConfirmationTemplate.replace(
+				'$EVENT_NAME$',
+				currentEvent.title
+			)
+				.replace(
+					'$EVENT_LINK$',
+					`https://eventmate.vercel.app/${currentEvent.id}`
+				)
+				.replace('$EVENT_LOCATION$', currentEvent.location)
+				.replace(
+					'$EVENT_STARTS$',
+					formatDateWithAmPm(currentEvent.starts)
+				)
+				.replace(
+					'$TICKET_LINK$',
+					`https://eventmate.vercel.app/tickets`
+				)
 		};
 		const info = await transporter.sendMail(message);
 		return NextResponse.json(
