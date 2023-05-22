@@ -183,7 +183,7 @@ export async function getEventUnAuthenticated(id: string) {
 				tickets: true
 			}
 		});
-		if (!event) {
+		if (!event || !event.published) {
 			throw new AppError('Event not found', 404);
 		}
 		const { likedUsers, ...others } = event;
