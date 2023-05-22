@@ -131,7 +131,7 @@ export const POST = catchAsync(async (req: Request) => {
 				)
 				.replace(
 					'$TICKET_LINK$',
-					baseURL + `tickets/${ticket.id}`
+					baseURL + `tickets/${userTicket.id}`
 				)
 		};
 		const info = await transporter.sendMail(message);
