@@ -46,7 +46,6 @@ export default function DetailsForm({
 	const { setSnackbar } = useContext(SnackbarContext);
 	const router = useRouter();
 	useEffect(() => {
-		console.log(event.image, 'useeffect');
 		if (event.image) {
 			downloadImage(event.image);
 		}

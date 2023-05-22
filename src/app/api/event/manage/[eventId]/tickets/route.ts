@@ -37,13 +37,6 @@ export const POST = catchAsync(async function (
 	}
 	const { type, description, price, available } =
 		(await req.json()) as AdminTicket;
-	console.log(
-		'ticket creation',
-		type,
-		description,
-		price,
-		available
-	);
 	const stripeProduct = await stripe.products.create({
 		name: type,
 		description: description

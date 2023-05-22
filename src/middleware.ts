@@ -5,7 +5,6 @@ import type { NextRequest } from 'next/server';
 import type { Database } from '@/types/supabase';
 
 const middleware = async (req: NextRequest) => {
-	console.log('running middleware');
 	const res = NextResponse.next();
 	const supabase = createMiddlewareSupabaseClient<Database>(
 		{ req, res }

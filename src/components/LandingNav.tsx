@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useAuth } from './providers/supabase-auth-provider';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { usePathname } from 'next/navigation';
 
 interface Props {
@@ -43,14 +43,13 @@ export default function Nav({
 			active: path === '/tickets'
 		}
 	];
-	useEffect(() => {}, []);
 	return (
 		<ul
 			className={`flex h-full items-center gap-10 bg-dominant -md:fixed -md:left-0 -md:top-16 -md:z-[999] -md:h-screen -md:w-screen -md:flex-col -md:overflow-hidden
 				${
 					showNavBar
-						? '-md:-translate-x-full'
-						: '-md:-translate-x-0'
+						? '-md:-translate-x-0'
+						: '-md:-translate-x-full'
 				}
 				 transition-all duration-300`}
 		>
@@ -58,7 +57,7 @@ export default function Nav({
 				return (
 					<li
 						key={index}
-						className={`rounded-md ${
+						className={`hyperlink rounded-md ${
 							link.active &&
 							'bg-accent px-2 py-1 font-medium text-skin-inverted'
 						}`}

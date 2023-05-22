@@ -34,7 +34,7 @@ export default async function Page({
 			</div>
 			<section className="h-full w-full px-28 -md:px-3">
 				<div className="flex flex-col gap-5 py-10">
-					<h1 className="text-center text-4xl font-bold">
+					<h1 className="text-center text-4xl font-bold md:hidden">
 						{event.title}
 					</h1>
 					<div className="flex items-center justify-evenly -md:hidden">

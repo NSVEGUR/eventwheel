@@ -1,10 +1,19 @@
 'use client';
 import Image from 'next/image';
 import LandingNav from './LandingNav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
-	const [showNavBar, setShowNavBar] = useState(true);
+	const [showNavBar, setShowNavBar] = useState(false);
+	useEffect(() => {
+		const hyperlinks =
+			document.querySelectorAll('.hyperlink');
+		hyperlinks.forEach((link, index) => {
+			link.addEventListener('click', () => {
+				setShowNavBar(false);
+			});
+		});
+	}, []);
 	return (
 		<header className="sticky top-0 z-20 flex h-16 w-screen items-center justify-between gap-5 bg-dominant px-16 shadow-md -lg:px-5">
 			<button

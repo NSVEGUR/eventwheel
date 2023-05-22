@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Header from '@/components/ManageHeader';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function SideMenu({
 	children
@@ -122,6 +122,15 @@ export default function SideMenu({
 			)
 		}
 	];
+	useEffect(() => {
+		const hyperlinks =
+			document.querySelectorAll('.hyperlink');
+		hyperlinks.forEach((link, index) => {
+			link.addEventListener('click', () => {
+				setShowNavBar(false);
+			});
+		});
+	}, []);
 	return (
 		<main className="h-screen w-screen overflow-hidden">
 			<Header {...{ showNavBar, setShowNavBar }} />

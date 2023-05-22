@@ -556,7 +556,7 @@ export default function CreationForm({
 									Single event happens once and can last
 									multiple days
 								</h1>
-								<div className="mt-10 flex justify-evenly gap-5">
+								<div className="mt-10 flex justify-evenly gap-5 -sm:flex-col">
 									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startDate">
 											Event Starts{' '}
@@ -590,7 +590,7 @@ export default function CreationForm({
 										/>
 									</div>
 								</div>
-								<div className="flex justify-evenly gap-5">
+								<div className="flex justify-evenly gap-5 -sm:flex-col">
 									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="endDate">
 											Event Ends{' '}
@@ -633,7 +633,7 @@ export default function CreationForm({
 									from start to end date based on recurrent
 									preferences
 								</h1>
-								<div className="mt-10 flex justify-evenly gap-5">
+								<div className="mt-10 flex justify-evenly gap-5 -sm:flex-col">
 									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startDate">
 											Event Starts{' '}
@@ -683,7 +683,7 @@ export default function CreationForm({
 										<option value="Monthly">Monthly</option>
 									</select>
 								</div>
-								<div className="flex justify-evenly gap-5">
+								<div className="flex justify-evenly gap-5 -sm:flex-col">
 									<div className="flex w-full flex-col gap-3">
 										<label htmlFor="startTime">
 											Start Time{' '}
@@ -740,7 +740,7 @@ export default function CreationForm({
 								</p>
 							</label>
 						</div>
-						<div className="flex gap-3 text-sm">
+						<div className="flex gap-3 text-sm -sm:mb-40">
 							<input
 								type="checkbox"
 								name="displayEnd"

@@ -38,7 +38,6 @@ export default function WishlistButton({
 				}
 			);
 			if (response.status >= 200 && response.status < 400) {
-				console.log('this is running positive');
 				setSnackbar({
 					message: likedState
 						? 'Removed from wishlist'

@@ -22,7 +22,7 @@ export default function EventCard({
 						src={event.image}
 						alt="Event image"
 						fill
-						className="object-cover"
+						className="bg-muted object-cover"
 					/>
 				) : (
 					<div className="h-full w-full bg-muted"></div>

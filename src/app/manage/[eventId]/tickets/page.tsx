@@ -10,7 +10,7 @@ export default async function Page({
 }) {
 	const event = await getEvent(params.eventId);
 	return (
-		<div className="grid grid-cols-3 gap-5 p-10">
+		<div className="grid grid-cols-3 gap-5 p-10 -md:grid-cols-1">
 			{event.tickets.map((ticket, index) => {
 				return (
 					<div

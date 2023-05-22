@@ -17,7 +17,7 @@ export default async function Page({
 	const imgUrl = getImage(event.image);
 	return (
 		<section className="relative h-screen w-full overflow-scroll">
-			<div className="mb-60 flex flex-col gap-5 p-10">
+			<div className="mb-60 flex flex-col gap-5 p-10 -sm:px-1">
 				<h1 className="text-center text-4xl font-bold">
 					{event.title}
 				</h1>
@@ -102,13 +102,7 @@ export default async function Page({
 						Tickets
 					</h1>
 					<div
-						className={`grid gap-5 ${
-							event.tickets.length === 1 && 'grid-cols-1'
-						} ${
-							event.tickets.length === 2 && 'grid-cols-2'
-						} ${
-							event.tickets.length >= 3 && 'grid-cols-3'
-						}`}
+						className="flex flex-wrap items-center justify-center"
 						id="tickets"
 					>
 						{event.tickets.map((ticket, index) => {

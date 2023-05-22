@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function EventNav({
 	id,
@@ -35,6 +35,15 @@ export default function EventNav({
 			active: path === `/manage/${id}/publish`
 		}
 	];
+	useEffect(() => {
+		const hyperlinks =
+			document.querySelectorAll('.eventLink');
+		hyperlinks.forEach((link, index) => {
+			link.addEventListener('click', () => {
+				setShowNavBar(false);
+			});
+		});
+	});
 	return (
 		<>
 			<button
@@ -63,15 +72,15 @@ export default function EventNav({
 					className={`flex h-screen w-56 border-r-[1px] border-base bg-dominant -lg:fixed -lg:z-20 -lg:h-screen -lg:w-full 
 						${
 							showNavBar
-								? ' -lg:translate-y-full'
-								: ' -lg:translate-y-0'
+								? ' -lg:translate-y-0'
+								: ' -lg:translate-y-full'
 						} transition-all duration-300`}
 				>
 					<ul className="flex w-full flex-col gap-2">
 						<li>
 							<Link
 								href="/manage"
-								className="flex items-center gap-2 bg-muted-hover p-2 text-complementary hover:underline"
+								className="eventLink flex items-center gap-2 bg-muted-hover p-2 text-complementary hover:underline"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +102,7 @@ export default function EventNav({
 						<li className="p-2 text-2xl font-medium text-accent">
 							<Link
 								href={`/manage/${id}`}
-								className="flex items-center hover:text-complementary"
+								className="eventLink flex items-center hover:text-complementary"
 							>
 								Dashboard
 								<svg
@@ -115,7 +124,7 @@ export default function EventNav({
 						<li>
 							<Link
 								href={`/${id}`}
-								className="flex items-center gap-2 p-2 text-sm text-complementary hover:underline"
+								className="eventLink flex items-center gap-2 p-2 text-sm text-complementary hover:underline"
 							>
 								Preview{' '}
 								<svg
@@ -139,7 +148,7 @@ export default function EventNav({
 								return (
 									<Link
 										href={hyperlink.link}
-										className={`flex gap-2 p-2 ${
+										className={`eventLink flex gap-2 p-2  ${
 											hyperlink.active
 												? 'bg-muted-hover'
 												: 'hover:bg-muted'
