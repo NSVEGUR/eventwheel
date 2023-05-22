@@ -1,6 +1,5 @@
 import { getEvent } from '@/lib/server/event';
 import WithdrawalForm from '@/components/WithdrawalForm';
-import { Event } from '@prisma/client';
 
 export const revalidate = 30;
 
