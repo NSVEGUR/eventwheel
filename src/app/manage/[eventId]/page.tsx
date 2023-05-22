@@ -55,7 +55,7 @@ export default async function Page({
 							Share
 						</h1>
 						<div className="flex flex-col gap-3">
-							<ShareMenuManage {...{ eventId: event.id }} />
+							<ShareMenuManage {...{ event: event }} />
 						</div>
 					</div>
 				</div>

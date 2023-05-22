@@ -2,25 +2,25 @@
 import { baseURL } from '@/lib/constants';
 import { useContext } from 'react';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
+import { Event } from '@prisma/client';
 
 export default function ShareMenuManage({
-	eventId
+	event
 }: {
-	eventId: string;
+	event: Event;
 }) {
 	const { setSnackbar } = useContext(SnackbarContext);
+	const url = baseURL + event.id;
 	return (
 		<>
 			<div className="flex flex-col gap-2">
 				<h1 className="font-medium">Event URL</h1>
 				<div className="flex flex-wrap gap-2">
-					<h2>{baseURL + eventId}</h2>
+					<h2>{url}</h2>
 					<button
 						onClick={() => {
 							try {
-								navigator.clipboard.writeText(
-									baseURL + eventId
-								);
+								navigator.clipboard.writeText(url);
 								setSnackbar({
 									message: 'Copied to clipboard',
 									type: 'success'
@@ -50,21 +50,33 @@ export default function ShareMenuManage({
 			<div className="flex flex-col gap-4">
 				<h1 className="font-medium">Share On</h1>
 				<div className="flex gap-3 text-accent">
-					<div>
+					<a
+						href={`https://www.facebook.com/share.php?u=${url}`}
+						title={event.title}
+					>
 						<i className="fab fa-facebook-f"></i>
-					</div>
-					<div>
+					</a>
+					<a
+						href={`https://twitter.com/share?url=${url}&text=${event.title}`}
+						title={event.title}
+					>
 						<i className="fab fa-twitter"></i>
-					</div>
-					<div>
+					</a>
+					<a
+						href={`mailto:?subject=Sharing ${event.title}&amp;body=Check out this event ${url}`}
+						title={event.title}
+					>
 						<i className="fas fa-envelope"></i>
-					</div>
-					<div>
+					</a>
+					<a
+						href={`https://linkedin.com/sharing/share-offsite/?url=${url}`}
+						title={event.title}
+					>
 						<i className="fab fa-linkedin-in"></i>
-					</div>
-					<div>
+					</a>
+					<a href={`whatsapp://send?text=${url}`}>
 						<i className="fab fa-whatsapp"></i>
-					</div>
+					</a>
 				</div>
 			</div>
 		</>
