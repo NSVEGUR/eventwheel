@@ -42,7 +42,10 @@ export default function Header({
 					/>
 				</svg>
 			</button>
-			<div className="flex items-center justify-center gap-3 -lg:ml-8">
+			<Link
+				className="flex items-center justify-center gap-3 -lg:ml-8"
+				href="/"
+			>
 				<Image
 					src="/logo.svg"
 					alt="Picture of Logo"
@@ -52,7 +55,7 @@ export default function Header({
 				<span className="text-2xl font-medium">
 					Eventmate
 				</span>
-			</div>
+			</Link>
 			<div className="flex h-full items-center gap-5 text-sm -lg:gap-2">
 				{pathname !== '/manage/create' && (
 					<Link

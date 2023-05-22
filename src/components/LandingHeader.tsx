@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import LandingNav from './LandingNav';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Header() {
 	const [showNavBar, setShowNavBar] = useState(false);
@@ -37,7 +38,10 @@ export default function Header() {
 					/>
 				</svg>
 			</button>
-			<div className="flex items-center justify-center gap-3 -md:ml-8 ">
+			<Link
+				className="flex items-center justify-center gap-3 -md:ml-8 "
+				href="/"
+			>
 				<Image
 					src="/logo.svg"
 					alt="Picture of Logo"
@@ -47,7 +51,7 @@ export default function Header() {
 				<span className="text-2xl font-medium">
 					Eventmate
 				</span>
-			</div>
+			</Link>
 			<LandingNav {...{ showNavBar, setShowNavBar }} />
 		</header>
 	);

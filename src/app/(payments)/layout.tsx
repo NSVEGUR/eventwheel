@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Layout({
 	children
@@ -16,7 +17,7 @@ export default function Layout({
 				></Image>
 			</div>
 			<form className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-5">
-				<div className="flex items-center gap-2">
+				<Link className="flex items-center gap-2" href="/">
 					<Image
 						src="/logo.svg"
 						width={50}
@@ -26,7 +27,7 @@ export default function Layout({
 					<h1 className="text-3xl font-medium">
 						eventmate
 					</h1>
-				</div>
+				</Link>
 				{children}
 			</form>
 		</main>

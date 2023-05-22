@@ -67,6 +67,7 @@ model UserTicket{
   email String
   name String?
   phone String?
+  checkoutSessionId String@unique
   ticketId String
   ticket AdminTicket@relation(fields: [ticketId], references: [id])
   userId String?

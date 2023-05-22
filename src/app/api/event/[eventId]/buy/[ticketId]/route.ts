@@ -43,7 +43,9 @@ export const POST = catchAsync(async function (
 		phone_number_collection: {
 			enabled: true
 		},
-		success_url: process.env.NEXT_PUBLIC_URL + '/success',
+		success_url:
+			process.env.NEXT_PUBLIC_URL +
+			'/success?sessionId={CHECKOUT_SESSION_ID}',
 		cancel_url: process.env.NEXT_PUBLIC_URL + '/cancel'
 	});
 	return NextResponse.json({

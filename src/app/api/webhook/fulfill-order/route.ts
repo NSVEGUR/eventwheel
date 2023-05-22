@@ -100,6 +100,7 @@ export const POST = catchAsync(async (req: Request) => {
 			data: {
 				userId: user?.id,
 				ticketId: ticket.id,
+				checkoutSessionId: session.id,
 				email: customer_details.email,
 				name: customer_details.name,
 				phone: customer_details.phone
