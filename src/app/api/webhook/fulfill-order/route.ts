@@ -129,7 +129,10 @@ export const POST = catchAsync(async (req: Request) => {
 					'$EVENT_STARTS$',
 					formatDateWithAmPm(currentEvent.starts)
 				)
-				.replace('$TICKET_LINK$', baseURL + 'tickets')
+				.replace(
+					'$TICKET_LINK$',
+					baseURL + `tickets/${ticket.id}`
+				)
 		};
 		const info = await transporter.sendMail(message);
 		return NextResponse.json(

@@ -4,6 +4,7 @@ import prisma from '@/lib/server/prisma';
 import { createServerClient } from '@/utils/supabase-server';
 import { getImage } from '@/lib/server/image';
 import Image from 'next/image';
+import Link from 'next/link';
 
 async function getMyTickets() {
 	try {
@@ -91,9 +92,10 @@ export default async function Page() {
 					<div className="grid grid-cols-4 gap-10 p-10 -lg:grid-cols-3 -md:grid-cols-2 -sm:grid-cols-1">
 						{tickets.map((ticket, index) => {
 							return (
-								<div
+								<Link
+									href={`/tickets/${ticket.id}`}
 									key={index}
-									className="flex flex-col gap-3 rounded-md border-[1px] border-base p-5 text-sm shadow-md"
+									className="flex flex-col gap-3 rounded-md p-5 text-sm shadow-md"
 								>
 									<div className="flex gap-1">
 										<div className="relative h-10 w-10 rounded-md bg-muted">
@@ -136,7 +138,7 @@ export default async function Page() {
 											{ticket.description}
 										</span>
 									</h1>
-								</div>
+								</Link>
 							);
 						})}
 					</div>

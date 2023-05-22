@@ -10,18 +10,18 @@ export default function AuthPop({
 }: {
 	children: React.ReactNode;
 }) {
-	const { user } = useAuth();
+	const { user, isLoading } = useAuth();
 	const [authState, setAuthState] = useState(true);
 	function closePopup() {
 		setAuthState(true);
 	}
 	useEffect(() => {
 		setTimeout(() => {
-			if (!user) {
+			if (!user && !isLoading) {
 				setAuthState(false);
 			}
 		}, 1000);
-	}, [user]);
+	}, [user, isLoading]);
 	return (
 		<>
 			{!authState && (

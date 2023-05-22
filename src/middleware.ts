@@ -36,7 +36,7 @@ export default middleware;
 export const config = {
 	matcher: [
 		'/manage/:path*',
-		'/tickets/:path*',
+		'/tickets/',
 		'/wishlist/:path*',
 		'/api/event/manage/:path*'
 	]
