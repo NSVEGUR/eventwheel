@@ -3,7 +3,7 @@
 import { useAuth } from '@/components/providers/supabase-auth-provider';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AuthPop({
 	children
@@ -11,12 +11,17 @@ export default function AuthPop({
 	children: React.ReactNode;
 }) {
 	const { user } = useAuth();
-	const [authState, setAuthState] = useState(
-		user ? true : false
-	);
+	const [authState, setAuthState] = useState(true);
 	function closePopup() {
 		setAuthState(true);
 	}
+	useEffect(() => {
+		setTimeout(() => {
+			if (!user) {
+				setAuthState(false);
+			}
+		}, 1000);
+	}, [user]);
 	return (
 		<>
 			{!authState && (

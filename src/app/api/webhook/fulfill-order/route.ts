@@ -118,7 +118,7 @@ export const POST = catchAsync(async (req: Request) => {
 			from: process.env.SMTP_USERNAME,
 			to: customer_details.email,
 			subject: 'Booking confirmation',
-			text: ConfirmationTemplate.replace(
+			html: ConfirmationTemplate.replace(
 				'$EVENT_NAME$',
 				currentEvent.title
 			)
