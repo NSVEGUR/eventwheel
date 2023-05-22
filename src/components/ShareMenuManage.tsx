@@ -74,7 +74,10 @@ export default function ShareMenuManage({
 					>
 						<i className="fab fa-linkedin-in"></i>
 					</a>
-					<a href={`whatsapp://send?text=${url}`}>
+					<a
+						href={`whatsapp://send?text=${url}`}
+						title={event.title}
+					>
 						<i className="fab fa-whatsapp"></i>
 					</a>
 				</div>
