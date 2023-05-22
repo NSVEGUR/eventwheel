@@ -4,7 +4,7 @@ import { stripe } from '@/lib/server/stripe';
 import { prisma } from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
 import { transporter } from '@/lib/server/mail';
-import ConfirmationTemplate from '@/lib/templates/confirmation.html';
+import { ConfirmationTemplate } from '@/lib/templates/confirmation';
 import { formatDateWithAmPm } from '@/utils/date';
 
 export const POST = catchAsync(async (req: Request) => {
