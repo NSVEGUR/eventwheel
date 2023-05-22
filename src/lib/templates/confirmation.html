@@ -1,4 +1,4 @@
-export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:v="urn:schemas-microsoft-com:vml"
@@ -914,20 +914,8 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																						font-size: 14px;
 																						line-height: 28px;
 																					"
-																					><svg
-																						xmlns="http://www.w3.org/2000/svg"
-																						fill="none"
-																						viewBox="0 0 24 24"
-																						stroke-width="1.5"
-																						stroke="currentColor"
-																						width="20"
-																					>
-																						<path
-																							stroke-linecap="round"
-																							stroke-linejoin="round"
-																							d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-																						/>
-																					</svg> </span></strong
+																					>Starts:
+																				</span></strong
 																			> </span
 																		>
 																		$EVENT_STARTS$
@@ -945,26 +933,9 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																				line-height: 28px;
 																			"
 																			><strong
-																				><svg
-																					xmlns="http://www.w3.org/2000/svg"
-																					fill="none"
-																					viewBox="0 0 24 24"
-																					stroke-width="1.5"
-																					stroke="currentColor"
-																					width="20"
-																				>
-																					<path
-																						stroke-linecap="round"
-																						stroke-linejoin="round"
-																						d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-																					/>
-																					<path
-																						stroke-linecap="round"
-																						stroke-linejoin="round"
-																						d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-																					/>
-																				</svg> </strong
-																		></span>
+																				>Location:
+																			</strong></span
+																		>
 																		$EVENT_LOCATION$
 																	</p>
 																	<p
@@ -979,22 +950,13 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																				font-size: 14px;
 																				line-height: 28px;
 																			"
-																			><svg
-																				xmlns="http://www.w3.org/2000/svg"
-																				fill="none"
-																				viewBox="0 0 24 24"
-																				stroke-width="1.5"
-																				stroke="currentColor"
-																				width="20"
-																			>
-																				<path
-																					stroke-linecap="round"
-																					stroke-linejoin="round"
-																					d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-																				/>
-																			</svg>
+																		>
 																		</span>
-																		<a href="$TICKET_LINK$"
+																		<a
+																			href="$TICKET_LINK$"
+																			style="
+																				text-decoration: underline;
+																			"
 																			>Download tickets
 																			here</a
 																		>
@@ -1705,4 +1667,4 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 		<!--[if mso]></div><![endif]-->
 		<!--[if IE]></div><![endif]-->
 	</body>
-</html>`;
+</html>

@@ -3,7 +3,6 @@ import { AppError } from '@/lib/server/exception';
 import prisma from '@/lib/server/prisma';
 import { createServerClient } from '@/utils/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
-import { baseURL } from '@/lib/constants';
 
 export const PATCH = catchAsync(async function (
 	req: NextRequest,
@@ -57,6 +56,6 @@ export const PATCH = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		baseURL + `manage/${event.id}`
+		new URL(`/manage/${event.id}`, req.url)
 	);
 });

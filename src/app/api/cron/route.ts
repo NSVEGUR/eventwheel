@@ -3,6 +3,8 @@ import { transporter } from '@/lib/server/mail';
 import { getTicketsDetails } from '@/utils/tickets';
 import { formatDateWithAmPm } from '@/utils/date';
 import { NextResponse } from 'next/server';
+import { baseURL } from '@/lib/constants';
+import { StatsTemplate } from '@/lib/templates';
 
 export async function GET() {
 	try {
@@ -33,6 +35,21 @@ export async function GET() {
 				from: process.env.SMTP_USERNAME,
 				to: event.user.email,
 				subject: `Daily stats for event ${event.id}`,
+				html: StatsTemplate.replace(
+					'$EVENT_TITLE$',
+					event.title
+				)
+					.replace('$EVENT_LINK$', baseURL + event.id)
+					.replace('$TICKET_SOLD$', sold.toString())
+					.replace(
+						'$TICKET_AVAILABLE$',
+						available.toString()
+					)
+					.replace('$TICKET_GROSS$', gross.toString())
+					.replace(
+						'$STATS_LINK$',
+						baseURL + `manage/${event.id}`
+					),
 				text: `${
 					event.title
 				} tickets have been sold ${sold} out of ${available} with gross ${gross} as of ${formatDateWithAmPm(

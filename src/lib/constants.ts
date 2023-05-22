@@ -1,6 +1,4 @@
-// // For Development
-export const baseURL = 'http://localhost:3000/';
-// // For Production
+export const baseURL = 'http://eventmate.vercel.app/';
 
 export const eventTypes = [
 	'Appearance or Singing',

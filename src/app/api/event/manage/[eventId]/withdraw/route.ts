@@ -4,7 +4,6 @@ import prisma from '@/lib/server/prisma';
 import { createServerClient } from '@/utils/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { WithdrawalRequest } from '@prisma/client';
-import { baseURL } from '@/lib/constants';
 
 export const POST = catchAsync(async function (
 	req: NextRequest,
@@ -43,6 +42,6 @@ export const POST = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		baseURL + `manage/${event.id}`
+		new URL(`manage/${event.id}`, req.url)
 	);
 });

@@ -4,7 +4,6 @@ import prisma from '@/lib/server/prisma';
 import { createServerClient } from '@/utils/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { AdminTicket } from '@prisma/client';
-import { baseURL } from '@/lib/constants';
 import { stripe } from '@/lib/server/stripe';
 
 export const POST = catchAsync(async function (
@@ -53,7 +52,7 @@ export const POST = catchAsync(async function (
 	});
 
 	return NextResponse.redirect(
-		baseURL + `manage/${event.id}/tickets`
+		new URL(`/manage/${event.id}/tickets`, req.url)
 	);
 });
 
@@ -112,6 +111,6 @@ export const PATCH = catchAsync(async function (
 		description: updatedTicket.description
 	});
 	return NextResponse.redirect(
-		baseURL + `manage/${event.id}/tickets`
+		new URL(`/manage/${event.id}/tickets`, req.url)
 	);
 });
