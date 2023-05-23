@@ -31,9 +31,6 @@ export default function WishlistButton({
 					method: likedState ? 'DELETE' : 'PUT',
 					headers: {
 						'content-type': 'application/json'
-					},
-					next: {
-						tags: ['like']
 					}
 				}
 			);

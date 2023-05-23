@@ -43,9 +43,6 @@ export default function LikeButton({
 					method: likedState ? 'DELETE' : 'PUT',
 					headers: {
 						'content-type': 'application/json'
-					},
-					next: {
-						tags: ['like']
 					}
 				}
 			);
