@@ -52,7 +52,7 @@ export const POST = catchAsync(async function (
 	});
 
 	return NextResponse.redirect(
-		new URL(`/manage/${event.id}/tickets`, req.url)
+		new URL(`/manage/${event.id}`, req.url)
 	);
 });
 
@@ -111,6 +111,6 @@ export const PATCH = catchAsync(async function (
 		description: updatedTicket.description
 	});
 	return NextResponse.redirect(
-		new URL(`/manage/${event.id}/tickets`, req.url)
+		new URL(`/manage/${event.id}`, req.url)
 	);
 });
