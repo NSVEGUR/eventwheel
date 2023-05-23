@@ -77,6 +77,7 @@ export default function CreationForm({
 			HTMLInputElement | HTMLSelectElement
 		>
 	) => {
+		console.log(e.target.name, e.target.value);
 		setValues({
 			...values,
 			[e.target.name]: e.target.value
@@ -602,6 +603,7 @@ export default function CreationForm({
 											type="date"
 											required
 											name="endDate"
+											min={values.startDate}
 											value={values.endDate}
 											onChange={handleChange}
 											className="border-[1px] border-base p-3 outline-accent"
