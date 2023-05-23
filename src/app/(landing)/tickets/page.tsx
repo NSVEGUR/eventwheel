@@ -6,6 +6,8 @@ import { getImage } from '@/lib/server/image';
 import Image from 'next/image';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 async function getMyTickets() {
 	try {
 		const supabase = createServerClient();

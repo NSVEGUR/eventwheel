@@ -5,6 +5,8 @@ import { getEventsUnAuthenticated } from '@/lib/server/event';
 import AuthPopup from '@/components/AuthPopup';
 import EventView from '@/components/EventView';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
 	const events = await getEventsUnAuthenticated();
 	events.map((event) => {

@@ -123,7 +123,7 @@ export default function EventNav({
 						</li>
 						<li>
 							<Link
-								href={`/${id}`}
+								href={`/manage/${id}/publish`}
 								className="eventLink flex items-center gap-2 p-2 text-sm text-complementary hover:underline"
 							>
 								Preview{' '}

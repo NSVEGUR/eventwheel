@@ -5,6 +5,8 @@ import { getImage } from '@/lib/server/image';
 import Image from 'next/image';
 import TicketPrinter from '@/components/TicketPrinter';
 
+export const dynamic = 'force-dynamic';
+
 async function getMyTicket(ticketId: string) {
 	try {
 		const ticket = await prisma.userTicket.findUnique({

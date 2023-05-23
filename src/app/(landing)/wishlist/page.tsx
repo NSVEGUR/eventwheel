@@ -1,8 +1,9 @@
 import 'server-only';
 import { getImage } from '@/lib/server/image';
 import EventCard from '@/components/EventCard';
-import Link from 'next/link';
 import { getWishlistEvents } from '@/lib/server/event';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
 	const events = await getWishlistEvents();

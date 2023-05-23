@@ -8,6 +8,8 @@ import { getEventUnAuthenticated } from '@/lib/server/event';
 import WishlistButton from '@/components/WishlistButton';
 import LikeButton from '@/components/LikeButton';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page({
 	params
 }: {
