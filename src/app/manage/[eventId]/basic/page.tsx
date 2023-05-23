@@ -4,7 +4,7 @@ import BasicCreationForm, {
 import { formatDate } from '@/utils/date';
 import { getEvent } from '@/lib/server/event';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
 	params

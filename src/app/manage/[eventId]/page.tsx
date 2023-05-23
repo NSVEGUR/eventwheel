@@ -5,7 +5,7 @@ import { formatDateWithAmPm } from '@/utils/date';
 import Link from 'next/link';
 import Script from 'next/script';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
 	params

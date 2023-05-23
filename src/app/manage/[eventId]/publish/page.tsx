@@ -6,7 +6,7 @@ import FAQ from '@/components/FAQ';
 import PublishForm from '@/components/PublishForm';
 import { getImage } from '@/lib/server/image';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
 	params

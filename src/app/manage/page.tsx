@@ -2,7 +2,7 @@ import { getEvents } from '@/lib/server/event';
 import { getTicketsDetails } from '@/utils/tickets';
 import Link from 'next/link';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
 	const events = await getEvents();

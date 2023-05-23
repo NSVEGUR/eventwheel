@@ -1,7 +1,7 @@
 import TicketForm from '@/components/TicketForm';
 import { getTicket } from '@/lib/server/ticket';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
 	params

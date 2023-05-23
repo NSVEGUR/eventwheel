@@ -1,7 +1,7 @@
 import DetailsForm from '@/components/DetailsForm';
 import { getEvent } from '@/lib/server/event';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
 	params
