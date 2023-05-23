@@ -148,6 +148,16 @@ export default function DetailsForm({
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		let image = event.image;
+		if (file) {
+			const size = file.size / 1024 ** 2;
+			if (size > 1) {
+				setSnackbar({
+					message: `Image size should be less than 1MB, current size is ${size}MB`,
+					type: 'failure'
+				});
+				return event.image;
+			}
+		}
 		if (values.image) {
 			setSnackbar({
 				message: 'Uploading image to cloud...',
