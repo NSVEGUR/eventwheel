@@ -6,14 +6,12 @@ import { useRouter } from 'next/navigation';
 import { getTicketsDetails } from '@/utils/tickets';
 
 export interface WithdrawalProps {
-	amount: number;
 	transitNumber: number;
 	institutionNumber: number;
 	accountNumber: number;
 }
 
 const DEFAULT_PROPS: WithdrawalProps = {
-	amount: 0,
 	transitNumber: 0,
 	institutionNumber: 0,
 	accountNumber: 0
@@ -66,18 +64,22 @@ export default function WithdrawalForm({
 			});
 			return;
 		}
-		if (name === 'amount') {
-			setValues({
-				...values,
-				[e.target.name]: e.target.value
-			});
-		}
 	};
 	const handleSubmit = async function (e: React.FormEvent) {
 		e.preventDefault();
-		if (values.amount < 0.5) {
+		const { gross, available, sold } = getTicketsDetails(
+			event.tickets
+		);
+		if (gross < 0) {
 			return setSnackbar({
-				message: 'Amount must be at least 0.5$',
+				message: 'There is no gross to withdraw',
+				type: 'failure'
+			});
+		}
+		if (available - sold != 0) {
+			return setSnackbar({
+				message:
+					'There are some tickets that are not sold yet, please wait for them to be sold',
 				type: 'failure'
 			});
 		}
@@ -99,17 +101,7 @@ export default function WithdrawalForm({
 				type: 'failure'
 			});
 		}
-		const { gross } = getTicketsDetails(event.tickets);
-		if (values.amount > gross) {
-			return setSnackbar({
-				message: `Can't make a withdrawal request greater than gross ${gross}$`,
-				type: 'failure'
-			});
-		}
 		const data = {
-			amount: parseFloat(
-				parseFloat(values.amount.toString()).toFixed(4)
-			),
 			transitNumber: parseInt(
 				values.transitNumber.toString()
 			),
@@ -184,22 +176,6 @@ export default function WithdrawalForm({
 					<h1 className="text-3xl font-bold">
 						Withdrawal Form
 					</h1>
-				</div>
-
-				<div className="flex flex-col gap-2">
-					<label htmlFor="amount">
-						Amount{' '}
-						<span className="text-complementary">*</span>
-					</label>
-					<input
-						type="number"
-						name="amount"
-						step="0.01"
-						required
-						value={values.amount}
-						onChange={handleChange}
-						className="border-[1px] border-base p-3 outline-accent"
-					/>
 				</div>
 				<div className="flex flex-col gap-2">
 					<label htmlFor="transitNumber">

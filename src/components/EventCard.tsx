@@ -36,15 +36,25 @@ export default function EventCard({
 				<h1 className="text-xl font-semibold">
 					{event.title}
 				</h1>
-				<p className="text-sm text-complementary">
-					{formatDateWithAmPm(event.starts)}
-				</p>
+				{event.displayStart && (
+					<p className="text-sm text-complementary">
+						{formatDateWithAmPm(event.starts)}
+					</p>
+				)}
 				<p className="text-sm font-medium text-accent">
 					{event.location}
 				</p>
 				<div className="flex items-center gap-1 text-xs text-skin-complementary">
 					{event.summary}
 				</div>
+				{event.recurrence && (
+					<div className="text-xs text-skin-complementary">
+						Recurrence:{' '}
+						<span className=" text-skin-okay">
+							{event.recurrence}
+						</span>
+					</div>
+				)}
 			</div>
 		</Link>
 	);

@@ -80,16 +80,22 @@ export default function TicketBuyingCard({
 					{ticket.price}$
 				</span>
 			</h3>
-			<form
-				onSubmit={handleSubmit}
-				className="flex w-full items-center justify-center"
-			>
-				<input
-					className="mt-5 cursor-pointer self-center rounded-md bg-accent p-3 text-skin-inverted transition-transform duration-200 group-hover:scale-110"
-					type="submit"
-					value="Buy Now"
-				/>
-			</form>
+			{ticket.available - ticket.sold > 0 ? (
+				<form
+					onSubmit={handleSubmit}
+					className="flex w-full items-center justify-center"
+				>
+					<input
+						className="mt-5 cursor-pointer self-center rounded-md bg-accent p-3 text-skin-inverted transition-transform duration-200 group-hover:scale-110"
+						type="submit"
+						value="Buy Now"
+					/>
+				</form>
+			) : (
+				<p className="text-center text-sm font-medium text-skin-error">
+					Tickets are sold out
+				</p>
+			)}
 		</div>
 	);
 }

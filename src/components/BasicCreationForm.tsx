@@ -570,7 +570,7 @@ export default function CreationForm({
 											required
 											name="startDate"
 											onChange={handleChange}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 											value={values.startDate}
 										/>
 									</div>
@@ -587,7 +587,7 @@ export default function CreationForm({
 											name="startTime"
 											value={values.startTime}
 											onChange={handleChange}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
@@ -606,7 +606,7 @@ export default function CreationForm({
 											min={values.startDate}
 											value={values.endDate}
 											onChange={handleChange}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 									<div className="flex w-full flex-col gap-3">
@@ -622,7 +622,7 @@ export default function CreationForm({
 											name="endTime"
 											value={values.endTime}
 											onChange={handleChange}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
@@ -649,7 +649,7 @@ export default function CreationForm({
 											name="startDate"
 											onChange={handleChange}
 											value={values.startDate}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 									<div className="flex w-full flex-col gap-3">
@@ -666,7 +666,7 @@ export default function CreationForm({
 											min={values.startDate}
 											onChange={handleChange}
 											value={values.endDate}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>
@@ -699,7 +699,7 @@ export default function CreationForm({
 											onChange={handleChange}
 											value={values.startTime}
 											name="startTime"
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 									<div className="flex w-full flex-col gap-3">
@@ -715,7 +715,7 @@ export default function CreationForm({
 											name="endTime"
 											onChange={handleChange}
 											value={values.endTime}
-											className="border-[1px] border-base p-3 outline-accent"
+											className="relative border-[1px] border-base p-3 outline-accent"
 										/>
 									</div>
 								</div>

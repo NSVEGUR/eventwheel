@@ -95,18 +95,22 @@ export default async function Page({
 									{event.location}
 								</span>
 							</h1>
-							<h1 className="flex items-baseline gap-1">
-								Starts:{' '}
-								<span className="text-skin-complementary">
-									{formatDateWithAmPm(event.starts)}
-								</span>
-							</h1>
-							<h1 className="flex items-baseline gap-1">
-								Ends:{' '}
-								<span className="text-skin-complementary">
-									{formatDateWithAmPm(event.ends)}
-								</span>
-							</h1>
+							{event.displayStart && (
+								<h1 className="flex items-baseline gap-1">
+									Starts:{' '}
+									<span className="text-skin-complementary">
+										{formatDateWithAmPm(event.starts)}
+									</span>
+								</h1>
+							)}
+							{event.displayEnd && (
+								<h1 className="flex items-baseline gap-1">
+									Ends:{' '}
+									<span className="text-skin-complementary">
+										{formatDateWithAmPm(event.ends)}
+									</span>
+								</h1>
+							)}
 						</div>
 					</section>
 					<section className="mt-5 flex flex-col gap-10">

@@ -51,25 +51,16 @@ export default function DetailsForm({
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [event]);
-	const downloadImage = async (path: string) => {
-		try {
-			const { data } = supabase.storage
-				.from('event_images')
-				.getPublicUrl(path);
-			const { publicUrl: url } = data;
-			setValues({
-				...values,
-				image: url,
-				previousImage: url
-			});
-		} catch (error) {
-			if (error instanceof Error) {
-				console.error(
-					'Error downloading image: ',
-					error.message
-				);
-			}
-		}
+	const downloadImage = (path: string) => {
+		const { data } = supabase.storage
+			.from('event_images')
+			.getPublicUrl(path);
+		const { publicUrl: url } = data;
+		setValues({
+			...values,
+			image: url,
+			previousImage: url
+		});
 	};
 	const uploadImageToCloud = async function (
 		file: File | undefined
@@ -80,7 +71,7 @@ export default function DetailsForm({
 					'Please add an image to visualize your event better',
 				type: 'failure'
 			});
-			return event.image;
+			return null;
 		}
 		if (values.image === values.previousImage) {
 			return event.image;
@@ -97,7 +88,7 @@ export default function DetailsForm({
 					message: 'Error in deleting previous image',
 					type: 'failure'
 				});
-				return event.image;
+				return null;
 			}
 		}
 		const fileExt = file.name.split('.').pop();
@@ -110,7 +101,7 @@ export default function DetailsForm({
 				message: 'Error in uploading new image',
 				type: 'failure'
 			});
-			return event.image;
+			return null;
 		}
 		return filePath;
 	};
@@ -147,6 +138,22 @@ export default function DetailsForm({
 	};
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (
+			values.description &&
+			values.description.length < 20
+		) {
+			return setSnackbar({
+				message:
+					'Description should be at least 20 characters',
+				type: 'failure'
+			});
+		}
+		if (values.summary && values.summary.length < 10) {
+			return setSnackbar({
+				message: 'Summary should be at least 10 characters',
+				type: 'failure'
+			});
+		}
 		let image = event.image;
 		if (file) {
 			const size = file.size / 1024 ** 2;
@@ -164,6 +171,13 @@ export default function DetailsForm({
 				type: 'promise'
 			});
 			image = await uploadImageToCloud(file);
+			if (!image) {
+				return setSnackbar({
+					message:
+						'Error in uploading image to cloud, try again after a refresh or login again!',
+					type: 'failure'
+				});
+			}
 		}
 		setSnackbar({
 			message: 'Updating event details...',
@@ -348,7 +362,7 @@ export default function DetailsForm({
 							<textarea
 								required
 								name="description"
-								minLength={10}
+								minLength={20}
 								rows={10}
 								className="border-[1px] border-base p-3 outline-accent"
 								value={values.description ?? ''}

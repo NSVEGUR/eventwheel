@@ -37,13 +37,32 @@ export default function TicketForm({
 			HTMLInputElement | HTMLTextAreaElement
 		>
 	) => {
-		setValues({
-			...values,
-			[e.target.name]: e.target.value
-		});
+		const { name, value } = e.target;
+		if (name === 'price' || name == 'available') {
+			const val = parseInt(value);
+			setValues({
+				...values,
+				[name]: val ? Math.abs(val) : 'HaHa'
+			});
+		} else {
+			setValues({
+				...values,
+				[e.target.name]: e.target.value
+			});
+		}
 	};
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		if (
+			values.description &&
+			values.description.length < 10
+		) {
+			return setSnackbar({
+				message:
+					'Description must be at least 10 characters long',
+				type: 'failure'
+			});
+		}
 		setSnackbar({
 			message:
 				method === 'POST'
@@ -180,6 +199,7 @@ export default function TicketForm({
 						type="number"
 						name="price"
 						step={0.01}
+						min={0}
 						required
 						value={values.price}
 						onChange={handleChange}
@@ -196,6 +216,7 @@ export default function TicketForm({
 						name="available"
 						step={1}
 						required
+						min={0}
 						value={values.available}
 						onChange={handleChange}
 						className="border-[1px] border-base p-3 outline-accent"

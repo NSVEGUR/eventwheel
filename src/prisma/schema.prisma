@@ -79,7 +79,6 @@ model WithdrawalRequest{
   id String @id @default(uuid())
   eventId String
   event Event @relation(fields: [eventId], references: [id])
-  amount Float
   createdAt DateTime @default(now())
   transitNumber Int
   institutionNumber Int

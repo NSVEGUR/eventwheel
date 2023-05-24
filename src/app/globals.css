@@ -41,6 +41,32 @@ input[type='submit'] {
 	cursor: pointer;
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+	background: transparent;
+	bottom: 0;
+	color: transparent;
+	cursor: pointer;
+	height: auto;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: auto;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+	background: transparent;
+	bottom: 0;
+	color: transparent;
+	cursor: pointer;
+	height: auto;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: auto;
+}
+
 @keyframes scale {
 	0% {
 		transform: scale(0);
