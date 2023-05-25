@@ -24,11 +24,11 @@ export default async function Home() {
 						Wishlist
 					</h1>
 					<div className="grid grid-cols-4 gap-4 px-20 py-10 -xl:grid-cols-3 -lg:grid-cols-2 -sm:grid-cols-1 -sm:px-2">
-						{events.map(({ liked, ...event }) => {
+						{events.map(({ liked, tickets, ...event }) => {
 							return (
 								<EventCard
 									key={event.id}
-									{...{ event, liked }}
+									{...{ event, liked, tickets }}
 								/>
 							);
 						})}
