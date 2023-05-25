@@ -34,8 +34,13 @@ export const POST = catchAsync(async function (
 	if (!event || event.userId != user.id) {
 		throw new AppError('Event not found', 404);
 	}
-	const { type, description, price, available } =
-		(await req.json()) as AdminTicket;
+	const {
+		type,
+		description,
+		price,
+		available,
+		displayAvailable
+	} = (await req.json()) as AdminTicket;
 	const stripeProduct = await stripe.products.create({
 		name: type,
 		description: description
@@ -47,7 +52,8 @@ export const POST = catchAsync(async function (
 			price: price,
 			available: available,
 			type: type,
-			description: description
+			description: description,
+			displayAvailable: displayAvailable
 		}
 	});
 
@@ -77,8 +83,13 @@ export const PATCH = catchAsync(async function (
 		);
 	}
 	const { ticketId, ...body } = await req.json();
-	const { price, available, type, description } =
-		body as AdminTicket;
+	const {
+		price,
+		available,
+		type,
+		description,
+		displayAvailable
+	} = body as AdminTicket;
 	const event = await prisma.event.findUnique({
 		where: {
 			id: params.eventId
@@ -103,7 +114,8 @@ export const PATCH = catchAsync(async function (
 			type,
 			description,
 			price: price,
-			available: available
+			available: available,
+			displayAvailable: displayAvailable
 		}
 	});
 	await stripe.products.update(updatedTicket.productId, {

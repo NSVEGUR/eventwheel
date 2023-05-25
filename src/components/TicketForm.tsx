@@ -9,6 +9,7 @@ export interface TicketForm {
 	description: string | null;
 	price: number;
 	available: number;
+	displayAvailable: boolean;
 	id: string;
 }
 
@@ -17,7 +18,8 @@ export const DEFAULT_TICKET_FORM_ENTRIES: TicketForm = {
 	description: '',
 	price: 0,
 	id: '',
-	available: 100
+	available: 100,
+	displayAvailable: true
 };
 
 export default function TicketForm({
@@ -79,7 +81,8 @@ export default function TicketForm({
 				price: parseFloat(
 					parseFloat(values.price.toString()).toFixed(4)
 				),
-				available: parseInt(values.available.toString())
+				available: parseInt(values.available.toString()),
+				displayAvailable: values.displayAvailable
 			};
 		} else {
 			data = {
@@ -90,7 +93,8 @@ export default function TicketForm({
 				price: parseFloat(
 					parseFloat(values.price.toString()).toFixed(4)
 				),
-				available: parseInt(values.available.toString())
+				available: parseInt(values.available.toString()),
+				displayAvailable: values.displayAvailable
 			};
 		}
 		try {
@@ -221,6 +225,27 @@ export default function TicketForm({
 						onChange={handleChange}
 						className="border-[1px] border-base p-3 outline-accent"
 					/>
+				</div>
+				<div className="flex gap-3 text-sm -sm:mb-40">
+					<input
+						type="checkbox"
+						name="displayAvailable"
+						checked={values.displayAvailable}
+						onChange={(e) => {
+							setValues({
+								...values,
+								displayAvailable: e.currentTarget.checked
+							});
+						}}
+						className="accent-accent"
+					/>
+					<label htmlFor="displayAvailable">
+						<h1>Display Available</h1>
+						<p className="text-xs text-skin-complementary">
+							If turned off, number tickets available or
+							sold will not be visible to the users.
+						</p>
+					</label>
 				</div>
 			</div>
 			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">

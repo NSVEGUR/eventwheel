@@ -11,5 +11,6 @@ export const getTicketsDetails = function (
 		gross += ticket.sold * ticket.price;
 		available += ticket.available;
 	}
-	return { sold, gross, available };
+	const availability = available - sold > 0;
+	return { sold, gross, available, availability };
 };

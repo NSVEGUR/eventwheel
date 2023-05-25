@@ -25,8 +25,8 @@ export default function AuthPop({
 	return (
 		<>
 			{!authState && (
-				<div className="fixed inset-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70 -md:items-end">
-					<div className="relative flex w-[50%] max-w-[500px] flex-col items-center justify-center gap-5 rounded-md bg-dominant p-10 text-center -md:w-full">
+				<div className="fixed inset-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-70">
+					<div className="relative flex w-[50%] max-w-[500px] flex-col items-center justify-center gap-5 rounded-md bg-dominant p-10 text-center -md:w-[90%]">
 						<button
 							className="absolute right-8 top-5"
 							onClick={closePopup}
@@ -53,7 +53,7 @@ export default function AuthPop({
 								height={50}
 								alt="Picture of Logo"
 							></Image>
-							<h1 className="text-3xl font-medium">
+							<h1 className="text-3xl font-medium -md:text-xl">
 								eventmate
 							</h1>
 						</div>

@@ -1,16 +1,20 @@
-import { Event } from '@prisma/client';
+import { Event, AdminTicket } from '@prisma/client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDateWithAmPm } from '@/utils/date';
 import LikeButton from '@/components/LikeButton';
+import { getTicketsDetails } from '@/utils/tickets';
 
 export default function EventCard({
 	event,
-	liked
+	liked,
+	tickets
 }: {
 	event: Event;
+	tickets: AdminTicket[];
 	liked: boolean | undefined;
 }) {
+	const { availability } = getTicketsDetails(tickets);
 	return (
 		<Link
 			href={`/${event.id}`}
@@ -54,6 +58,13 @@ export default function EventCard({
 							{event.recurrence}
 						</span>
 					</div>
+				)}
+				{availability ? (
+					<p className="text-sm ">Available</p>
+				) : (
+					<p className="text-sm text-skin-error">
+						Sold Out
+					</p>
 				)}
 			</div>
 		</Link>

@@ -67,13 +67,15 @@ export default function TicketBuyingCard({
 			<p className="text-sm text-skin-complementary">
 				{ticket.description}
 			</p>
-			<h3 className="text-skin-complementary">
-				Available:{' '}
-				<span className="font-medium text-accent">
-					{ticket.available - ticket.sold} /{' '}
-					{ticket.available}
-				</span>
-			</h3>
+			{ticket.displayAvailable && (
+				<h3 className="text-skin-complementary">
+					Available:{' '}
+					<span className="font-medium text-accent">
+						{ticket.available - ticket.sold} /{' '}
+						{ticket.available}
+					</span>
+				</h3>
+			)}
 			<h3>
 				Price:{' '}
 				<span className="font-bold text-complementary transition-all duration-200 group-hover:text-xl">

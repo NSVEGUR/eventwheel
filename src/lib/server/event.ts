@@ -5,6 +5,7 @@ import { AdminTicket, Event, User } from '@prisma/client';
 
 export interface LikedEvent extends Event {
 	liked: boolean | undefined;
+	tickets: AdminTicket[];
 }
 
 export async function getEvents() {
@@ -142,7 +143,8 @@ export const getEventsUnAuthenticated = async () => {
 				published: true
 			},
 			include: {
-				likedUsers: true
+				likedUsers: true,
+				tickets: true
 			}
 		});
 		if (!user) {
@@ -191,17 +193,13 @@ export async function getEventUnAuthenticated(id: string) {
 			return {
 				...others,
 				liked: undefined
-			} as LikedEvent & {
-				tickets: AdminTicket[];
-			};
+			} as LikedEvent;
 		}
 		const likedIds = likedUsers.map(({ id }) => id);
 		return {
 			...others,
 			liked: likedIds.includes(user.id)
-		} as LikedEvent & {
-			tickets: AdminTicket[];
-		};
+		} as LikedEvent;
 	} catch (err) {
 		console.error(err);
 		if (err instanceof AppError) {

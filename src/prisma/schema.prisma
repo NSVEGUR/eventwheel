@@ -57,6 +57,7 @@ model AdminTicket{
   description String
   price Float
   available Int
+  displayAvailable Boolean@default(true)
   sold Int@default(0)
   tickets UserTicket[]
   @@map("admin_tickets")
