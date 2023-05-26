@@ -16,7 +16,7 @@ export default function Header() {
 		});
 	}, []);
 	return (
-		<header className="sticky top-0 z-20 flex h-16 w-screen items-center justify-between gap-5 bg-dominant px-16 shadow-md -lg:px-5">
+		<header className="sticky top-0 z-20 flex h-16 w-screen items-center justify-between gap-10 bg-dominant px-16 shadow-md -xl:gap-3 -lg:px-5">
 			<button
 				className="absolute left-2 md:hidden"
 				onClick={() => {
@@ -51,6 +51,30 @@ export default function Header() {
 				<span className="text-2xl font-medium">
 					Eventmate
 				</span>
+			</Link>
+			<Link
+				href="/search"
+				className="flex flex-1 items-center gap-2 rounded-md border-[1px] border-base px-1 shadow-sm -xl:flex-[0] -xl:border-0 -xl:shadow-none"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={1.5}
+					stroke="currentColor"
+					className="h-4 w-4 -xl:h-5 -xl:w-5"
+				>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+					/>
+				</svg>
+				<input
+					type="text"
+					className="flex-1 p-1 outline-none -xl:hidden"
+					placeholder="Search events"
+				/>
 			</Link>
 			<LandingNav {...{ showNavBar, setShowNavBar }} />
 		</header>
