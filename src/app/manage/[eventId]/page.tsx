@@ -1,9 +1,10 @@
+import 'server-only';
 import { getWithdrawals } from '@/lib/server/event';
 import { getTicketsDetails } from '@/utils/tickets';
-import ShareMenuManage from '@/components/ShareMenuManage';
+import ShareMenu from '@/components/ShareMenu';
 import { formatDateWithAmPm } from '@/utils/date';
 import Link from 'next/link';
-import Script from 'next/script';
+import { baseURL } from '@/lib/constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -56,11 +57,16 @@ export default async function Page({
 						</div>
 					</div>
 					<div>
-						<h1 className="mt-5 text-2xl font-medium text-accent">
-							Share
+						<h1 className="my-5 text-2xl font-medium text-accent">
+							Share Event
 						</h1>
 						<div className="flex flex-col gap-3">
-							<ShareMenuManage {...{ event: event }} />
+							<ShareMenu
+								{...{
+									url: baseURL + event.id,
+									title: event.title
+								}}
+							/>
 						</div>
 					</div>
 				</div>
@@ -145,10 +151,6 @@ export default async function Page({
 						);
 					})}
 			</div>
-			<Script
-				src="https://kit.fontawesome.com/549aab17e5.js"
-				crossOrigin="anonymous"
-			></Script>
 		</>
 	);
 }

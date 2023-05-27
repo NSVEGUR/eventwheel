@@ -61,7 +61,8 @@ export default function SideMenu({
 			active:
 				!path.includes('likes') &&
 				!path.includes('tickets') &&
-				!path.includes('create'),
+				!path.includes('create') &&
+				!path.includes('scan'),
 			icon: () => (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +97,27 @@ export default function SideMenu({
 						strokeLinecap="round"
 						strokeLinejoin="round"
 						d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+					/>
+				</svg>
+			)
+		},
+		{
+			name: 'Scanner',
+			link: '/manage/scan',
+			active: path.includes('scan'),
+			icon: () => (
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					strokeWidth={1.5}
+					stroke="currentColor"
+					className="h-6 w-6"
+				>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z"
 					/>
 				</svg>
 			)

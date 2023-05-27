@@ -18,7 +18,7 @@ export default function EventCard({
 	return (
 		<Link
 			href={`/${event.id}`}
-			className="group flex h-96 cursor-pointer flex-col justify-evenly rounded-xl shadow transition-all duration-500 hover:shadow-lg"
+			className="group flex h-96 min-w-[250px] cursor-pointer flex-col justify-evenly rounded-xl shadow transition-all duration-500 hover:shadow-lg"
 		>
 			<div className="relative h-[40%] overflow-hidden rounded-t-xl transition-all duration-500 group-hover:h-[50%]">
 				{event.image ? (

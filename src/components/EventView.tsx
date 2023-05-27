@@ -1,11 +1,10 @@
-import 'server-only';
-import { LikedEvent } from '@/lib/server/event';
-import dynamic from 'next/dynamic';
+import EventCard from './EventCard';
+import { Event, AdminTicket } from '@prisma/client';
 
-const EventCard = dynamic(
-	() => import('@/components/EventCard'),
-	{ ssr: false }
-);
+export interface LikedEvent extends Event {
+	liked: boolean | undefined;
+	tickets: AdminTicket[];
+}
 
 export default function EventView({
 	events

@@ -1,4 +1,4 @@
-export const baseURL = 'http://eventmate.vercel.app/';
+export const baseURL = 'https://eventmate.vercel.app/';
 
 export const eventTypes = [
 	'Appearance or Singing',
