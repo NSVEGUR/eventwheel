@@ -2,12 +2,12 @@ version: '4.16.2'
 services:
   postgres:
     image: postgres:15
-    container_name: eventmate_postgres_dev
+    container_name: eventwheel_postgres_dev
     restart: always
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=eventmate
+      - POSTGRES_DB=eventwheel
     volumes:
       - postgres-volume:/var/lib/postgresql/data
     ports:

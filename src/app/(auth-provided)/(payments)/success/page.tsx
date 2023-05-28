@@ -1,6 +1,6 @@
 import 'server-only';
 import Link from 'next/link';
-import { getMyTicket } from '@/lib/server/ticket';
+import { getTicketWithSession } from '@/lib/server/ticket';
 import Ticket from '@/components/Ticket';
 import ShareMenu from '@/components/ShareMenu';
 import { baseURL } from '@/lib/constants';
@@ -19,7 +19,9 @@ export default async function Page({
 	};
 }) {
 	const sessionId = searchParams?.sessionId;
-	const ticket = await getMyTicket(sessionId ?? '');
+	const ticket = await getTicketWithSession(
+		sessionId ?? ''
+	);
 	return (
 		<>
 			<svg

@@ -307,7 +307,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																			<img
 																				align="center"
 																				border="0"
-																				src="https://eventmate.vercel.app/logo.png"
+																				src="https://www.eventwheel.ca/logo.png"
 																				alt="Logo"
 																				title="Logo"
 																				style="
@@ -369,7 +369,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																		font-weight: 400;
 																	"
 																>
-																	<strong>eventmate</strong>
+																	<strong>eventwheel</strong>
 																</h1>
 															</td>
 														</tr>
@@ -495,7 +495,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																			<img
 																				align="center"
 																				border="0"
-																				src="https://eventmate.vercel.app/tick.png"
+																				src="https://www.eventwheel.ca/tick.png"
 																				alt="Tick Icon"
 																				title="Tick Icon"
 																				style="
@@ -618,7 +618,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																				line-height: 27.2px;
 																			"
 																			>Thank you for using
-																			eventmate as your
+																			eventwheel as your
 																			service
 																			provider.</span
 																		>
@@ -1292,7 +1292,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																<div align="center">
 																	<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://unlayer.com/" style="height:45px; v-text-anchor:middle; width:159px;" arcsize="9%"  stroke="f" fillcolor="#c45b95"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Montserrat',sans-serif;"><![endif]-->
 																	<a
-																		href="https://eventmate.vercel.app/"
+																		href="https://www.eventwheel.ca/"
 																		target="_blank"
 																		class="v-button v-font-size"
 																		style="
@@ -1462,7 +1462,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																				line-height: 25.2px;
 																			"
 																			><strong
-																				>eventmate</strong
+																				>eventwheel</strong
 																			></span
 																		>
 																	</p>
@@ -1979,7 +1979,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																			<img
 																				align="center"
 																				border="0"
-																				src="https://eventmate.vercel.app/logo.png"
+																				src="https://www.eventwheel.ca/logo.png"
 																				alt="Logo"
 																				title="Logo"
 																				style="
@@ -2041,7 +2041,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																		font-weight: 400;
 																	"
 																>
-																	<strong>eventmate</strong>
+																	<strong>eventwheel</strong>
 																</h1>
 															</td>
 														</tr>
@@ -2222,7 +2222,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																				line-height: 27.2px;
 																			"
 																			>Thank you for using
-																			eventmate as your
+																			eventwheel as your
 																			service
 																			provider.</span
 																		>
@@ -2930,7 +2930,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																<div align="center">
 																	<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://unlayer.com/" style="height:45px; v-text-anchor:middle; width:159px;" arcsize="9%"  stroke="f" fillcolor="#c45b95"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Montserrat',sans-serif;"><![endif]-->
 																	<a
-																		href="https://eventmate.vercel.app/"
+																		href="https://www.eventwheel.ca/"
 																		target="_blank"
 																		class="v-button v-font-size"
 																		style="
@@ -3100,7 +3100,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																				line-height: 25.2px;
 																			"
 																			><strong
-																				>eventmate</strong
+																				>eventwheel</strong
 																			></span
 																		>
 																	</p>

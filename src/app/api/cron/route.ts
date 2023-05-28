@@ -1,10 +1,13 @@
 import prisma from '@/lib/server/prisma';
-import { transporter } from '@/lib/server/mail';
 import { getTicketsDetails } from '@/utils/tickets';
 import { formatDateWithAmPm } from '@/utils/date';
 import { NextResponse } from 'next/server';
 import { baseURL } from '@/lib/constants';
 import { StatsTemplate } from '@/lib/templates';
+
+import mail from '@sendgrid/mail';
+
+mail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
 export async function GET() {
 	try {
@@ -31,32 +34,25 @@ export async function GET() {
 			const { gross, sold, available } = getTicketsDetails(
 				event.tickets
 			);
-			const message = {
-				from: process.env.SMTP_USERNAME,
+			const html = StatsTemplate.replace(
+				'$EVENT_TITLE$',
+				event.title
+			)
+				.replace('$EVENT_LINK$', baseURL + event.id)
+				.replace('$TICKET_SOLD$', sold.toString())
+				.replace('$TICKET_AVAILABLE$', available.toString())
+				.replace('$TICKET_GROSS$', gross.toString())
+				.replace(
+					'$STATS_LINK$',
+					baseURL + `manage/${event.id}`
+				);
+			const data = {
+				from: 'noreply@eventwheel.ca',
 				to: event.user.email,
 				subject: `Daily stats for event ${event.id}`,
-				html: StatsTemplate.replace(
-					'$EVENT_TITLE$',
-					event.title
-				)
-					.replace('$EVENT_LINK$', baseURL + event.id)
-					.replace('$TICKET_SOLD$', sold.toString())
-					.replace(
-						'$TICKET_AVAILABLE$',
-						available.toString()
-					)
-					.replace('$TICKET_GROSS$', gross.toString())
-					.replace(
-						'$STATS_LINK$',
-						baseURL + `manage/${event.id}`
-					),
-				text: `${
-					event.title
-				} tickets have been sold ${sold} out of ${available} with gross ${gross} as of ${formatDateWithAmPm(
-					new Date()
-				)}`
+				html
 			};
-			await transporter.sendMail(message);
+			await mail.send(data);
 		}
 		return NextResponse.json({
 			success: true,

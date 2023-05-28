@@ -24,7 +24,7 @@ export default function Layout({
 						alt="Picture of Logo"
 					></Image>
 					<h1 className="text-3xl font-medium">
-						eventmate
+						eventwheel
 					</h1>
 				</div>
 				{children}

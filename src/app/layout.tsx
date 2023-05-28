@@ -7,7 +7,7 @@ import SupabaseProvider from '@/components/providers/supabase-provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'eventmate',
+	title: 'eventwheel',
 	description: 'Event tickets management app'
 };
 

@@ -53,7 +53,7 @@ export default function Header({
 					height={30}
 				></Image>
 				<span className="text-2xl font-medium">
-					eventmate
+					Eventwheel
 				</span>
 			</Link>
 			<div className="flex h-full items-center gap-5 text-sm -lg:gap-2">

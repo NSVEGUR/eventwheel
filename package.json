@@ -1,5 +1,5 @@
 {
-	"name": "eventmate",
+	"name": "eventwheel",
 	"version": "0.1.0",
 	"private": true,
 	"types": "main.d.ts",
@@ -13,6 +13,7 @@
 		"schema": "src/prisma/schema.prisma"
 	},
 	"dependencies": {
+		"@sendgrid/mail": "^7.7.0",
 		"@supabase/auth-helpers-nextjs": "^0.6.1",
 		"@supabase/auth-helpers-react": "^0.3.1",
 		"@supabase/supabase-js": "^2.21.0",

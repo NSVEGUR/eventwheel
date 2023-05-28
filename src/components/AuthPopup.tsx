@@ -54,7 +54,7 @@ export default function AuthPop({
 								alt="Picture of Logo"
 							></Image>
 							<h1 className="text-3xl font-medium -md:text-xl">
-								eventmate
+								eventwheel
 							</h1>
 						</div>
 						<Link

@@ -3,10 +3,12 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/server/stripe';
 import { prisma } from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
-import { transporter } from '@/lib/server/mail';
 import { ConfirmationTemplate } from '@/lib/templates';
 import { formatDateWithAmPm } from '@/utils/date';
 import { baseURL } from '@/lib/constants';
+import mail from '@sendgrid/mail';
+
+mail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
 export const POST = catchAsync(async (req: Request) => {
 	const payload = await req.text();
@@ -116,33 +118,34 @@ export const POST = catchAsync(async (req: Request) => {
 				}
 			}
 		});
-		const message = {
-			from: process.env.SMTP_USERNAME,
+		const html = ConfirmationTemplate.replace(
+			'$EVENT_TITLE$',
+			currentEvent.title
+		)
+			.replace('$EVENT_LINK$', baseURL + currentEvent.id)
+			.replace('$EVENT_LOCATION$', currentEvent.location)
+			.replace(
+				'$EVENT_STARTS$',
+				formatDateWithAmPm(currentEvent.starts)
+			)
+			.replace(
+				'$TICKET_LINK$',
+				baseURL + `tickets/${userTicket.id}`
+			);
+		const data = {
+			from: 'noreply@eventwheel.ca',
 			to: customer_details.email,
 			subject: 'Booking confirmation',
-			html: ConfirmationTemplate.replace(
-				'$EVENT_TITLE$',
-				currentEvent.title
-			)
-				.replace('$EVENT_LINK$', baseURL + currentEvent.id)
-				.replace('$EVENT_LOCATION$', currentEvent.location)
-				.replace(
-					'$EVENT_STARTS$',
-					formatDateWithAmPm(currentEvent.starts)
-				)
-				.replace(
-					'$TICKET_LINK$',
-					baseURL + `tickets/${userTicket.id}`
-				)
+			html: html
 		};
-		const info = await transporter.sendMail(message);
+		const info = await mail.send(data);
 		return NextResponse.json(
 			{
 				success: true,
 				data: {
 					ticket: userTicket,
 					guestUser: user ? false : true,
-					smtp_info: info
+					sendgrid_info: info
 				}
 			},
 			{ status: 200 }
