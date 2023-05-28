@@ -3,6 +3,7 @@ import QrReader from 'react-qr-reader';
 import { useContext, useState } from 'react';
 import { SnackbarContext } from '@/components/Snackbar/SnackbarProvider';
 import { UserTicket } from '@/types/ticket';
+import { useRouter } from 'next/navigation';
 import Ticket from '@/components/Ticket';
 
 export default function QR({
@@ -10,6 +11,7 @@ export default function QR({
 }: {
 	tickets: UserTicket[];
 }) {
+	const router = useRouter();
 	const [camera, setCamera] = useState<
 		'environment' | 'user'
 	>('environment');
@@ -18,25 +20,63 @@ export default function QR({
 		undefined | UserTicket
 	>();
 	const [scan, setScan] = useState(false);
-	const handleResult = (result: string | null) => {
-		if (result) {
-			setScan(false);
-			const ids = tickets.map((ticket) => ticket.id);
-			if (!ids.includes(result)) {
+	const handleResult = async (result: string | null) => {
+		if (!result) {
+			return;
+		}
+		setScan(false);
+		const ids = tickets.map((ticket) => ticket.id);
+		if (!ids.includes(result)) {
+			setSnackbar({
+				message: 'Invalid ticket',
+				type: 'failure'
+			});
+			return;
+		}
+		const ticket = tickets.filter(
+			(ticket) => ticket.id === result
+		)[0];
+		if (ticket.scanned) {
+			setSnackbar({
+				message: 'Ticket have been used',
+				type: 'failure'
+			});
+			return;
+		}
+		setSnackbar({
+			message: 'Validating Ticket',
+			type: 'promise'
+		});
+		try {
+			const response = await fetch(
+				`/api/event/manage/${ticket.eventId}/tickets/user/${ticket.id}`,
+				{ method: 'POST' }
+			);
+			if (response.status >= 200 && response.status < 400) {
+				setTicket({
+					...ticket,
+					scanned: true
+				});
 				setSnackbar({
-					message: 'Invalid ticket',
+					message: 'Verified Successfully',
+					type: 'success'
+				});
+				return router.refresh();
+			}
+			if (response.status == 400) {
+				setSnackbar({
+					message: 'Ticket have been used',
 					type: 'failure'
 				});
 				return;
 			}
-			const ticket = tickets.filter(
-				(ticket) => ticket.id === result
-			)[0];
-			setTicket(ticket);
-			setSnackbar({
-				message: 'verified successfully',
-				type: 'success'
+			const result = await response.json();
+			return setSnackbar({
+				message: result.message,
+				type: 'failure'
 			});
+		} catch (err) {
+			console.error(err);
 		}
 	};
 	return (

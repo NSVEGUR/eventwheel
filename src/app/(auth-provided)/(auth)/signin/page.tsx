@@ -101,15 +101,17 @@ export default function Page() {
 			>
 				Continue with Google
 			</button>
-			<h1 className=" text-skin-complementary">
-				No Account?{' '}
+			<div className="flex w-full justify-between text-skin-complementary">
+				<Link href="/recover" className="underline">
+					Forgot Password?
+				</Link>
 				<Link
 					href="/signup"
-					className="text-accent underline"
+					className="text-complementary underline"
 				>
 					SignUp Here
 				</Link>
-			</h1>
+			</div>
 		</div>
 	);
 }

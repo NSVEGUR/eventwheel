@@ -4,6 +4,7 @@ export interface UserTicket {
 	phone: string | null;
 	email: string;
 	type: string;
+	scanned: boolean;
 	price: number;
 	eventId: string;
 	eventTitle: string;

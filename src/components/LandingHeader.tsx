@@ -49,7 +49,7 @@ export default function Header() {
 					height={30}
 				></Image>
 				<span className="text-2xl font-medium">
-					Eventmate
+					eventmate
 				</span>
 			</Link>
 			<LandingNav {...{ showNavBar, setShowNavBar }} />

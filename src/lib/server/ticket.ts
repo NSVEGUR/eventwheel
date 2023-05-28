@@ -182,7 +182,8 @@ export async function getUserTickets(eventId: string) {
 					eventType: event.type,
 					eventCategory: event.category,
 					eventSubCategory: event.subCategory,
-					qrcode: await qrcode.toDataURL(userTicket.id)
+					qrcode: await qrcode.toDataURL(userTicket.id),
+					scanned: userTicket.scanned
 				});
 			}
 		}

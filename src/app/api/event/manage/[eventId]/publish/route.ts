@@ -55,3 +55,47 @@ export const POST = catchAsync(async function (
 		new URL(`/manage/${event.id}`, req.url)
 	);
 });
+
+export const PATCH = catchAsync(async function (
+	req: NextRequest,
+	{
+		params
+	}: {
+		params: {
+			eventId: string;
+		};
+	}
+) {
+	const supabase = createServerClient();
+	const {
+		data: { user }
+	} = await supabase.auth.getUser();
+	if (!user) {
+		throw new AppError(
+			'Authentication required, login to continue',
+			401
+		);
+	}
+	const event = await prisma.event.findUnique({
+		where: {
+			id: params.eventId
+		},
+		include: {
+			tickets: true
+		}
+	});
+	if (!event || event.userId != user.id) {
+		throw new AppError('Event not found', 404);
+	}
+	await prisma.event.update({
+		where: {
+			id: event.id
+		},
+		data: {
+			published: false
+		}
+	});
+	return NextResponse.redirect(
+		new URL(`/manage/${event.id}`, req.url)
+	);
+});

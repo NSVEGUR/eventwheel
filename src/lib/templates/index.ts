@@ -369,7 +369,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																		font-weight: 400;
 																	"
 																>
-																	<strong>Eventmate</strong>
+																	<strong>eventmate</strong>
 																</h1>
 															</td>
 														</tr>
@@ -1462,7 +1462,7 @@ export const ConfirmationTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.
 																				line-height: 25.2px;
 																			"
 																			><strong
-																				>Eventmate</strong
+																				>eventmate</strong
 																			></span
 																		>
 																	</p>
@@ -2041,7 +2041,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																		font-weight: 400;
 																	"
 																>
-																	<strong>Eventmate</strong>
+																	<strong>eventmate</strong>
 																</h1>
 															</td>
 														</tr>
@@ -3100,7 +3100,7 @@ export const StatsTemplate = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Trans
 																				line-height: 25.2px;
 																			"
 																			><strong
-																				>Eventmate</strong
+																				>eventmate</strong
 																			></span
 																		>
 																	</p>
