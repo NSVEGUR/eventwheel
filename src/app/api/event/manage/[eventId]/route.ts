@@ -33,14 +33,33 @@ export const PATCH = catchAsync(async function (
 	if (!event || event.userId != user.id) {
 		throw new AppError('Event not found', 404);
 	}
-	const { userId, id, ...body } =
-		(await req.json()) as Event;
-	const updatedEvent = await prisma.event.update({
+	const {
+		title,
+		organizer,
+		type,
+		category,
+		location,
+		starts,
+		ends,
+		recurrence,
+		displayStart,
+		displayEnd
+	} = (await req.json()) as Event;
+	await prisma.event.update({
 		where: {
 			id: event.id
 		},
 		data: {
-			...body
+			title,
+			organizer,
+			type,
+			category,
+			location,
+			starts,
+			ends,
+			recurrence,
+			displayStart,
+			displayEnd
 		}
 	});
 	return NextResponse.redirect(

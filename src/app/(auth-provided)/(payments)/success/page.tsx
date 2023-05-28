@@ -5,6 +5,8 @@ import Ticket from '@/components/Ticket';
 import ShareMenu from '@/components/ShareMenu';
 import { baseURL } from '@/lib/constants';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page({
 	params,
 	searchParams

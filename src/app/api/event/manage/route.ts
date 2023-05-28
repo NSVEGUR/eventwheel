@@ -18,12 +18,43 @@ export const POST = catchAsync(async function (
 			401
 		);
 	}
-	const { userId, id, ...body } =
-		(await req.json()) as Event;
+	const {
+		title,
+		organizer,
+		type,
+		category,
+		location,
+		starts,
+		ends,
+		recurrence,
+		displayStart,
+		displayEnd
+	} = (await req.json()) as Event;
+	console.log(
+		title,
+		organizer,
+		type,
+		category,
+		location,
+		starts,
+		ends,
+		recurrence,
+		displayStart,
+		displayEnd
+	);
 	const event = await prisma.event.create({
 		data: {
 			userId: user.id,
-			...body
+			title,
+			organizer,
+			type,
+			category,
+			location,
+			starts,
+			ends,
+			recurrence,
+			displayStart,
+			displayEnd
 		}
 	});
 	return NextResponse.redirect(
