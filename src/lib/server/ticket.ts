@@ -79,6 +79,7 @@ export async function getMyTicket(ticketId: string) {
 				name: true,
 				email: true,
 				phone: true,
+				scanned: true,
 				ticket: {
 					select: {
 						type: true,
@@ -107,6 +108,7 @@ export async function getMyTicket(ticketId: string) {
 			name: ticket.name,
 			phone: ticket.phone,
 			email: ticket.email,
+			scanned: ticket.scanned,
 			type: ticket.ticket.type,
 			price: ticket.ticket.price,
 			eventId: ticket.ticket.event.id,
