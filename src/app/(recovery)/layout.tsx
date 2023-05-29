@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Logo from '@/components/Logo';
 
 export default function Layout({
 	children
@@ -16,17 +17,7 @@ export default function Layout({
 				></Image>
 			</div>
 			<form className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-5">
-				<div className="flex items-center gap-2">
-					<Image
-						src="/logo.svg"
-						width={50}
-						height={50}
-						alt="Picture of Logo"
-					></Image>
-					<h1 className="text-3xl font-medium">
-						eventwheel
-					</h1>
-				</div>
+				<Logo />
 				{children}
 			</form>
 		</main>

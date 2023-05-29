@@ -1,15 +1,18 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Page() {
 	return (
 		<main className="min-w-screen flex h-full min-h-screen w-full flex-col items-start justify-center gap-5 p-10">
 			<div className="flex items-center gap-2">
-				<Image
-					src="/logo.svg"
-					width={50}
-					height={50}
-					alt="Picture of Logo"
-				></Image>
+				<Link href="/">
+					<Image
+						src="/logo.svg"
+						width={50}
+						height={50}
+						alt="Picture of Logo"
+					></Image>
+				</Link>
 				<h1 className="text-3xl font-medium">
 					Privacy Policy
 				</h1>

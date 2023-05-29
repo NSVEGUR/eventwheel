@@ -46,7 +46,10 @@ export default function AuthPop({
 								/>
 							</svg>
 						</button>
-						<div className="mt-5 flex items-center gap-2">
+						<Link
+							className="mt-5 flex items-center gap-2"
+							href="/"
+						>
 							<Image
 								src="/logo.svg"
 								width={50}
@@ -56,7 +59,7 @@ export default function AuthPop({
 							<h1 className="text-3xl font-medium -md:text-xl">
 								eventwheel
 							</h1>
-						</div>
+						</Link>
 						<Link
 							href="/signin"
 							className="w-full rounded-lg bg-accent p-2 text-skin-inverted"

@@ -52,7 +52,10 @@ export default async function Home() {
 				<footer className="w-full bg-muted text-skin-complementary">
 					<div className="grid grid-cols-3 justify-items-center p-4 -md:grid-cols-2 -md:gap-10 -sm:grid-cols-1 -sm:justify-items-start">
 						<div className="flex flex-col gap-5">
-							<div className="flex items-center gap-2">
+							<Link
+								className="flex items-center gap-2"
+								href="/"
+							>
 								<Image
 									src="/logo.svg"
 									width={30}
@@ -62,7 +65,7 @@ export default async function Home() {
 								<h1 className="text-lg font-medium text-skin-base">
 									Eventwheel
 								</h1>
-							</div>
+							</Link>
 							<p className="w-60">
 								The affordable and reliable event ticket
 								management platform you will ever find
@@ -91,9 +94,9 @@ export default async function Home() {
 							<h1 className="font-secondary text-xl font-bold text-skin-base">
 								Contact Us
 							</h1>
-							<p className="mt-5 w-60">
-								Montreal, Quebec, Canada.
-							</p>
+							<Link href="mailto:support@eventwheel.ca">
+								support@eventwheel.ca
+							</Link>
 						</div>
 					</div>
 					<div className="border-light-muted flex w-full flex-col items-center justify-center gap-3 border-t-[1px] py-5">
