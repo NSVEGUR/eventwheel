@@ -6,11 +6,11 @@ export default function Logo() {
 		<Link href="/" className="flex items-center gap-2">
 			<Image
 				src="/logo.svg"
-				width={50}
-				height={50}
+				width={30}
+				height={30}
 				alt="Picture of Logo"
 			></Image>
-			<h1 className="text-3xl font-medium">eventwheel</h1>
+			<h1 className="text-3xl font-medium">Eventwheel</h1>
 		</Link>
 	);
 }

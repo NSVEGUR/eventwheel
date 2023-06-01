@@ -39,10 +39,6 @@ export default async function Home() {
 		{
 			name: 'Tickets',
 			path: '/tickets'
-		},
-		{
-			name: 'Privacy Policy',
-			path: '/privacy-policy'
 		}
 	];
 	return (
@@ -58,8 +54,8 @@ export default async function Home() {
 							>
 								<Image
 									src="/logo.svg"
-									width={30}
-									height={30}
+									width={21}
+									height={21}
 									alt="Picture of Logo"
 								></Image>
 								<h1 className="text-lg font-medium text-skin-base">
@@ -101,7 +97,24 @@ export default async function Home() {
 					</div>
 					<div className="border-light-muted flex w-full flex-col items-center justify-center gap-3 border-t-[1px] py-5">
 						<h4 className="-sm:text-sm">
-							© 2023 Eventwheel | Powered by Eventwheel
+							© 2023 Eventwheel |{' '}
+							<span>
+								<Link
+									href="privacy-policy"
+									className="transition-all duration-150 hover:text-accent"
+								>
+									Privacy Policy
+								</Link>
+							</span>{' '}
+							|{' '}
+							<span>
+								<Link
+									href="terms-of-service"
+									className="transition-all duration-150 hover:text-accent"
+								>
+									Terms Of Service
+								</Link>
+							</span>
 						</h4>
 						<ul className="flex gap-5 -sm:text-sm" />
 					</div>

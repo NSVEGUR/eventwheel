@@ -8,8 +8,8 @@ export default function Page() {
 				<Link href="/">
 					<Image
 						src="/logo.svg"
-						width={50}
-						height={50}
+						width={30}
+						height={30}
 						alt="Picture of Logo"
 					></Image>
 				</Link>

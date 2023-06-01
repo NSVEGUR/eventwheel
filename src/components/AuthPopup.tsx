@@ -52,8 +52,8 @@ export default function AuthPop({
 						>
 							<Image
 								src="/logo.svg"
-								width={50}
-								height={50}
+								width={23}
+								height={23}
 								alt="Picture of Logo"
 							></Image>
 							<h1 className="text-3xl font-medium -md:text-xl">

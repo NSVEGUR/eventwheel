@@ -49,8 +49,8 @@ export default function Header({
 				<Image
 					src="/logo.svg"
 					alt="Picture of Logo"
-					width={30}
-					height={30}
+					width={22}
+					height={22}
 				></Image>
 				<span className="text-2xl font-medium">
 					Eventwheel
