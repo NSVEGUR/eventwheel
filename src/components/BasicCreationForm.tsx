@@ -149,7 +149,7 @@ export default function CreationForm({
 					response.status < 400
 				) {
 					setSnackbar({
-						message: 'Saved Successfully',
+						message: 'Updated Successfully',
 						type: 'success'
 					});
 					return router.push(response.url);
@@ -182,7 +182,7 @@ export default function CreationForm({
 					response.status < 400
 				) {
 					setSnackbar({
-						message: 'Updated Successfully',
+						message: 'Saved Successfully',
 						type: 'success'
 					});
 					return router.push(response.url);
