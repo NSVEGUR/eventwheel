@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { SnackbarContext } from '@/components/Snackbar/SnackbarProvider';
 import { UserTicket } from '@/types/ticket';
 import { useRouter } from 'next/navigation';
-import Ticket from '@/components/Ticket';
+import Ticket from '@/components/TicketView';
 
 export default function QR({
 	tickets

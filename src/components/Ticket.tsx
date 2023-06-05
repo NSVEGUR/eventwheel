@@ -1,23 +1,19 @@
-import TicketPrinter from './TicketPrinter';
+'use client';
 import { UserTicket } from '@/types/ticket';
 import Image from 'next/image';
+import { ForwardedRef, forwardRef } from 'react';
 
-export default function Ticket({
-	ticket,
-	printer,
-	shareMenu = false
-}: {
-	ticket: UserTicket;
-	printer: boolean;
-	shareMenu?: boolean;
-}) {
+export default forwardRef(function Ticket(
+	{
+		ticket
+	}: {
+		ticket: UserTicket;
+	},
+	ref: ForwardedRef<HTMLDivElement>
+) {
 	return (
-		<>
-			{printer && <TicketPrinter />}
-			<div
-				className="flex w-[350px] flex-col gap-3 rounded-md bg-dominant p-5 shadow-md -sm:w-[250px]"
-				id="ticket"
-			>
+		<div id="ticket" ref={ref}>
+			<div className="flex w-[350px] flex-col gap-3 rounded-md bg-dominant p-5 shadow-md -sm:w-[250px]">
 				<div className="flex gap-1">
 					<div className="relative h-10 w-10 rounded-md bg-muted">
 						{ticket.eventImage && (
@@ -81,6 +77,6 @@ export default function Ticket({
 					</span>
 				</h1>
 			</div>
-		</>
+		</div>
 	);
-}
+});

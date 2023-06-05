@@ -1,7 +1,7 @@
 import 'server-only';
 import Link from 'next/link';
 import { getTicketWithSession } from '@/lib/server/ticket';
-import Ticket from '@/components/Ticket';
+import Ticket from '@/components/TicketView';
 import ShareMenu from '@/components/ShareMenu';
 import { baseURL } from '@/lib/constants';
 

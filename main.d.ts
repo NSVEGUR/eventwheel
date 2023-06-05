@@ -1,1 +1,1 @@
-declare module 'sib-api-v3-sdk';
+declare module 'js-html2pdf';

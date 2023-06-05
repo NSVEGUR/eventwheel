@@ -1,7 +1,7 @@
 import 'server-only';
 import { getMyTicket } from '@/lib/server/ticket';
 import Image from 'next/image';
-import Ticket from '@/components/Ticket';
+import Ticket from '@/components/TicketView';
 import ShareMenu from '@/components/ShareMenu';
 import { baseURL } from '@/lib/constants';
 
