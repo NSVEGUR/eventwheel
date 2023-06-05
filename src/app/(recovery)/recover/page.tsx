@@ -5,6 +5,7 @@ import { SnackbarContext } from '@/components/Snackbar/SnackbarProvider';
 import AuthInput from '@/components/AuthInput';
 import { useSupabase } from '@/components/providers/supabase-provider';
 import z from 'zod';
+import { baseURL } from '@/lib/constants';
 
 const userSchema = z.object({
 	email: z.coerce.string().email().min(5)
@@ -41,7 +42,7 @@ export default function Page() {
 		});
 		const { error } =
 			await supabase.auth.resetPasswordForEmail(email, {
-				redirectTo: 'http://localhost:3000/forgot'
+				redirectTo: baseURL + '/forgot'
 			});
 		if (error) {
 			return setSnackbar({

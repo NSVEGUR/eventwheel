@@ -1,4 +1,5 @@
 export const baseURL = 'https://www.eventwheel.ca/';
+export const serviceCharge = 1.39;
 
 export const eventTypes = [
 	'Appearance or Singing',

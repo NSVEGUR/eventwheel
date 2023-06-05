@@ -3,6 +3,7 @@ import { AppError } from '@/lib/server/exception';
 import prisma from '@/lib/server/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/server/stripe';
+import { serviceCharge } from '@/lib/constants';
 
 export const POST = catchAsync(async function (
 	req: NextRequest,
@@ -31,11 +32,14 @@ export const POST = catchAsync(async function (
 	if (!ticket || ticket.eventId !== event.id) {
 		throw new AppError('Ticket not found', 404);
 	}
-	const unit_decimal_amount = ticket.price * 100;
+	const unit_decimal_amount = (
+		(ticket.price + serviceCharge) *
+		100
+	).toFixed(3);
 	const stripePrice = await stripe.prices.create({
 		product: ticket.productId,
 		currency: 'cad',
-		unit_amount_decimal: unit_decimal_amount.toString()
+		unit_amount_decimal: unit_decimal_amount
 	});
 	const session = await stripe.checkout.sessions.create({
 		line_items: [{ price: stripePrice.id, quantity: 1 }],

@@ -1,4 +1,5 @@
 'use client';
+import { serviceCharge } from '@/lib/constants';
 import { UserTicket } from '@/types/ticket';
 import Image from 'next/image';
 import { ForwardedRef, forwardRef } from 'react';
@@ -47,9 +48,15 @@ export default forwardRef(function Ticket(
 					</div>
 				</div>
 				<h1>
-					Price:{' '}
+					Ticket Price:{' '}
 					<span className="text-base font-bold text-complementary">
 						$ {ticket.price}
+					</span>
+				</h1>
+				<h1>
+					Service Fee:{' '}
+					<span className="text-base font-bold text-complementary">
+						$ {serviceCharge}
 					</span>
 				</h1>
 				<h1>

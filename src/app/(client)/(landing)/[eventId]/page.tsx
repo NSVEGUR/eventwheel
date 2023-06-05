@@ -7,6 +7,7 @@ import TicketBuyingCard from '@/components/TicketBuyingCard';
 import { getEventUnAuthenticated } from '@/lib/server/event';
 import WishlistButton from '@/components/WishlistButton';
 import LikeButton from '@/components/LikeButton';
+import { getTicketsDetails } from '@/utils/tickets';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,20 +21,23 @@ export default async function Page({
 	const { liked, ...event } = await getEventUnAuthenticated(
 		params.eventId
 	);
+	const { available } = getTicketsDetails(event.tickets);
 	event.image = getImage(event.image);
 	return (
 		<>
 			<div className="fixed bottom-14 right-5 grid h-9 w-9 place-items-center rounded-full bg-gradient-mesh md:hidden">
 				<LikeButton {...{ liked, eventId: event.id }} />
 			</div>
-			<div className="fixed bottom-1 z-10 w-full bg-dominant px-2 md:hidden">
-				<a
-					href="#tickets"
-					className="flex w-full items-center justify-center scroll-smooth rounded-md bg-accent p-2 text-center font-medium text-skin-inverted"
-				>
-					Buy Now
-				</a>
-			</div>
+			{available > 0 && (
+				<div className="fixed bottom-1 z-10 w-full bg-dominant px-2 md:hidden">
+					<a
+						href="#tickets"
+						className="flex w-full items-center justify-center scroll-smooth rounded-md bg-accent p-2 text-center font-medium text-skin-inverted"
+					>
+						Buy Now
+					</a>
+				</div>
+			)}
 			<section className="h-full w-full px-28 -md:px-3">
 				<div className="flex flex-col gap-5 py-10">
 					<h1 className="text-center text-4xl font-bold md:hidden">
@@ -48,12 +52,14 @@ export default async function Page({
 						<h1 className="text-center text-4xl font-bold">
 							{event.title}
 						</h1>
-						<a
-							href="#tickets"
-							className="flex items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
-						>
-							Buy Now
-						</a>
+						{available > 0 && (
+							<a
+								href="#tickets"
+								className="flex items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
+							>
+								Buy Now
+							</a>
+						)}
 					</div>
 					<div className="relative mt-5 h-96 w-full overflow-hidden rounded-lg bg-muted">
 						{event.image && (

@@ -41,7 +41,12 @@ export default function TicketForm({
 	) => {
 		const { name, value } = e.target;
 		if (name === 'price' || name == 'available') {
-			const val = parseInt(value);
+			let val;
+			if (name === 'price') {
+				val = parseFloat(value);
+			} else {
+				val = parseInt(value);
+			}
 			setValues({
 				...values,
 				[name]: val ? Math.abs(val) : 'HaHa'

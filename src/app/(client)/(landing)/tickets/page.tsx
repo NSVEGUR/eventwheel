@@ -5,6 +5,7 @@ import { createServerClient } from '@/utils/supabase-server';
 import { getImage } from '@/lib/server/image';
 import Image from 'next/image';
 import Link from 'next/link';
+import { serviceCharge } from '@/lib/constants';
 
 export const dynamic = 'force-dynamic';
 
@@ -125,7 +126,7 @@ export default async function Page() {
 									<h1>
 										Price:{' '}
 										<span className="text-base font-bold text-complementary">
-											$ {ticket.price}
+											$ {ticket.price + serviceCharge}
 										</span>
 									</h1>
 									<h1>
