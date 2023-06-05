@@ -55,10 +55,14 @@ export default async function Page({
 					</h1>
 					<TicketsDetailsPrinter />
 				</div>
-				<ul className="grid h-10 grid-cols-4 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]">
-					<li className="flex items-center gap-1 place-self-start">
-						<span>Id</span>
-					</li>
+				<ul
+					className="grid h-10 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
+					style={{
+						gridTemplateColumns: `repeat(${
+							3 + ticket.labels.length
+						}, minmax(0, 1fr))`
+					}}
+				>
 					<li className="flex items-center gap-1 place-self-start">
 						<span>Email</span>
 					</li>
@@ -68,18 +72,26 @@ export default async function Page({
 					<li className="place-self-start">
 						<span>Phone</span>
 					</li>
-					<></>
+					{ticket.labels.map((label, index) => {
+						return (
+							<li className="place-self-start" key={index}>
+								<span>{label}</span>
+							</li>
+						);
+					})}
 				</ul>
 				{ticket.tickets.map(
-					({ id, email, name, phone }, index) => {
+					({ email, name, phone, values }, index) => {
 						return (
 							<ul
-								className="grid min-h-[40px] grid-cols-4 place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
+								className="grid min-h-[40px] place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
 								key={index}
+								style={{
+									gridTemplateColumns: `repeat(${
+										3 + ticket.labels.length
+									}, minmax(0, 1fr))`
+								}}
 							>
-								<li className="min-w-0 max-w-full place-self-start truncate">
-									<span>{id}</span>
-								</li>
 								<li className="min-w-0 max-w-full place-self-start truncate">
 									<span>{email}</span>
 								</li>
@@ -89,6 +101,16 @@ export default async function Page({
 								<li className="min-w-0 max-w-full place-self-start truncate">
 									<span>{phone}</span>
 								</li>
+								{values.map((value, index) => {
+									return (
+										<li
+											className="min-w-0 max-w-full place-self-start truncate"
+											key={index}
+										>
+											<span>{value}</span>
+										</li>
+									);
+								})}
 							</ul>
 						);
 					}
