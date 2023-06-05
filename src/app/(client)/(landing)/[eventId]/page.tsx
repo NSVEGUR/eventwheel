@@ -9,7 +9,6 @@ import WishlistButton from '@/components/WishlistButton';
 import LikeButton from '@/components/LikeButton';
 import { getTicketsDetails } from '@/utils/tickets';
 import { AppError } from '@/lib/server/exception';
-import { formatDate } from '@/utils/date';
 
 export const dynamic = 'force-dynamic';
 
@@ -188,7 +187,7 @@ export default async function Page({
 						<h1 className="text-center text-2xl font-medium text-accent">
 							Event coming soon... explore at{' '}
 							<span className="text-complementary">
-								{formatDate(event.publishDate)}
+								{formatDateWithAmPm(event.publishDate)}
 							</span>
 						</h1>
 					)}
