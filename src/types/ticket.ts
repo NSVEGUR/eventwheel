@@ -15,3 +15,9 @@ export interface UserTicket {
 	eventSubCategory: string | null;
 	qrcode: string;
 }
+
+export interface CustomInput {
+	label: string;
+	value: string;
+	optional: boolean;
+}

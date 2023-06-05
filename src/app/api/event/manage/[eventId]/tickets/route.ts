@@ -39,8 +39,16 @@ export const POST = catchAsync(async function (
 		description,
 		price,
 		available,
-		displayAvailable
-	} = (await req.json()) as AdminTicket;
+		displayAvailable,
+		inputs
+	} = (await req.json()) as AdminTicket & {
+		inputs: {
+			label: string;
+			optional: boolean;
+		}[];
+	};
+	const labels = inputs.map((input) => input.label);
+	const optionals = inputs.map((input) => input.optional);
 	const stripeProduct = await stripe.products.create({
 		name: type,
 		description: description
@@ -53,10 +61,11 @@ export const POST = catchAsync(async function (
 			available: available,
 			type: type,
 			description: description,
-			displayAvailable: displayAvailable
+			displayAvailable: displayAvailable,
+			labels,
+			optionals
 		}
 	});
-
 	return NextResponse.redirect(
 		new URL(`/manage/${event.id}`, req.url)
 	);
@@ -88,8 +97,14 @@ export const PATCH = catchAsync(async function (
 		available,
 		type,
 		description,
-		displayAvailable
-	} = body as AdminTicket;
+		displayAvailable,
+		inputs
+	} = body as AdminTicket & {
+		inputs: {
+			label: string;
+			optional: boolean;
+		}[];
+	};
 	const event = await prisma.event.findUnique({
 		where: {
 			id: params.eventId
@@ -106,6 +121,8 @@ export const PATCH = catchAsync(async function (
 	if (!ticket || ticket.eventId != event.id) {
 		throw new AppError('Ticket not found', 404);
 	}
+	const labels = inputs.map((input) => input.label);
+	const optionals = inputs.map((input) => input.optional);
 	const updatedTicket = await prisma.adminTicket.update({
 		where: {
 			id: ticket.id
@@ -115,7 +132,9 @@ export const PATCH = catchAsync(async function (
 			description,
 			price: price,
 			available: available,
-			displayAvailable: displayAvailable
+			displayAvailable: displayAvailable,
+			labels,
+			optionals
 		}
 	});
 	await stripe.products.update(updatedTicket.productId, {

@@ -22,7 +22,6 @@ model User{
 
 model Event{
   id String @id @default(cuid())
-  published Boolean@default(false)
   userId String
   user User@relation(fields: [userId], references: [id])
   likedUsers User[]@relation("likes")
@@ -45,6 +44,8 @@ model Event{
   questions String[]
   answers String[]
   withdrawalRequests WithdrawalRequest[]
+  published Boolean@default(false)
+  publishDate DateTime?
   @@map("events")
 }
 
@@ -60,6 +61,8 @@ model AdminTicket{
   displayAvailable Boolean@default(true)
   sold Int@default(0)
   tickets UserTicket[]
+  labels String[]
+  optionals Boolean[]
   @@map("admin_tickets")
 }
 
@@ -74,6 +77,8 @@ model UserTicket{
   userId String?
   scanned Boolean@default(false)
   user User?@relation(fields: [userId], references: [id])
+  labels String[]
+  values String[]
   @@map("user_tickets")
 }
 

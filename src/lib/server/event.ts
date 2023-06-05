@@ -1,7 +1,7 @@
 import { createServerClient } from '@/utils/supabase-server';
 import { AppError } from './exception';
 import prisma from './prisma';
-import { AdminTicket, Event, User } from '@prisma/client';
+import { AdminTicket, Event } from '@prisma/client';
 
 export interface LikedEvent extends Event {
 	liked: boolean | undefined;
@@ -155,13 +155,19 @@ export const getEventsUnAuthenticated = async () => {
 				};
 			}) as LikedEvent[];
 		}
-		return events.map(({ likedUsers, ...event }) => {
-			const likedIds = likedUsers.map(({ id }) => id);
-			return {
-				...event,
-				liked: likedIds.includes(user.id)
-			};
-		}) as LikedEvent[];
+		const currentTime = new Date();
+		const filteredEvents = events.filter(
+			(event) => event.ends > currentTime
+		);
+		return filteredEvents.map(
+			({ likedUsers, ...event }) => {
+				const likedIds = likedUsers.map(({ id }) => id);
+				return {
+					...event,
+					liked: likedIds.includes(user.id)
+				};
+			}
+		) as LikedEvent[];
 	} catch (err) {
 		throw new AppError(
 			'Database connection error, please verify and try again 😵‍💫',
@@ -185,7 +191,12 @@ export async function getEventUnAuthenticated(id: string) {
 				tickets: true
 			}
 		});
-		if (!event || !event.published) {
+		const currentTime = new Date();
+		if (
+			!event ||
+			!event.published ||
+			event.ends < currentTime
+		) {
 			throw new AppError('Event not found', 404);
 		}
 		const { likedUsers, ...others } = event;

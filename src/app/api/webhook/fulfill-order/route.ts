@@ -7,6 +7,7 @@ import { ConfirmationTemplate } from '@/lib/templates';
 import { formatDateWithAmPm } from '@/utils/date';
 import { baseURL } from '@/lib/constants';
 import mail from '@sendgrid/mail';
+import { CustomInput } from '@/types/ticket';
 
 mail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
@@ -64,7 +65,15 @@ export const POST = catchAsync(async (req: Request) => {
 				400
 			);
 		}
-
+		const inputs = JSON.parse(
+			metadata.inputs
+		) as CustomInput[];
+		let labels: string[] = [];
+		let values: string[] = [];
+		if (inputs.length > 0) {
+			labels = inputs.map((input) => input.label);
+			values = inputs.map((input) => input.value);
+		}
 		const { price } = line_items.data[0];
 		if (
 			!price ||
@@ -105,7 +114,9 @@ export const POST = catchAsync(async (req: Request) => {
 				checkoutSessionId: session.id,
 				email: customer_details.email,
 				name: customer_details.name,
-				phone: customer_details.phone
+				phone: customer_details.phone,
+				labels,
+				values
 			}
 		});
 		await prisma.adminTicket.update({

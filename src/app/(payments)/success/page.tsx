@@ -41,7 +41,9 @@ export default async function Page({
 			<h1>Transaction Successful</h1>
 			{ticket && (
 				<>
-					<Ticket {...{ ticket, printer: true }} />
+					<Ticket
+						{...{ ticket, printer: false, getTicket: true }}
+					/>
 					<ShareMenu
 						{...{
 							url: baseURL + `tickets/${ticket.id}`,

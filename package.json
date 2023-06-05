@@ -45,13 +45,13 @@
 		"zod": "^3.21.4"
 	},
 	"devDependencies": {
-		"@prisma/client": "4.14.0",
+		"@prisma/client": "4.15.0",
 		"@types/bcrypt": "^5.0.0",
 		"@types/nodemailer": "^6.4.7",
 		"@types/qrcode": "^1.5.0",
 		"@types/react-qr-reader": "^2.1.4",
 		"prettier": "^2.8.8",
 		"prettier-plugin-tailwindcss": "^0.3.0",
-		"prisma": "^4.14.0"
+		"prisma": "^4.15.0"
 	}
 }

@@ -11,6 +11,10 @@ export interface TicketForm {
 	available: number;
 	displayAvailable: boolean;
 	id: string;
+	inputs: {
+		label: string;
+		optional: boolean;
+	}[];
 }
 
 export const DEFAULT_TICKET_FORM_ENTRIES: TicketForm = {
@@ -19,7 +23,8 @@ export const DEFAULT_TICKET_FORM_ENTRIES: TicketForm = {
 	price: 0,
 	id: '',
 	available: 100,
-	displayAvailable: true
+	displayAvailable: true,
+	inputs: []
 };
 
 export default function TicketForm({
@@ -87,7 +92,8 @@ export default function TicketForm({
 					parseFloat(values.price.toString()).toFixed(4)
 				),
 				available: parseInt(values.available.toString()),
-				displayAvailable: values.displayAvailable
+				displayAvailable: values.displayAvailable,
+				inputs: values.inputs
 			};
 		} else {
 			data = {
@@ -99,7 +105,8 @@ export default function TicketForm({
 					parseFloat(values.price.toString()).toFixed(4)
 				),
 				available: parseInt(values.available.toString()),
-				displayAvailable: values.displayAvailable
+				displayAvailable: values.displayAvailable,
+				inputs: values.inputs
 			};
 		}
 		try {
@@ -169,7 +176,6 @@ export default function TicketForm({
 						Form
 					</h1>
 				</div>
-
 				<div className="flex flex-col gap-2">
 					<label htmlFor="type">
 						Type{' '}
@@ -251,6 +257,100 @@ export default function TicketForm({
 							sold will not be visible to the users.
 						</p>
 					</label>
+				</div>
+				<div className="flex flex-col items-center gap-3">
+					<h1 className="text-3xl font-medium text-complementary">
+						Custom Inputs
+					</h1>
+					<div>
+						{values.inputs.map((input, index) => {
+							return (
+								<div
+									key={index}
+									className="flex flex-col gap-3"
+								>
+									<div className="mt-5 flex items-center justify-between">
+										<h1 className="text-2xl font-medium">
+											Input-{index + 1}
+										</h1>
+										<button
+											className="rounded-md bg-red-500 p-2 text-skin-inverted"
+											onClick={(e) => {
+												e.preventDefault();
+												values.inputs.splice(index, 1);
+												setValues({
+													...values
+												});
+											}}
+										>
+											Delete
+										</button>
+									</div>
+
+									<input
+										type="text"
+										name="label"
+										required
+										className="border-[1px] border-base p-3 outline-accent"
+										placeholder={`Label for Input-${
+											index + 1
+										}`}
+										value={input.label}
+										onChange={(e) => {
+											const { inputs } = values;
+											inputs[index].label = e.target.value;
+											setValues({
+												...values,
+												inputs
+											});
+										}}
+									/>
+									<div className="flex gap-3 text-sm -sm:mb-40">
+										<input
+											type="checkbox"
+											checked={input.optional}
+											onChange={(e) => {
+												const { inputs } = values;
+												inputs[index].optional =
+													e.target.checked;
+												setValues({
+													...values,
+													inputs
+												});
+											}}
+											className="accent-accent"
+										/>
+										<label htmlFor="displayAvailable">
+											<h1>Make it Optional</h1>
+											<p className="text-xs text-skin-complementary">
+												If turned on, this input field will
+												be optional for users when buying a
+												ticket.
+											</p>
+										</label>
+									</div>
+								</div>
+							);
+						})}
+					</div>
+					<button
+						onClick={(e) => {
+							e.preventDefault();
+							setValues({
+								...values,
+								inputs: [
+									...values.inputs,
+									{
+										label: '',
+										optional: false
+									}
+								]
+							});
+						}}
+						className="mb-32 rounded-md border-[1px] border-accent bg-light-accent p-2"
+					>
+						Add A Custom Input
+					</button>
 				</div>
 			</div>
 			<footer className="fixed bottom-0 left-0 right-0 h-16 border-t-[1px] bg-dominant">

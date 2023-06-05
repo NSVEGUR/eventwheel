@@ -7,15 +7,20 @@ import { useReactToPrint } from 'react-to-print';
 import Html2Pdf from 'js-html2pdf';
 import { useContext } from 'react';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function TicketView({
 	ticket,
-	printer
+	printer,
+	getTicket = false
 }: {
 	ticket: UserTicket;
 	printer: boolean;
+	getTicket?: boolean;
 }) {
 	const { setSnackbar } = useContext(SnackbarContext);
+	const router = useRouter();
 	const ticketRef = useRef<HTMLDivElement>(null);
 	const handlePrint = useReactToPrint({
 		onPrintError: (error) => console.log(error),
@@ -42,6 +47,14 @@ export default function TicketView({
 	return (
 		<>
 			{printer && <TicketPrinter print={handlePrint} />}
+			{getTicket && (
+				<Link
+					href={`/tickets/${ticket.id}`}
+					className="absolute right-10 top-10 rounded-md bg-accent px-2 py-1 text-skin-inverted"
+				>
+					Get Ticket
+				</Link>
+			)}
 			<Ticket ref={ticketRef} ticket={ticket} />
 		</>
 	);

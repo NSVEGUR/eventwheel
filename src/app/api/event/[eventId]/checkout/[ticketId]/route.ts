@@ -4,6 +4,7 @@ import prisma from '@/lib/server/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/server/stripe';
 import { serviceCharge } from '@/lib/constants';
+import { CustomInput } from '@/types/ticket';
 
 export const POST = catchAsync(async function (
 	req: NextRequest,
@@ -32,6 +33,7 @@ export const POST = catchAsync(async function (
 	if (!ticket || ticket.eventId !== event.id) {
 		throw new AppError('Ticket not found', 404);
 	}
+	const inputs = (await req.json()) as CustomInput[];
 	const unit_decimal_amount = (
 		(ticket.price + serviceCharge) *
 		100
@@ -46,6 +48,9 @@ export const POST = catchAsync(async function (
 		mode: 'payment',
 		phone_number_collection: {
 			enabled: true
+		},
+		metadata: {
+			inputs: JSON.stringify(inputs)
 		},
 		success_url:
 			process.env.NEXT_PUBLIC_URL +

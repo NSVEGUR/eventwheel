@@ -27,7 +27,7 @@ export default async function Page({
 							src={imgUrl}
 							alt="Event Image"
 							fill={true}
-							className=" object-cover "
+							className="object-cover"
 						/>
 					)}
 				</div>
@@ -102,7 +102,7 @@ export default async function Page({
 						Tickets
 					</h1>
 					<div
-						className="flex flex-wrap items-center justify-center"
+						className="flex flex-wrap items-center justify-center gap-10"
 						id="tickets"
 					>
 						{event.tickets.map((ticket, index) => {
@@ -150,8 +150,8 @@ export default async function Page({
 						}}
 					></FAQ>
 				</section>
+				<PublishForm {...{ event }} />
 			</div>
-			<PublishForm {...{ event }} />
 		</section>
 	);
 }
