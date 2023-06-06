@@ -73,7 +73,7 @@ export default function TicketBuyingCard({
 				<span className="text-xl font-bold text-complementary transition-all duration-200 group-hover:text-xl">
 					{(ticket.price + serviceCharge).toFixed(2)}${' '}
 					<span className="text-xs font-normal text-skin-complementary">
-						(including service and convenience fee)
+						(incl. service & convenience fee)
 					</span>
 				</span>
 			</h3>

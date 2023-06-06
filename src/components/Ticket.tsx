@@ -52,7 +52,7 @@ export default forwardRef(function Ticket(
 					<span className="text-base font-bold text-complementary">
 						$ {(ticket.price + serviceCharge).toFixed(2)}{' '}
 						<span className="text-xs font-light text-skin-complementary">
-							(including service and convenience fee)
+							(incl. service & convenience fee)
 						</span>
 					</span>
 				</h1>
