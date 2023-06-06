@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import 'server-only';
 import { getImage } from '@/lib/server/image';
-import { formatDate } from '@/utils/date';
 import FAQ from '@/components/FAQ';
 import TicketBuyingCard from '@/components/TicketBuyingCard';
 import { getEventUnAuthenticated } from '@/lib/server/event';
@@ -195,7 +194,7 @@ export default async function Page({
 						<h1 className="text-center text-2xl font-medium text-accent">
 							Event coming soon... explore at{' '}
 							<span className="text-complementary">
-								{formatDate(event.publishDate)}
+								<GetDate date={event.publishDate} />
 							</span>
 						</h1>
 					)}
