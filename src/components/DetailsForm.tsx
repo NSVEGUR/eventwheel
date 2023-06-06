@@ -283,11 +283,7 @@ export default function DetailsForm({
 										placeholder="Image URL of your campaign"
 										onChange={updateImageLocally}
 									/>
-									<span>
-										{values.image
-											? 'Edit Image'
-											: 'Choose Image'}
-									</span>
+									<span>Choose Image</span>
 								</label>
 							</div>
 						</div>

@@ -26,9 +26,14 @@ export default forwardRef(function TicketsAdminDetails(
 						<ul
 							className="grid h-10 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
 							style={{
-								gridTemplateColumns: `repeat(${ticket.labels.length}, minmax(0, 1fr))`
+								gridTemplateColumns: `repeat(${
+									ticket.labels.length + 1
+								}, minmax(0, 1fr))`
 							}}
 						>
+							<li className="place-self-start">
+								<span>id</span>
+							</li>
 							{ticket.labels.map((label, index) => {
 								return (
 									<li
@@ -40,28 +45,35 @@ export default forwardRef(function TicketsAdminDetails(
 								);
 							})}
 						</ul>
-						{ticket.tickets.map(({ values }, index) => {
-							return (
-								<ul
-									className="grid min-h-[40px] place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
-									key={index}
-									style={{
-										gridTemplateColumns: `repeat(${ticket.labels.length}, minmax(0, 1fr))`
-									}}
-								>
-									{values.map((value, index) => {
-										return (
-											<li
-												className="min-w-0 max-w-full place-self-start truncate"
-												key={index}
-											>
-												<span>{value}</span>
-											</li>
-										);
-									})}
-								</ul>
-							);
-						})}
+						{ticket.tickets.map(
+							({ values, slNo }, index) => {
+								return (
+									<ul
+										className="grid min-h-[40px] place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
+										key={index}
+										style={{
+											gridTemplateColumns: `repeat(${
+												ticket.labels.length + 1
+											}, minmax(0, 1fr))`
+										}}
+									>
+										<li className="min-w-0 max-w-full place-self-start truncate">
+											<span>{slNo}</span>
+										</li>
+										{values.map((value, index) => {
+											return (
+												<li
+													className="min-w-0 max-w-full place-self-start truncate"
+													key={index}
+												>
+													<span>{value}</span>
+												</li>
+											);
+										})}
+									</ul>
+								);
+							}
+						)}
 					</>
 				) : (
 					<h1 className="text-center text-skin-complementary">
@@ -88,16 +100,6 @@ export default forwardRef(function TicketsAdminDetails(
 							<li className="place-self-start">
 								<span>Phone</span>
 							</li>
-							{ticket.labels.map((label, index) => {
-								return (
-									<li
-										className="place-self-start"
-										key={index}
-									>
-										<span>{label}</span>
-									</li>
-								);
-							})}
 						</ul>
 						{ticket.tickets.map(
 							({ email, name, phone, slNo }, index) => {
