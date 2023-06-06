@@ -9,6 +9,7 @@ import WishlistButton from '@/components/WishlistButton';
 import LikeButton from '@/components/LikeButton';
 import { getTicketsDetails } from '@/utils/tickets';
 import { AppError } from '@/lib/server/exception';
+import GetDate from '@/components/GetDate';
 
 export const dynamic = 'force-dynamic';
 
@@ -119,7 +120,7 @@ export default async function Page({
 										<h1 className="flex items-baseline gap-1">
 											Starts:{' '}
 											<span className="text-skin-complementary">
-												{formatDate(event.starts)}
+												<GetDate date={event.starts} />
 											</span>
 										</h1>
 									)}
@@ -127,7 +128,7 @@ export default async function Page({
 										<h1 className="flex items-baseline gap-1">
 											Ends:{' '}
 											<span className="text-skin-complementary">
-												{formatDate(event.ends)}
+												<GetDate date={event.ends} />
 											</span>
 										</h1>
 									)}
