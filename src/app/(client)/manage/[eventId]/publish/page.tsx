@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import 'server-only';
 import { getEvent } from '@/lib/server/event';
-import { formatDate } from '@/utils/date';
 import FAQ from '@/components/FAQ';
 import PublishForm from '@/components/PublishForm';
 import { getImage } from '@/lib/server/image';
+import GetDate from '@/components/GetDate';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,13 +71,13 @@ export default async function Page({
 						<h1 className="flex items-baseline gap-1">
 							Starts:{' '}
 							<span className="text-skin-complementary">
-								{formatDate(event.starts)}
+								<GetDate date={event.starts} />
 							</span>
 						</h1>
 						<h1 className="flex items-baseline gap-1">
 							Ends:{' '}
 							<span className="text-skin-complementary">
-								{formatDate(event.ends)}
+								<GetDate date={event.ends} />
 							</span>
 						</h1>
 					</div>
