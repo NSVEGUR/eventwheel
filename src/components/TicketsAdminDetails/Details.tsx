@@ -83,7 +83,7 @@ export default forwardRef(function TicketsAdminDetails(
 			</div>
 			<div>
 				<h1 className="mb-5 text-3xl font-bold text-accent">
-					Stripe Details
+					Purchase Details
 				</h1>
 				{ticket.tickets.length > 0 ? (
 					<>

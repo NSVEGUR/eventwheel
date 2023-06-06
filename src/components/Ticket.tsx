@@ -80,7 +80,7 @@ export default forwardRef(function Ticket(
 					</>
 				)}
 				<h1 className="font-bold text-accent">
-					Stripe Details
+					Purchase Details
 				</h1>
 				<h1 className="text-sm">
 					Name:{' '}

@@ -1,7 +1,7 @@
 import 'server-only';
 import { getTicket } from '@/lib/server/ticket';
 import Link from 'next/link';
-import TicketsAdmin from '@/components/TicketsAdminDetails';
+import TicketsAdminDetails from '@/components/TicketsAdminDetails';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,7 +48,7 @@ export default async function Page({
 					</span>
 				</h3>
 			</div>
-			<TicketsAdmin ticket={ticket} />
+			<TicketsAdminDetails ticket={ticket} />
 		</div>
 	);
 }

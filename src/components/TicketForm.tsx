@@ -260,7 +260,7 @@ export default function TicketForm({
 				</div>
 				<div className="flex flex-col items-center gap-3">
 					<h1 className="text-3xl font-medium text-complementary">
-						Custom Inputs
+						Questions to Buyers
 					</h1>
 					<div>
 						{values.inputs.map((input, index) => {
@@ -349,7 +349,7 @@ export default function TicketForm({
 						}}
 						className="mb-32 rounded-md border-[1px] border-accent bg-light-accent p-2"
 					>
-						Add A Custom Input
+						Add A Question
 					</button>
 				</div>
 			</div>
