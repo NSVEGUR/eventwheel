@@ -26,8 +26,8 @@ export default async function Page({
 						</p>
 						<h3>
 							Price:{' '}
-							<span className="text-3xl font-medium text-complementary">
-								$ {ticket.price}
+							<span className="text-xl font-medium text-complementary">
+								{ticket.price} $
 							</span>
 						</h3>
 						<h3>

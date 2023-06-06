@@ -1,6 +1,5 @@
 import prisma from '@/lib/server/prisma';
 import { getTicketsDetails } from '@/utils/tickets';
-import { formatDateWithAmPm } from '@/utils/date';
 import { NextResponse } from 'next/server';
 import { baseURL } from '@/lib/constants';
 import { StatsTemplate } from '@/lib/templates';

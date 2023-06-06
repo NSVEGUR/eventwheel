@@ -1,4 +1,5 @@
 export interface UserTicket {
+	slNo: number;
 	id: string;
 	name: string | null;
 	phone: string | null;
@@ -14,6 +15,8 @@ export interface UserTicket {
 	eventCategory: string;
 	eventSubCategory: string | null;
 	qrcode: string;
+	labels: string[];
+	values: string[];
 }
 
 export interface CustomInput {

@@ -39,7 +39,7 @@ export default forwardRef(function Ticket(
 					</div>
 				</div>
 				<div className="flex w-full justify-center">
-					<div className="relative h-20 w-20">
+					<div className="relative h-40 w-40">
 						<Image
 							src={ticket.qrcode}
 							alt="QRCode"
@@ -48,36 +48,53 @@ export default forwardRef(function Ticket(
 					</div>
 				</div>
 				<h1>
-					Ticket Price:{' '}
+					Price:{' '}
 					<span className="text-base font-bold text-complementary">
-						$ {ticket.price}
+						$ {(ticket.price + serviceCharge).toFixed(2)}{' '}
+						<span className="text-xs font-light text-skin-complementary">
+							(including service and convenience fee)
+						</span>
 					</span>
 				</h1>
 				<h1>
-					Service Fee:{' '}
-					<span className="text-base font-bold text-complementary">
-						$ {serviceCharge}
-					</span>
-				</h1>
-				<h1>
-					TicketId:{' '}
+					TicketNo:{' '}
 					<span className="text-skin-complementary">
-						{ticket.id}
+						{ticket.slNo}
 					</span>
 				</h1>
-				<h1>
+				{ticket.labels.length > 0 && (
+					<>
+						<h1 className="font-bold text-accent">
+							Customer Details
+						</h1>
+						{ticket.labels.map((label, index) => {
+							return (
+								<h1 key={index}>
+									{label}:{' '}
+									<span className="text-skin-complementary">
+										{ticket.values[index] ?? 'undefined'}
+									</span>
+								</h1>
+							);
+						})}
+					</>
+				)}
+				<h1 className="font-bold text-accent">
+					Stripe Details
+				</h1>
+				<h1 className="text-sm">
 					Name:{' '}
 					<span className="text-skin-complementary">
 						{ticket.name ?? 'undefined'}
 					</span>
 				</h1>
-				<h1>
+				<h1 className="text-sm">
 					Email:{' '}
 					<span className="text-skin-complementary">
 						{ticket.email}
 					</span>
 				</h1>
-				<h1>
+				<h1 className="text-sm">
 					Phone:{' '}
 					<span className="text-skin-complementary">
 						{ticket.phone ?? 'undefined'}

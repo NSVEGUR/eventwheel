@@ -68,22 +68,13 @@ export default function TicketBuyingCard({
 					</span>
 				</h3>
 			)}
-			<h3 className="text-xs">
-				Price:{' '}
-				<span className="font-bold text-complementary transition-all duration-200 group-hover:text-xl">
-					{ticket.price}$
-				</span>
-			</h3>
-			<h3 className="text-xs">
-				Service Charge:{' '}
-				<span className="text-xs font-bold text-complementary">
-					{serviceCharge}$
-				</span>
-			</h3>
 			<h3 className="text-base">
-				Total:{' '}
+				Price:{' '}
 				<span className="text-xl font-bold text-complementary transition-all duration-200 group-hover:text-xl">
-					{(ticket.price + serviceCharge).toFixed(2)}$
+					{(ticket.price + serviceCharge).toFixed(2)}${' '}
+					<span className="text-xs font-normal text-skin-complementary">
+						(including service and convenience fee)
+					</span>
 				</span>
 			</h3>
 			{ticket.available - ticket.sold > 0 ? (

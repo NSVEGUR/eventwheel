@@ -56,6 +56,6 @@ export const PATCH = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		new URL(`/manage/${event.id}`, req.url)
+		new URL(`/manage/${event.id}/tickets`, req.url)
 	);
 });

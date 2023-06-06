@@ -1,7 +1,7 @@
 import { Event, AdminTicket } from '@prisma/client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatDateWithAmPm } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import LikeButton from '@/components/LikeButton';
 import { getTicketsDetails } from '@/utils/tickets';
 
@@ -42,7 +42,7 @@ export default function EventCard({
 				</h1>
 				{event.displayStart && (
 					<p className="text-sm text-complementary">
-						{formatDateWithAmPm(event.starts)}
+						{formatDate(event.starts)}
 					</p>
 				)}
 				<p className="text-sm font-medium text-accent">

@@ -6,7 +6,7 @@ export default function Layout({
 	children: React.ReactNode;
 }) {
 	return (
-		<main className="min-w-screen relative flex min-h-screen">
+		<main className="min-w-screen relative flex h-screen overflow-scroll">
 			<div className="absolute inset-0 flex h-full w-full items-center justify-center">
 				<Image
 					src="/noisy-gradient.png"

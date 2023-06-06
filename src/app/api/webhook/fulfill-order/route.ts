@@ -4,7 +4,7 @@ import { stripe } from '@/lib/server/stripe';
 import { prisma } from '@/lib/server/prisma';
 import { AppError } from '@/lib/server/exception';
 import { ConfirmationTemplate } from '@/lib/templates';
-import { formatDateWithAmPm } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import { baseURL } from '@/lib/constants';
 import mail from '@sendgrid/mail';
 import { CustomInput } from '@/types/ticket';
@@ -89,6 +89,9 @@ export const POST = catchAsync(async (req: Request) => {
 		const ticket = await prisma.adminTicket.findUnique({
 			where: {
 				productId: price.product.toString()
+			},
+			include: {
+				tickets: true
 			}
 		});
 		if (!ticket) {
@@ -111,6 +114,7 @@ export const POST = catchAsync(async (req: Request) => {
 			data: {
 				userId: user?.id,
 				ticketId: ticket.id,
+				slNo: ticket.tickets.length + 1,
 				checkoutSessionId: session.id,
 				email: customer_details.email,
 				name: customer_details.name,
@@ -137,7 +141,7 @@ export const POST = catchAsync(async (req: Request) => {
 			.replace('$EVENT_LOCATION$', currentEvent.location)
 			.replace(
 				'$EVENT_STARTS$',
-				formatDateWithAmPm(currentEvent.starts)
+				formatDate(currentEvent.starts)
 			)
 			.replace(
 				'$TICKET_LINK$',

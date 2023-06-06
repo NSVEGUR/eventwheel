@@ -63,6 +63,6 @@ export const PATCH = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		process.env.NEXT_PUBLIC_URL + `manage/${event.id}`
+		new URL(`/manage/${event.id}/details`, req.url)
 	);
 });

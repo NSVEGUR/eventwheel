@@ -263,6 +263,12 @@ export default function DetailsForm({
 									/>
 								</div>
 							)}
+							<ul className="flex w-full justify-between text-xs text-skin-complementary">
+								<li>
+									Recommended image size: 2160 x 1080px
+								</li>
+								<li>Maximum file size: 1MB</li>
+							</ul>
 							<div className="mt-5 flex w-full items-center justify-center">
 								<label
 									htmlFor="file"

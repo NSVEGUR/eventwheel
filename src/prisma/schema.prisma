@@ -68,6 +68,7 @@ model AdminTicket{
 
 model UserTicket{
   id String @id @default(cuid())
+  slNo Int
   email String
   name String?
   phone String?
@@ -80,6 +81,7 @@ model UserTicket{
   labels String[]
   values String[]
   @@map("user_tickets")
+  @@unique([ticketId, slNo])
 }
 
 model WithdrawalRequest{

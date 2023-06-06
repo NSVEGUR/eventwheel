@@ -30,7 +30,7 @@ export default function Landing({
 		<section className="flex flex-col items-center justify-center">
 			<div className="relative flex h-96 w-full flex-col items-center justify-center gap-3 bg-accent bg-gradient-mesh text-center text-skin-inverted">
 				<h1 className="text-5xl font-bold -md:text-xl">
-					Eventwheel.
+					Eventwheel
 				</h1>
 				<h3 className="-md:text-sm">
 					The affordable and reliable event ticket

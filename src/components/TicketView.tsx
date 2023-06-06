@@ -7,7 +7,6 @@ import { useReactToPrint } from 'react-to-print';
 import Html2Pdf from 'js-html2pdf';
 import { useContext } from 'react';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function TicketView({
@@ -20,7 +19,6 @@ export default function TicketView({
 	getTicket?: boolean;
 }) {
 	const { setSnackbar } = useContext(SnackbarContext);
-	const router = useRouter();
 	const ticketRef = useRef<HTMLDivElement>(null);
 	const handlePrint = useReactToPrint({
 		onPrintError: (error) => console.log(error),

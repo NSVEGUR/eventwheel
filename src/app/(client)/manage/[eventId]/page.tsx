@@ -2,7 +2,7 @@ import 'server-only';
 import { getWithdrawals } from '@/lib/server/event';
 import { getTicketsDetails } from '@/utils/tickets';
 import ShareMenu from '@/components/ShareMenu';
-import { formatDateWithAmPm } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import Link from 'next/link';
 import { baseURL } from '@/lib/constants';
 
@@ -135,9 +135,7 @@ export default async function Page({
 								</li>
 								<li className="place-self-start -md:hidden">
 									<span>
-										{formatDateWithAmPm(
-											withdrawal.createdAt
-										)}
+										{formatDate(withdrawal.createdAt)}
 									</span>
 								</li>
 								<li className="place-self-start">

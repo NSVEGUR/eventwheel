@@ -12,12 +12,14 @@ export default async function Page({
 	params: { eventId: string };
 }) {
 	const event = await getEvent(params.eventId);
+	console.log(event.starts, event.ends);
 	const [startDate, startTime] = formatDate(
 		event.starts
 	).split(' ');
 	const [endDate, endTime] = formatDate(event.ends).split(
 		' '
 	);
+	console.log(startDate, startTime, endDate, endTime);
 	const init: CreationFormEntries = {
 		title: event.title,
 		organizer: event.organizer,

@@ -80,8 +80,11 @@ export async function getMyTicket(ticketId: string) {
 				email: true,
 				phone: true,
 				scanned: true,
+				values: true,
+				slNo: true,
 				ticket: {
 					select: {
+						labels: true,
 						type: true,
 						price: true,
 						event: {
@@ -118,7 +121,10 @@ export async function getMyTicket(ticketId: string) {
 			eventType: ticket.ticket.event.type,
 			eventCategory: ticket.ticket.event.category,
 			eventSubCategory: ticket.ticket.event.subCategory,
-			qrcode: await qrcode.toDataURL(ticket.id)
+			qrcode: await qrcode.toDataURL(ticket.id),
+			labels: ticket.ticket.labels,
+			values: ticket.values,
+			slNo: ticket.slNo
 		};
 	} catch (err) {
 		console.error(err);
@@ -147,8 +153,11 @@ export async function getTicketWithSession(
 				email: true,
 				phone: true,
 				scanned: true,
+				values: true,
+				slNo: true,
 				ticket: {
 					select: {
+						labels: true,
 						type: true,
 						price: true,
 						event: {
@@ -185,7 +194,10 @@ export async function getTicketWithSession(
 			eventType: ticket.ticket.event.type,
 			eventCategory: ticket.ticket.event.category,
 			eventSubCategory: ticket.ticket.event.subCategory,
-			qrcode: await qrcode.toDataURL(ticket.id)
+			qrcode: await qrcode.toDataURL(ticket.id),
+			labels: ticket.ticket.labels,
+			values: ticket.values,
+			slNo: ticket.slNo
 		};
 	} catch (err) {
 		console.error(err);
@@ -238,6 +250,7 @@ export async function getUserTickets(eventId: string) {
 			const { tickets } = adminTicket;
 			for (const userTicket of tickets) {
 				userTickets.push({
+					slNo: userTicket.slNo,
 					id: userTicket.id,
 					name: userTicket.name,
 					phone: userTicket.phone,
@@ -252,7 +265,9 @@ export async function getUserTickets(eventId: string) {
 					eventCategory: event.category,
 					eventSubCategory: event.subCategory,
 					qrcode: await qrcode.toDataURL(userTicket.id),
-					scanned: userTicket.scanned
+					scanned: userTicket.scanned,
+					labels: adminTicket.labels,
+					values: userTicket.values
 				});
 			}
 		}

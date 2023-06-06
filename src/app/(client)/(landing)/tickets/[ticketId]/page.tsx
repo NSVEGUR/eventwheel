@@ -14,7 +14,7 @@ export default async function Page({
 }) {
 	const ticket = await getMyTicket(params.ticketId);
 	return (
-		<main className="min-w-screen relative flex h-full w-full">
+		<main className="min-w-screen relative flex h-[calc(100vh-theme(spacing.16))] w-full overflow-scroll">
 			<div className="absolute inset-0 flex h-full w-full items-center justify-center">
 				<Image
 					src="/noisy-gradient.png"

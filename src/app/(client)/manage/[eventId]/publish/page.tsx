@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import 'server-only';
 import { getEvent } from '@/lib/server/event';
-import Image from 'next/image';
-import { formatDateWithAmPm } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import FAQ from '@/components/FAQ';
 import PublishForm from '@/components/PublishForm';
 import { getImage } from '@/lib/server/image';
@@ -23,12 +23,19 @@ export default async function Page({
 				</h1>
 				<div className="relative mt-5 h-80 w-full overflow-hidden rounded-lg bg-muted">
 					{imgUrl && (
-						<Image
-							src={imgUrl}
-							alt="Event Image"
-							fill={true}
-							className="object-cover"
-						/>
+						<>
+							<img
+								src={imgUrl}
+								alt="Event Image"
+								className="absolute inset-0 h-full w-full object-cover"
+							/>
+							<div className="absolute inset-0 h-full w-full bg-black bg-opacity-50 backdrop-blur-lg"></div>
+							<img
+								src={imgUrl}
+								alt="Event Image"
+								className="absolute inset-0 h-full w-full object-contain"
+							/>
+						</>
 					)}
 				</div>
 				<section className="flex w-full justify-between">
@@ -64,13 +71,13 @@ export default async function Page({
 						<h1 className="flex items-baseline gap-1">
 							Starts:{' '}
 							<span className="text-skin-complementary">
-								{formatDateWithAmPm(event.starts)}
+								{formatDate(event.starts)}
 							</span>
 						</h1>
 						<h1 className="flex items-baseline gap-1">
 							Ends:{' '}
 							<span className="text-skin-complementary">
-								{formatDateWithAmPm(event.ends)}
+								{formatDate(event.ends)}
 							</span>
 						</h1>
 					</div>

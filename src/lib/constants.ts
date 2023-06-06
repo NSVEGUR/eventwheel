@@ -1,4 +1,5 @@
-export const baseURL = 'https://www.eventwheel.ca/';
+export const baseURL =
+	process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000/';
 export const serviceCharge = 1.39;
 
 export const eventTypes = [

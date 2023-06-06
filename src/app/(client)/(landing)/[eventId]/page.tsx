@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import 'server-only';
 import { getImage } from '@/lib/server/image';
-import Image from 'next/image';
-import { formatDateWithAmPm } from '@/utils/date';
+import { formatDate } from '@/utils/date';
 import FAQ from '@/components/FAQ';
 import TicketBuyingCard from '@/components/TicketBuyingCard';
 import { getEventUnAuthenticated } from '@/lib/server/event';
@@ -70,12 +70,19 @@ export default async function Page({
 							</div>
 							<div className="relative mt-5 h-96 w-full overflow-hidden rounded-lg bg-muted">
 								{event.image && (
-									<Image
-										src={event.image}
-										alt="Event Image"
-										fill={true}
-										className=" object-cover "
-									/>
+									<>
+										<img
+											src={event.image}
+											alt="Event Image"
+											className="absolute inset-0 h-full w-full object-cover"
+										/>
+										<div className="absolute inset-0 h-full w-full bg-black bg-opacity-50 backdrop-blur-lg"></div>
+										<img
+											src={event.image}
+											alt="Event Image"
+											className="absolute inset-0 h-full w-full object-contain"
+										/>
+									</>
 								)}
 							</div>
 							<section className="flex w-full justify-between">
@@ -112,7 +119,7 @@ export default async function Page({
 										<h1 className="flex items-baseline gap-1">
 											Starts:{' '}
 											<span className="text-skin-complementary">
-												{formatDateWithAmPm(event.starts)}
+												{formatDate(event.starts)}
 											</span>
 										</h1>
 									)}
@@ -120,7 +127,7 @@ export default async function Page({
 										<h1 className="flex items-baseline gap-1">
 											Ends:{' '}
 											<span className="text-skin-complementary">
-												{formatDateWithAmPm(event.ends)}
+												{formatDate(event.ends)}
 											</span>
 										</h1>
 									)}
@@ -187,7 +194,7 @@ export default async function Page({
 						<h1 className="text-center text-2xl font-medium text-accent">
 							Event coming soon... explore at{' '}
 							<span className="text-complementary">
-								{formatDateWithAmPm(event.publishDate)}
+								{formatDate(event.publishDate)}
 							</span>
 						</h1>
 					)}
