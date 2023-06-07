@@ -73,7 +73,7 @@ export default function CustomCheckoutForm(params: {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex min-w-[500px] flex-col items-center gap-3"
+			className="flex min-w-[500px] flex-col items-center gap-3 px-2 -md:w-full -md:min-w-0"
 		>
 			{values.map((value, i) => (
 				<div key={i} className="flex w-full flex-col gap-1">

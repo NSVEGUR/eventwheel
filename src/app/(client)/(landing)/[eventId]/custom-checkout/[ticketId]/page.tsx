@@ -17,7 +17,7 @@ export default async function Page({
 		params.ticketId
 	);
 	return (
-		<main className="flex h-full w-full flex-col items-center justify-center gap-10">
+		<main className="flex h-full w-full flex-col items-center justify-center gap-10 -md:my-5">
 			<h1 className="text-3xl font-medium text-complementary">
 				Checkout Form
 			</h1>
