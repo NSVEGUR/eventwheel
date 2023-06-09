@@ -42,6 +42,6 @@ export const POST = catchAsync(async function (
 		}
 	});
 	return NextResponse.redirect(
-		new URL(`manage/${event.id}`, req.url)
+		new URL(`/manage/${event.id}`, req.url)
 	);
 });

@@ -126,6 +126,7 @@ export default function WithdrawalForm({
 				}
 			}
 		);
+		console.dir(response);
 		if (response.status >= 200 && response.status < 400) {
 			setSnackbar({
 				message:

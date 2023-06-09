@@ -25,6 +25,24 @@ export const POST = catchAsync(async function (
 	if (!event) {
 		throw new AppError('Event not found', 404);
 	}
+	if (!event.published) {
+		throw new AppError(
+			'Event has not been published yet',
+			400
+		);
+	}
+	if (event.publishDate && event.publishDate > new Date()) {
+		throw new AppError(
+			'Event has not been published yet',
+			400
+		);
+	}
+	if (event.starts <= new Date()) {
+		throw new AppError('Event has already started', 400);
+	}
+	if (event.ends <= new Date()) {
+		throw new AppError('Event has already ended', 400);
+	}
 	const ticket = await prisma.adminTicket.findUnique({
 		where: {
 			id: params.ticketId

@@ -315,6 +315,12 @@ export async function getAdminTicketForUser(
 				403
 			);
 		}
+		if (event.starts <= new Date()) {
+			throw new AppError('Event has already started', 400);
+		}
+		if (event.ends <= new Date()) {
+			throw new AppError('Event has already ended', 400);
+		}
 		return {
 			id: ticket.id,
 			type: ticket.type,
@@ -325,7 +331,9 @@ export async function getAdminTicketForUser(
 			eventId: event.id,
 			eventTitle: event.title,
 			available: ticket.available,
-			sold: ticket.sold
+			sold: ticket.sold,
+			eventPublished: event.published,
+			eventPublishDate: event.publishDate
 		};
 	} catch (err) {
 		console.error(err);

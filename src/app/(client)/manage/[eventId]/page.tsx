@@ -27,8 +27,8 @@ export default async function Page({
 			new Date().getTime() <
 		ONE_DAY;
 	return (
-		<>
-			<div className="flex flex-col gap-5 px-20 py-5 -md:px-2">
+		<div className="h-screen w-full overflow-scroll">
+			<div className="mb-20 flex flex-col gap-5 px-20 py-5 -md:px-2">
 				<h1 className="mb-5 text-3xl font-bold">
 					Dashboard
 				</h1>
@@ -149,6 +149,6 @@ export default async function Page({
 						);
 					})}
 			</div>
-		</>
+		</div>
 	);
 }

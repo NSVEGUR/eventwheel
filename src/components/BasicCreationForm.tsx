@@ -128,7 +128,10 @@ export default function CreationForm({
 		}
 
 		setSnackbar({
-			message: 'Creating event with basic details',
+			message:
+				method == 'PATCH'
+					? 'Updating the basic details of event'
+					: 'Creating event with basic details',
 			type: 'promise'
 		});
 		try {

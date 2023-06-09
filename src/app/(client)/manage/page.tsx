@@ -1,3 +1,4 @@
+import 'server-only';
 import { getEvents } from '@/lib/server/event';
 import { getTicketsDetails } from '@/utils/tickets';
 import Link from 'next/link';
@@ -51,7 +52,11 @@ export default async function Page() {
 							</li>
 							<li className="place-self-start -sm:hidden">
 								<span>
-									{event.published ? 'Published' : 'Draft'}
+									{event.ends < new Date()
+										? 'Ended'
+										: event.published
+										? 'Published'
+										: 'Hidden'}
 								</span>
 							</li>
 						</ul>
