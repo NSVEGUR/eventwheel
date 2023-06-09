@@ -1,4 +1,5 @@
 'use client';
+import { next_generic_error } from '@/lib/constants';
 import Link from 'next/link';
 
 const error = ({
@@ -8,6 +9,10 @@ const error = ({
 	error: Error;
 	reset: () => void;
 }) => {
+	if (error.message == next_generic_error) {
+		error.message =
+			'Requested resource is not found, or something went wrong!';
+	}
 	return (
 		<main className="flex h-screen w-screen flex-col items-center justify-center gap-5 text-center">
 			<h2 className="font-medium text-accent">

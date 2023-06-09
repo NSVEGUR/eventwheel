@@ -2,6 +2,8 @@ export const baseURL =
 	process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000/';
 export const serviceCharge = 1.39;
 
+export const next_generic_error = `An error occurred in the Server Components render. The specific message is omitted in production builds to avoid leaking sensitive details. A digest property is included on this error instance which may provide additional details about the nature of the error.`;
+
 export const eventTypes = [
 	'Appearance or Singing',
 	'Attraction',
