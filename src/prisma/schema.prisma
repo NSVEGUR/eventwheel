@@ -83,6 +83,7 @@ model UserTicket{
   stripe Stripe?@relation(fields: [stripeId], references: [id])
   labels String[]
   values String[]
+  createdAt DateTime @default(now())
   @@map("user_tickets")
   @@unique([ticketId, slNo])
 }

@@ -46,7 +46,7 @@ export async function GET() {
 				.replace('$EVENT_LINK$', baseURL + event.id)
 				.replace('$TICKET_SOLD$', sold.toString())
 				.replace('$TICKET_AVAILABLE$', available.toString())
-				.replace('$TICKET_GROSS$', gross.toString())
+				.replace('$TICKET_GROSS$', `${gross}$`)
 				.replace(
 					'$STATS_LINK$',
 					baseURL + `manage/${event.id}`
