@@ -30,6 +30,12 @@ export async function GET() {
 			}
 		});
 		for (const event of events) {
+			if (
+				!event.publishDate ||
+				event.publishDate > new Date()
+			) {
+				continue;
+			}
 			const { gross, sold, available } = getTicketsDetails(
 				event.tickets
 			);
