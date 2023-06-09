@@ -323,7 +323,9 @@ export async function getAdminTicketForUser(
 			labels: ticket.labels,
 			optionals: ticket.optionals,
 			eventId: event.id,
-			eventTitle: event.title
+			eventTitle: event.title,
+			available: ticket.available,
+			sold: ticket.sold
 		};
 	} catch (err) {
 		console.error(err);

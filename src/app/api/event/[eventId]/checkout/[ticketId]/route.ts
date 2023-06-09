@@ -33,6 +33,9 @@ export const POST = catchAsync(async function (
 	if (!ticket || ticket.eventId !== event.id) {
 		throw new AppError('Ticket not found', 404);
 	}
+	if (ticket.available - ticket.sold <= 0) {
+		throw new AppError('No Tickets are available', 400);
+	}
 	const inputs = (await req.json()) as CustomInput[];
 	const unit_decimal_amount = (
 		(ticket.price + serviceCharge) *
@@ -49,6 +52,7 @@ export const POST = catchAsync(async function (
 		phone_number_collection: {
 			enabled: true
 		},
+		payment_method_types: ['card'],
 		metadata: {
 			inputs: JSON.stringify(inputs)
 		},

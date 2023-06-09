@@ -147,18 +147,21 @@ export const getEventsUnAuthenticated = async () => {
 				tickets: true
 			}
 		});
-		if (!user) {
-			return events.map(({ likedUsers, ...event }) => {
-				return {
-					...event,
-					liked: undefined
-				};
-			}) as LikedEvent[];
-		}
 		const currentTime = new Date();
 		const filteredEvents = events.filter(
 			(event) => event.ends > currentTime
 		);
+		if (!user) {
+			return filteredEvents.map(
+				({ likedUsers, ...event }) => {
+					return {
+						...event,
+						liked: undefined
+					};
+				}
+			) as LikedEvent[];
+		}
+
 		return filteredEvents.map(
 			({ likedUsers, ...event }) => {
 				const likedIds = likedUsers.map(({ id }) => id);
@@ -192,12 +195,11 @@ export async function getEventUnAuthenticated(id: string) {
 			}
 		});
 		const currentTime = new Date();
-		if (
-			!event ||
-			!event.published ||
-			event.ends < currentTime
-		) {
+		if (!event || !event.published) {
 			throw new AppError('Event not found', 404);
+		}
+		if (event.ends < currentTime) {
+			throw new AppError('Event has ended', 400);
 		}
 		const { likedUsers, ...others } = event;
 		if (!user) {
