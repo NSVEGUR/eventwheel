@@ -147,6 +147,7 @@ export const POST = catchAsync(async (req: Request) => {
 				data: {
 					userId: user?.id,
 					ticketId: ticket.id,
+					stripeId: stripeUser.id,
 					slNo: ticket.tickets.length + 1,
 					checkoutSessionId: session.id,
 					email: customer_details.email,
