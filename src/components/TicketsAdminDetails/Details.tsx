@@ -1,136 +1,46 @@
+import 'server-only';
 import { AdminTicket, UserTicket } from '@prisma/client';
-import { forwardRef } from 'react';
+import Table from '@/components/Table';
 
-export default forwardRef(function TicketsAdminDetails(
-	{
-		ticket
-	}: {
-		ticket: AdminTicket & {
-			tickets: UserTicket[];
-		};
-	},
-	ref: React.ForwardedRef<HTMLDivElement>
-) {
+export default function TicketsAdminDetails({
+	ticket
+}: {
+	ticket: AdminTicket & {
+		tickets: UserTicket[];
+	};
+}) {
 	return (
 		<div
 			id="ticket-details"
 			className="flex flex-col gap-10"
-			ref={ref}
 		>
-			<div>
-				<h1 className="mb-5 text-3xl font-bold text-accent">
-					Customer Details
-				</h1>
-				{ticket.labels.length > 0 ? (
-					<>
-						<ul
-							className="grid h-10 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
-							style={{
-								gridTemplateColumns: `repeat(${
-									ticket.labels.length + 1
-								}, minmax(0, 1fr))`
-							}}
-						>
-							<li className="place-self-start">
-								<span>id</span>
-							</li>
-							{ticket.labels.map((label, index) => {
-								return (
-									<li
-										className="place-self-start"
-										key={index}
-									>
-										<span>{label}</span>
-									</li>
-								);
-							})}
-						</ul>
-						{ticket.tickets.map(
-							({ values, slNo }, index) => {
-								return (
-									<ul
-										className="grid min-h-[40px] place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
-										key={index}
-										style={{
-											gridTemplateColumns: `repeat(${
-												ticket.labels.length + 1
-											}, minmax(0, 1fr))`
-										}}
-									>
-										<li className="min-w-0 max-w-full place-self-start truncate">
-											<span>{slNo}</span>
-										</li>
-										{values.map((value, index) => {
-											return (
-												<li
-													className="min-w-0 max-w-full place-self-start truncate"
-													key={index}
-												>
-													<span>{value}</span>
-												</li>
-											);
-										})}
-									</ul>
-								);
-							}
-						)}
-					</>
-				) : (
-					<h1 className="text-center text-skin-complementary">
-						No Customer Details have been recorded
-					</h1>
+			<Table
+				title={'Customer Details'}
+				caption={`List of details, customers given via custom
+								checkout to the questions provided by you to
+								the ${ticket.type} ticket.`}
+				header={['id', ...ticket.labels]}
+				body={ticket.tickets.map((ticket) => {
+					return [ticket.slNo.toString(), ...ticket.values];
+				})}
+			/>
+			<Table
+				title={'Purchase Details'}
+				caption={`List of details, customers given through
+									payment checkout to the ${ticket.type}
+									ticket.`}
+				header={['id', 'email', 'name', 'phone']}
+				body={ticket.tickets.map(
+					({ slNo, name, email, phone }) => {
+						return [
+							slNo.toString(),
+							email,
+							name || 'N/A',
+							phone || 'N/A'
+						];
+					}
 				)}
-			</div>
-			<div>
-				<h1 className="mb-5 text-3xl font-bold text-accent">
-					Purchase Details
-				</h1>
-				{ticket.tickets.length > 0 ? (
-					<>
-						<ul className="grid h-10 grid-cols-4 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]">
-							<li className="place-self-start">
-								<span>Id</span>
-							</li>
-							<li className="place-self-start">
-								<span>Email</span>
-							</li>
-							<li className="place-self-start">
-								<span>Name</span>
-							</li>
-							<li className="place-self-start">
-								<span>Phone</span>
-							</li>
-						</ul>
-						{ticket.tickets.map(
-							({ email, name, phone, slNo }, index) => {
-								return (
-									<ul
-										className="grid min-h-[40px] grid-cols-4 place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -xl:text-xs -md:text-[0.6rem]"
-										key={index}
-									>
-										<li className="min-w-0 max-w-full place-self-start truncate">
-											<span>{slNo}</span>
-										</li>
-										<li className="min-w-0 max-w-full place-self-start truncate">
-											<span>{email}</span>
-										</li>
-										<li className="min-w-0 max-w-full place-self-start truncate">
-											<span>{name}</span>
-										</li>
-										<li className="min-w-0 max-w-full place-self-start truncate">
-											<span>{phone}</span>
-										</li>
-									</ul>
-								);
-							}
-						)}
-					</>
-				) : (
-					<h1 className="text-center text-skin-complementary">
-						No Stripe Details have been recorded
-					</h1>
-				)}
-			</div>
+			/>
 		</div>
 	);
-});
+}

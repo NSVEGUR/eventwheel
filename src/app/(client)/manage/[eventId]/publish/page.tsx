@@ -104,59 +104,63 @@ export default async function Page({
 						</div>
 					)}
 				</section>
-				<section className="flex flex-col gap-5">
-					<h1 className="text-center text-3xl font-bold text-accent">
-						Tickets
-					</h1>
-					<div
-						className="flex flex-wrap items-center justify-center gap-10"
-						id="tickets"
-					>
-						{event.tickets.map((ticket, index) => {
-							return (
-								<div
-									key={index}
-									className="relative flex flex-col items-start justify-center gap-3 rounded-md border-[1px] border-base p-10 text-accent shadow-md"
-								>
-									<h1 className="text-3xl font-medium text-accent">
-										{ticket.type}
-									</h1>
-									<p className="text-sm text-skin-complementary">
-										{ticket.description}
-									</p>
-									<h3 className="text-skin-complementary">
-										Available:{' '}
-										<span className="font-medium text-accent">
-											{ticket.available}
-										</span>
-									</h3>
-									<h3>
-										Price:{' '}
-										<span className="text-3xl font-medium text-complementary">
-											$ {ticket.price}
-										</span>
-									</h3>
-									<button className="mt-5 self-center bg-accent p-3 text-skin-inverted">
-										Buy Now
-									</button>
-								</div>
-							);
-						})}
-					</div>
-				</section>
-				<section>
-					<h1 className="my-5 text-center text-2xl font-medium">
-						FAQS
-					</h1>
-					<FAQ
-						{...{
-							props: {
-								questions: event.questions,
-								answers: event.answers
-							}
-						}}
-					></FAQ>
-				</section>
+				{event.tickets.length > 0 && (
+					<section className="flex flex-col gap-5">
+						<h1 className="text-center text-3xl font-bold text-accent">
+							Tickets
+						</h1>
+						<div
+							className="flex flex-wrap items-center justify-center gap-10"
+							id="tickets"
+						>
+							{event.tickets.map((ticket, index) => {
+								return (
+									<div
+										key={index}
+										className="relative flex flex-col items-start justify-center gap-3 rounded-md border-[1px] border-base p-10 text-accent shadow-md"
+									>
+										<h1 className="text-3xl font-medium text-accent">
+											{ticket.type}
+										</h1>
+										<p className="text-sm text-skin-complementary">
+											{ticket.description}
+										</p>
+										<h3 className="text-skin-complementary">
+											Available:{' '}
+											<span className="font-medium text-accent">
+												{ticket.available}
+											</span>
+										</h3>
+										<h3>
+											Price:{' '}
+											<span className="text-3xl font-medium text-complementary">
+												$ {ticket.price}
+											</span>
+										</h3>
+										<button className="mt-5 self-center bg-accent p-3 text-skin-inverted">
+											Buy Now
+										</button>
+									</div>
+								);
+							})}
+						</div>
+					</section>
+				)}
+				{event.questions.length > 0 && (
+					<section>
+						<h1 className="my-5 text-center text-2xl font-medium">
+							FAQS
+						</h1>
+						<FAQ
+							{...{
+								props: {
+									questions: event.questions,
+									answers: event.answers
+								}
+							}}
+						></FAQ>
+					</section>
+				)}
 				<PublishForm {...{ event }} />
 			</div>
 		</section>

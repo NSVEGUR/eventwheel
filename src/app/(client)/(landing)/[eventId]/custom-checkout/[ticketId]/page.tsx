@@ -1,7 +1,6 @@
 import 'server-only';
 import { getAdminTicketForUser } from '@/lib/server/ticket';
 import CustomCheckoutForm from '@/components/CustomCheckoutForm';
-import { AppError } from '@/lib/server/exception';
 
 export const dynamic = 'force-dynamic';
 

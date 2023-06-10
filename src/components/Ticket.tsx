@@ -14,7 +14,7 @@ export default forwardRef(function Ticket(
 ) {
 	return (
 		<div id="ticket" ref={ref}>
-			<div className="flex w-[350px] flex-col gap-3 rounded-md bg-dominant p-5 shadow-md -sm:w-[250px]">
+			<div className="flex w-[350px] flex-col gap-3 break-words rounded-md bg-dominant p-5 shadow-md -sm:w-[250px]">
 				<div className="flex gap-1">
 					<div className="relative h-10 w-10 rounded-md bg-muted">
 						{ticket.eventImage && (

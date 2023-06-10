@@ -5,6 +5,7 @@ import ShareMenu from '@/components/ShareMenu';
 import { formatDate } from '@/utils/date';
 import Link from 'next/link';
 import { baseURL } from '@/lib/constants';
+import Table from '@/components/Table';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,10 +71,7 @@ export default async function Page({
 						</div>
 					</div>
 				</div>
-				<div className="my-10 flex justify-between">
-					<h1 className="whitespace-pre-wrap text-3xl font-bold">
-						Withdrawal Requests
-					</h1>
+				<div className="my-10 flex justify-end">
 					{result && (
 						<Link
 							href={`/manage/${event.id}/withdraw`}
@@ -84,26 +82,39 @@ export default async function Page({
 					)}
 				</div>
 				{result ? (
-					<ul className="grid h-10 grid-cols-7 place-content-center border-b-[1px] border-base bg-muted p-1 pl-2 text-sm font-medium -md:grid-cols-3">
-						<li className="flex items-center gap-1 place-self-start">
-							<span>Id</span>
-						</li>
-						<li className="flex items-center gap-1 place-self-start -md:hidden">
-							<span>Transit Number</span>
-						</li>
-						<li className="place-self-start -md:hidden">
-							<span>Institution Number</span>
-						</li>
-						<li className="place-self-start -md:hidden">
-							<span>Account Number</span>
-						</li>
-						<li className="place-self-start -md:hidden">
-							<span>Created At</span>
-						</li>
-						<li className="place-self-start">
-							<span>Status</span>
-						</li>
-					</ul>
+					<Table
+						title={'Withdrawal Requests'}
+						caption={
+							'Details of previous withdrawal requests created by you.'
+						}
+						header={[
+							'id',
+							'transit number',
+							'institution number',
+							'account number',
+							'created at',
+							'status'
+						]}
+						body={withdrawalRequests.map(
+							({
+								id,
+								transitNumber,
+								institutionNumber,
+								accountNumber,
+								createdAt,
+								approved
+							}) => {
+								return [
+									id,
+									transitNumber.toString(),
+									institutionNumber.toString(),
+									accountNumber.toString(),
+									formatDate(createdAt),
+									approved ? 'Approved' : 'In Process'
+								];
+							}
+						)}
+					/>
 				) : (
 					<div className="flex h-full w-full items-center justify-center">
 						<h1 className="text-center text-xl text-skin-complementary">
@@ -112,42 +123,6 @@ export default async function Page({
 						</h1>
 					</div>
 				)}
-				{result &&
-					withdrawalRequests.map((withdrawal, index) => {
-						return (
-							<ul
-								className="grid min-h-[40px] grid-cols-7 place-content-center border-b-[1px] border-base p-1 pl-2 text-sm font-medium -md:grid-cols-3"
-								key={index}
-							>
-								<li className="place-self-start">
-									<span>{withdrawal.id}</span>
-								</li>
-								<li className="place-self-start -md:hidden">
-									<span>{withdrawal.transitNumber}</span>
-								</li>
-								<li className="place-self-start -md:hidden">
-									<span>
-										{withdrawal.institutionNumber}
-									</span>
-								</li>
-								<li className="place-self-start -md:hidden">
-									<span>{withdrawal.accountNumber}</span>
-								</li>
-								<li className="place-self-start -md:hidden">
-									<span>
-										{formatDate(withdrawal.createdAt)}
-									</span>
-								</li>
-								<li className="place-self-start">
-									<span>
-										{withdrawal.approved
-											? 'Approved'
-											: 'In Process'}
-									</span>
-								</li>
-							</ul>
-						);
-					})}
 			</div>
 		</div>
 	);

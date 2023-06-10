@@ -1,7 +1,8 @@
 import 'server-only';
 import { getTicket } from '@/lib/server/ticket';
 import Link from 'next/link';
-import TicketsAdminDetails from '@/components/TicketsAdminDetails';
+import TicketsAdmin from '@/components/TicketsAdminDetails';
+import Details from '@/components/TicketsAdminDetails/Details';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,7 @@ export default async function Page({
 	);
 	return (
 		<div
-			className="relative flex flex-col gap-10 p-10 -md:p-1"
+			className="relative mb-10 flex h-[calc(100vh-theme(spacing.16))] flex-col gap-10 overflow-scroll p-10 -md:p-1"
 			id="user-tickets"
 		>
 			<Link
@@ -28,7 +29,7 @@ export default async function Page({
 			>
 				Edit
 			</Link>
-			<div className="-md:mt-5">
+			<div className="flex flex-col gap-5 -md:mt-5">
 				<h1 className="text-3xl font-medium text-accent">
 					{ticket.type}
 				</h1>
@@ -48,7 +49,9 @@ export default async function Page({
 					</span>
 				</h3>
 			</div>
-			<TicketsAdminDetails ticket={ticket} />
+			<TicketsAdmin ticket={ticket}>
+				<Details ticket={ticket} />
+			</TicketsAdmin>
 		</div>
 	);
 }

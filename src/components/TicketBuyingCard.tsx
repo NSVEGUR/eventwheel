@@ -1,6 +1,6 @@
 'use client';
 
-import { AdminTicket } from '@prisma/client';
+import { AdminTicket, Event } from '@prisma/client';
 import { useContext } from 'react';
 import { SnackbarContext } from './Snackbar/SnackbarProvider';
 import { useRouter } from 'next/navigation';
@@ -9,10 +9,10 @@ import Link from 'next/link';
 
 export default function TicketBuyingCard({
 	ticket,
-	eventId
+	event
 }: {
 	ticket: AdminTicket;
-	eventId: string;
+	event: Event;
 }) {
 	const { setSnackbar } = useContext(SnackbarContext);
 	const router = useRouter();
@@ -24,7 +24,7 @@ export default function TicketBuyingCard({
 		});
 		try {
 			const response = await fetch(
-				`/api/event/${eventId}/checkout/${ticket.id}`,
+				`/api/event/${event.id}/checkout/${ticket.id}`,
 				{
 					method: 'POST',
 					headers: {
@@ -77,7 +77,8 @@ export default function TicketBuyingCard({
 					</span>
 				</span>
 			</h3>
-			{ticket.available - ticket.sold > 0 ? (
+			{ticket.available - ticket.sold > 0 &&
+			event.starts > new Date() ? (
 				<>
 					{ticket.labels.length > 0 ? (
 						<Link
@@ -101,7 +102,9 @@ export default function TicketBuyingCard({
 				</>
 			) : (
 				<p className="text-center text-sm font-medium text-skin-error">
-					Tickets are sold out
+					{ticket.available - ticket.sold <= 0
+						? 'Tickets have been sold out'
+						: 'Event has been started already'}
 				</p>
 			)}
 		</div>
