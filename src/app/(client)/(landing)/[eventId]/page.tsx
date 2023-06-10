@@ -25,7 +25,6 @@ export default async function Page({
 	const { available, sold } = getTicketsDetails(
 		event.tickets
 	);
-	console.log('available', available, sold);
 	event.image = getImage(event.image);
 	const currentDate = new Date();
 	if (!event.publishDate) {
@@ -41,16 +40,17 @@ export default async function Page({
 								{...{ liked, eventId: event.id }}
 							/>
 						</div>
-						{available - sold > 0 && (
-							<div className="fixed bottom-1 z-10 w-full bg-dominant px-2 md:hidden">
-								<a
-									href="#tickets"
-									className="flex w-full items-center justify-center scroll-smooth rounded-md bg-accent p-2 text-center font-medium text-skin-inverted"
-								>
-									Buy Now
-								</a>
-							</div>
-						)}
+						{available - sold > 0 &&
+							event.starts > new Date() && (
+								<div className="fixed bottom-1 z-10 w-full bg-dominant px-2 md:hidden">
+									<a
+										href="#tickets"
+										className="flex w-full items-center justify-center scroll-smooth rounded-md bg-accent p-2 text-center font-medium text-skin-inverted"
+									>
+										Buy Now
+									</a>
+								</div>
+							)}
 						<h1 className="text-center text-4xl font-bold md:hidden">
 							{event.title}
 						</h1>
@@ -63,14 +63,15 @@ export default async function Page({
 							<h1 className="text-center text-4xl font-bold">
 								{event.title}
 							</h1>
-							{available - sold > 0 && (
-								<a
-									href="#tickets"
-									className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
-								>
-									Buy Now
-								</a>
-							)}
+							{available - sold > 0 &&
+								event.starts > new Date() && (
+									<a
+										href="#tickets"
+										className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-md border-[2px] border-accent bg-accent p-2 font-medium text-skin-inverted"
+									>
+										Buy Now
+									</a>
+								)}
 						</div>
 						<div className="relative mt-5 h-96 w-full overflow-hidden rounded-lg bg-muted">
 							{event.image && (
@@ -171,28 +172,28 @@ export default async function Page({
 									return (
 										<TicketBuyingCard
 											key={index}
-											{...{
-												eventId: params.eventId,
-												ticket
-											}}
+											event={event}
+											ticket={ticket}
 										/>
 									);
 								})}
 							</div>
 						</section>
-						<section className="my-5">
-							<h1 className="mb-10 text-center text-2xl font-bold text-accent">
-								FAQ<span className="text-lg">s</span>
-							</h1>
-							<FAQ
-								{...{
-									props: {
-										questions: event.questions,
-										answers: event.answers
-									}
-								}}
-							></FAQ>
-						</section>
+						{event.questions.length > 0 && (
+							<section className="my-5">
+								<h1 className="mb-10 text-center text-2xl font-bold text-accent">
+									FAQ<span className="text-lg">s</span>
+								</h1>
+								<FAQ
+									{...{
+										props: {
+											questions: event.questions,
+											answers: event.answers
+										}
+									}}
+								></FAQ>
+							</section>
+						)}
 					</>
 				) : (
 					<h1 className="text-center text-2xl font-medium text-accent">

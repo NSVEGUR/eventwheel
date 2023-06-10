@@ -1,54 +1,61 @@
 'use client';
-import { useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
-import Html2Pdf from 'js-html2pdf';
 import { useContext } from 'react';
 import { SnackbarContext } from '../Snackbar/SnackbarProvider';
 import { AdminTicket, UserTicket } from '@prisma/client';
-import Details from './Details';
+import { downloadExcel } from 'react-export-table-to-excel';
+import { formatDate } from '@/utils/date';
 
 export default function TicketsAdminDetails({
-	ticket
+	ticket,
+	children
 }: {
 	ticket: AdminTicket & {
 		tickets: UserTicket[];
 	};
+	children: React.ReactNode;
 }) {
 	const { setSnackbar } = useContext(SnackbarContext);
-	const ref = useRef<HTMLDivElement>(null);
-	const handlePrint = useReactToPrint({
-		onPrintError: (error) => console.log(error),
-		content: () => ref.current,
-		removeAfterPrint: true,
-		print: async (printIframe) => {
-			const document = printIframe.contentDocument;
-			if (document) {
-				const html = document.getElementById(
-					'ticket-details'
-				);
-				console.log(html);
-				const exporter = new Html2Pdf(html, {
-					filename: `${ticket.type}.pdf`
-				});
-				await exporter.getPdf(true);
-			}
-		},
-		onAfterPrint: () => {
-			setSnackbar({
-				message: 'Downloaded the ticket',
-				type: 'success'
-			});
-		}
+	const header = [
+		'ID',
+		...ticket.labels.map((label) => label.toUpperCase()),
+		'PURCHASE MAIL',
+		'PURCHASE NAME',
+		'PURCHASE PHONE',
+		'PURCHASED AT'
+	];
+	const body = ticket.tickets.map((ticket) => {
+		return [
+			ticket.slNo,
+			...ticket.values,
+			ticket.email,
+			ticket.name || 'N/A',
+			ticket.phone || 'N/A',
+			formatDate(ticket.createdAt)
+		];
 	});
+	function exportAsExcel() {
+		downloadExcel({
+			fileName: 'Customer Details For ' + ticket.type,
+			tablePayload: {
+				header,
+				body
+			},
+			sheet: 'Ticket Customer Details'
+		});
+		setSnackbar({
+			message: 'Downloaded the excel file',
+			type: 'success'
+		});
+	}
 	return (
 		<>
 			<button
 				className="self-end rounded-md bg-accent p-1 px-2 text-skin-inverted"
-				onClick={handlePrint}
+				onClick={exportAsExcel}
 			>
-				Export as PDF
+				Export as Excel
 			</button>
-			<Details ref={ref} ticket={ticket} />
+			{children}
 		</>
 	);
 }
