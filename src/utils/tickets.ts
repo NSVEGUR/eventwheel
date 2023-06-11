@@ -11,6 +11,7 @@ export const getTicketsDetails = function (
 		gross += ticket.sold * ticket.price;
 		available += ticket.available;
 	}
+	gross = parseFloat(gross.toFixed(2));
 	const availability = available - sold > 0;
 	return { sold, gross, available, availability };
 };
