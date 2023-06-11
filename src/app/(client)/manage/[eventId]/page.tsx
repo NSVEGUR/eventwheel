@@ -23,10 +23,11 @@ export default async function Page({
 		event.tickets
 	);
 	const ONE_DAY = 60 * 60 * 24 * 1000;
-	const result =
-		new Date(event.starts).getTime() -
-			new Date().getTime() <
-		ONE_DAY;
+	// const result =
+	// 	new Date(event.starts).getTime() -
+	// 		new Date().getTime() <
+	// 	ONE_DAY;
+	const result = true;
 	return (
 		<div className="h-screen w-full overflow-scroll">
 			<div className="mb-20 flex flex-col gap-5 px-20 py-5 -md:px-2">
