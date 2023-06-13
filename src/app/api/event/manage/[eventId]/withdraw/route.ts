@@ -53,12 +53,18 @@ export const POST = catchAsync(async function (
 	)
 		.replace('$EVENT_LINK$', baseURL + event.id)
 		.replace('$EVENT_ID$', event.id)
-		.replace('$TRANSIT_NUMBER$', withdraw.transitNumber)
+		.replace(
+			'$TRANSIT_NUMBER$',
+			withdraw.transitNumber.toString()
+		)
 		.replace(
 			'$INSTITUTION_NUMBER$',
-			withdraw.institutionNumber
+			withdraw.institutionNumber.toString()
 		)
-		.replace('$ACCOUNT_NUMBER$', withdraw.accountNumber)
+		.replace(
+			'$ACCOUNT_NUMBER$',
+			withdraw.accountNumber.toString()
+		)
 		.replace(
 			'$DATABASE_LINK$',
 			'https://supabase.com/dashboard/project/qqeismeiigmcbrskvksx/editor'
