@@ -71,7 +71,7 @@ export const POST = catchAsync(async function (
 		);
 	const data = {
 		from: 'noreply@eventwheel.ca',
-		to: 'nsvegur@gmail.com',
+		to: 'support@eventwheel.ca',
 		subject: `New withdrawal request for ${event.id}`,
 		html
 	};
